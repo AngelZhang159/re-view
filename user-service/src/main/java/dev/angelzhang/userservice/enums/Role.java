@@ -1,4 +1,4 @@
-package dev.angelzhang.userservice;
+package dev.angelzhang.userservice.enums;
 
 public enum Role {
     USER,

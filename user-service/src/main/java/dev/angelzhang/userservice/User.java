@@ -1,5 +1,6 @@
 package dev.angelzhang.userservice;
 
+import dev.angelzhang.userservice.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "Username is mandatory")
     private String username;
 
@@ -27,6 +28,7 @@ public class User {
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String oauthProvider;

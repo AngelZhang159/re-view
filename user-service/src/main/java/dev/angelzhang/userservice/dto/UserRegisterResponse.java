@@ -1,6 +1,6 @@
-package dev.angelzhang.userservice;
+package dev.angelzhang.userservice.dto;
 
-public record UserResponse(
+public record UserRegisterResponse(
     Long id,
     String username,
     String email,

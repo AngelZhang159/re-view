@@ -22,7 +22,7 @@ public class JwtUtil {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public String generateToken(Integer userId, Role userRole) {
+    public String generateToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
         return createToken(claims, userId.toString());
@@ -45,8 +45,8 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
     }
 
-    public Integer extractUserId(String token) {
-        return Integer.valueOf(Jwts.parser()
+    public Long extractUserId(String token) {
+        return Long.valueOf(Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
                 .parseSignedClaims(token)
@@ -54,7 +54,7 @@ public class JwtUtil {
                 .getSubject());
     }
 
-    public boolean validateToken(String token, Integer userId) {
+    public boolean validateToken(String token, Long userId) {
         return userId.equals(extractUserId(token)) && !isTokenExpired(token);
     }
 

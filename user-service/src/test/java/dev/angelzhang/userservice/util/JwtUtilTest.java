@@ -19,14 +19,14 @@ class JwtUtilTest {
     @Test
     @DisplayName("Generate token with correct data")
     void shouldGenerateTokenWhenGivenCorrectData() {
-        String jwt = jwtUtil.generateToken(1, Role.USER);
+        String jwt = jwtUtil.generateToken(1L, Role.USER);
         assertNotNull(jwt);
     }
 
     @Test
     @DisplayName("Get string 'userId' from token")
     void shouldExtractUserIdFromToken() {
-        Integer userId = 1;
+        Long userId = 1L;
 
         String jwt = jwtUtil.generateToken(userId, Role.USER);
 
@@ -36,7 +36,7 @@ class JwtUtilTest {
     @Test
     @DisplayName("Validate that a token's userId is correct")
     void shouldValidateToken() {
-        Integer userId = 1;
+        Long userId = 1L;
 
         String jwt = jwtUtil.generateToken(userId, Role.USER);
 
@@ -48,11 +48,11 @@ class JwtUtilTest {
     @Test
     @DisplayName("Validate that a token's userId is incorrect")
     void shouldNotValidateToken() {
-        Integer userId = 1;
+        Long userId = 1L;
 
         String jwt = jwtUtil.generateToken(userId, Role.USER);
 
-        boolean check = jwtUtil.validateToken(jwt, 2);
+        boolean check = jwtUtil.validateToken(jwt, 2L);
 
         assertFalse(check);
     }
