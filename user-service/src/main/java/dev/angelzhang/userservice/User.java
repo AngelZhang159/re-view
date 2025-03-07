@@ -26,7 +26,7 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @Email(message = "Email should be valid")
+    @Email(message = "Invalid Email")
     @NotBlank(message = "Email is mandatory")
     @Column(nullable = false, unique = true)
     private String email;
