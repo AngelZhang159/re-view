@@ -1,5 +1,6 @@
 package dev.angelzhang.userservice;
 
+import dev.angelzhang.userservice.dto.UserLoginRequest;
 import dev.angelzhang.userservice.dto.UserLoginResponse;
 import dev.angelzhang.userservice.dto.UserRegisterResponse;
 import dev.angelzhang.userservice.dto.UserRequest;
@@ -27,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResponse> loginUser(@Valid @RequestBody UserRequest userRequest) {
-        log.info("Logging in user: {}", userRequest);
-        return userService.loginUser(userRequest);
+    public ResponseEntity<UserLoginResponse> loginUser(@Valid @RequestBody UserLoginRequest userLoginRequest) {
+        log.info("Logging in user: {}", userLoginRequest);
+        return userService.loginUser(userLoginRequest);
     }
 }

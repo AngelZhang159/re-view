@@ -1,5 +1,6 @@
 package dev.angelzhang.userservice;
 
+import dev.angelzhang.userservice.dto.UserLoginRequest;
 import dev.angelzhang.userservice.dto.UserLoginResponse;
 import dev.angelzhang.userservice.dto.UserRegisterResponse;
 import dev.angelzhang.userservice.dto.UserRequest;
@@ -60,29 +61,30 @@ public class UserService {
             throw new UserAlreadyExistsException("User with username '" + userRequest.username() + "' already exists.");
     }
 
-    public ResponseEntity<UserLoginResponse> loginUser(@Valid UserRequest userRequest) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(userRequest.username());
-        Optional<User> userByEmail = userRepository.findUserByEmail(userRequest.email());
+    public ResponseEntity<UserLoginResponse> loginUser(@Valid UserLoginRequest userLoginRequest) {
+        Optional<User> userByEmail = userRepository.findUserByEmail(userLoginRequest.email());
 
-        checkUserExists(userRequest, userByEmail, userByUsername);
+        User user = checkUserExists(userLoginRequest, userByEmail);
 
-        User user = userByEmail.orElseGet(userByUsername::get);
+        checkCorrectPassword(userLoginRequest, user);
 
-        checkCorrectPassword(userRequest, user);
+        UserLoginResponse userLoginResponse = new UserLoginResponse(jwtUtil.generateAccessToken(user.getId(), user.getRole()), jwtUtil.generateRefreshToken(user.getId(), user.getRole()));
 
-        return ResponseEntity.status(HttpStatus.OK).header("Authorization", jwtUtil.generateToken(user.getId(), user.getRole())).body(new UserLoginResponse(user.getUsername(), user.getEmail()));
+        return ResponseEntity.status(HttpStatus.OK).body(userLoginResponse);
     }
 
-    private void checkCorrectPassword(UserRequest userRequest, User user) {
-        if (!passwordEncoder.matches(userRequest.password(), user.getPassword())) {
+    private void checkCorrectPassword(UserLoginRequest userLoginRequest, User user) {
+        if (!passwordEncoder.matches(userLoginRequest.password(), user.getPassword())) {
             throw new InvalidPasswordException("Invalid password");
         }
     }
 
-    private static void checkUserExists(UserRequest userRequest, Optional<User> userByEmail, Optional<User> userByUsername) {
-        if (userByEmail.isEmpty() && userByUsername.isEmpty()) {
-            String errMsg = userRequest.username() == null ? "User with email '" + userRequest.email() + "' not found" : "User with username '" + userRequest.username() + "' not found";
+    private static User checkUserExists(UserLoginRequest userLoginRequest, Optional<User> userByEmail) {
+        if (userByEmail.isEmpty()) {
+            String errMsg = "User with email '" + userLoginRequest.email() + "' not found";
             throw new UserNotFoundException(errMsg);
+        } else {
+            return userByEmail.get();
         }
     }
 }
