@@ -17,18 +17,25 @@ public class JwtUtil {
     
     @Value("${jwt.secret}")
     private String key;
-    @Value("${jwt.expiration}")
-    private long expiration;
+    @Value("${jwt.refreshExpiration}")
+    private Long refreshExpiration;
+    @Value("${jwt.accessExpiration}")
+    private Long accessExpiration;
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public String generateToken(Long userId, Role userRole) {
+    public String generateAccessToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
-        return createToken(claims, userId.toString());
+        return createToken(claims, userId.toString(), accessExpiration);
+    }
+    public String generateRefreshToken(Long userId, Role userRole) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", userRole);
+        return createToken(claims, userId.toString(), refreshExpiration);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, String subject, Long expiration) {
         return Jwts.builder()
                 .claims(claims)
 

@@ -2,7 +2,8 @@ package dev.angelzhang.userservice.dto;
 
 public record UserLoginResponse(
         String accessToken,
-        String refreshToken
+        String refreshToken,
+        UserResponseDTO user
 ) {
 
 }

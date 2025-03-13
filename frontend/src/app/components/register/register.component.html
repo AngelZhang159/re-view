@@ -1,7 +1,8 @@
 <p>register works!</p>
-<form>
-  <input type="text" placeholder="username">
-  <input type="text" placeholder="email">
-  <input type="password" placeholder="password">
-  <input type="password" placeholder="repeat password">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <input type="text" placeholder="username" formControlName="username">
+  <input type="text" placeholder="email" formControlName="email">
+  <input type="password" placeholder="password" formControlName="password">
+  <input type="password" placeholder="repeat password" formControlName="repeatPassword">
+  <button type="submit" [disabled]="registerForm.invalid">Submit</button>
 </form>

@@ -17,28 +17,28 @@ class JwtUtilTest {
     private JwtUtil jwtUtil;
 
     @Test
-    @DisplayName("Generate token with correct data")
-    void shouldGenerateTokenWhenGivenCorrectData() {
-        String jwt = jwtUtil.generateToken(1L, Role.USER);
+    @DisplayName("Generate access token with correct data")
+    void shouldGenerateAccessTokenWhenGivenCorrectData() {
+        String jwt = jwtUtil.generateAccessToken(1L, Role.USER);
         assertNotNull(jwt);
     }
 
     @Test
-    @DisplayName("Get string 'userId' from token")
-    void shouldExtractUserIdFromToken() {
+    @DisplayName("Get string 'userId' from access token")
+    void shouldExtractUserIdFromAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
 
         assertEquals(userId, jwtUtil.extractUserId(jwt));
     }
 
     @Test
-    @DisplayName("Validate that a token's userId is correct")
-    void shouldValidateToken() {
+    @DisplayName("Validate that a access token's userId is correct")
+    void shouldValidateAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
 
         boolean check = jwtUtil.validateToken(jwt, userId);
 
@@ -46,11 +46,52 @@ class JwtUtilTest {
     }
 
     @Test
-    @DisplayName("Validate that a token's userId is incorrect")
-    void shouldNotValidateToken() {
+    @DisplayName("Validate that a access token's userId is incorrect")
+    void shouldNotValidateAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
+
+        boolean check = jwtUtil.validateToken(jwt, 2L);
+
+        assertFalse(check);
+    }
+
+    @Test
+    @DisplayName("Generate refresh token with correct data")
+    void shouldGenerateRefreshTokenWhenGivenCorrectData() {
+        String jwt = jwtUtil.generateRefreshToken(1L, Role.USER);
+        assertNotNull(jwt);
+    }
+
+    @Test
+    @DisplayName("Get string 'userId' from refresh token")
+    void shouldExtractUserIdFromRefreshToken() {
+        Long userId = 1L;
+
+        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
+
+        assertEquals(userId, jwtUtil.extractUserId(jwt));
+    }
+
+    @Test
+    @DisplayName("Validate that a refresh token's userId is correct")
+    void shouldValidateRefreshToken() {
+        Long userId = 1L;
+
+        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
+
+        boolean check = jwtUtil.validateToken(jwt, userId);
+
+        assertTrue(check);
+    }
+
+    @Test
+    @DisplayName("Validate that a refresh token's userId is incorrect")
+    void shouldNotValidateRefreshToken() {
+        Long userId = 1L;
+
+        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
 
         boolean check = jwtUtil.validateToken(jwt, 2L);
 

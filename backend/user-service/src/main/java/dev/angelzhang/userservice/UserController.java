@@ -3,7 +3,7 @@ package dev.angelzhang.userservice;
 import dev.angelzhang.userservice.dto.UserLoginRequest;
 import dev.angelzhang.userservice.dto.UserLoginResponse;
 import dev.angelzhang.userservice.dto.UserRegisterResponse;
-import dev.angelzhang.userservice.dto.UserRequest;
+import dev.angelzhang.userservice.dto.UserRegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +22,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse> registerUser(@Valid @RequestBody UserRequest userRequest) {
-        log.info("Registering user: {}", userRequest);
-        return userService.registerUser(userRequest);
+    public ResponseEntity<UserRegisterResponse> registerUser(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
+        log.info("Registering user: {}", userRegisterRequest);
+        return userService.registerUser(userRegisterRequest);
     }
 
     @PostMapping("/login")

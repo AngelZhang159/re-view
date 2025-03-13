@@ -2,9 +2,9 @@ package dev.angelzhang.userservice.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record UserRequest(
-    String username,
+public record UserRegisterRequest(
+    @NotEmpty String username,
     @NotEmpty String password,
-    String email
+    @NotEmpty String email
 ) {
 }
