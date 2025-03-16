@@ -1,8 +1,12 @@
 <p>login works!</p>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <input type="text" placeholder="email" formControlName="email">
+  <br>
   <input type="password" placeholder="password" formControlName="password">
+  <br>
+  <span>Remember me</span>
   <input type="checkbox" formControlName="rememberMe">
+  <br>
   <button type="submit" [disabled]="loginForm.invalid">Submit</button>
 </form>
 @if (errorMsg) {

@@ -18,21 +18,21 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String key;
     @Value("${jwt.refreshExpiration}")
-    private Long refreshExpiration;
+    private Long REFRESH_EXPIRATION;
     @Value("${jwt.accessExpiration}")
-    private Long accessExpiration;
+    private Long ACCESS_EXPIRATION;
     @Value("${jwt.issuer}")
     private String issuer;
 
     public String generateAccessToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
-        return createToken(claims, userId.toString(), accessExpiration);
+        return createToken(claims, userId.toString(), ACCESS_EXPIRATION);
     }
     public String generateRefreshToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
-        return createToken(claims, userId.toString(), refreshExpiration);
+        return createToken(claims, userId.toString(), REFRESH_EXPIRATION);
     }
 
     private String createToken(Map<String, Object> claims, String subject, Long expiration) {
@@ -61,7 +61,7 @@ public class JwtUtil {
                 .getSubject());
     }
 
-    public boolean validateToken(String token, Long userId) {
+    public boolean isValidToken(String token, Long userId) {
         return userId.equals(extractUserId(token)) && !isTokenExpired(token);
     }
 

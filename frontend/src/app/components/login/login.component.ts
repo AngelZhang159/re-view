@@ -1,10 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {enviroment} from '../enviroments/enviroment';
-import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +15,7 @@ export class LoginComponent {
 
   private fb = inject(FormBuilder)
   private auth = inject(AuthService)
+  private router = inject(Router)
 
   errorMsg = ""
 
@@ -31,7 +29,14 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
 
-      this.auth.login(loginData.email, loginData.password, loginData.rememberMe)
+      this.auth.login(loginData.email, loginData.password, loginData.rememberMe).subscribe({
+        next: user => {
+          this.router.navigate(["/app"]).then(r => console.log("User logged in successfully: " + user))
+        },
+        error: err => {
+          alert("ERROR: " + err.error.message)
+        }
+      })
     }
   }
 }

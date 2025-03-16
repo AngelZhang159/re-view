@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-app',
@@ -7,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './main-app.component.css'
 })
 export class MainAppComponent {
+  authService = inject(AuthService)
+  route = inject(Router)
 
+  logOut() {
+    this.authService.logOut()
+    this.route.navigate(["/"])
+  }
 }

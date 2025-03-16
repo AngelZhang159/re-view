@@ -8,6 +8,7 @@ import dev.angelzhang.userservice.exception.UserNotFoundException;
 import dev.angelzhang.userservice.util.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    @Value("${jwt.accessExpiration}")
+    private Long ACCESS_EXPIRATION;
 
     private final String MESSAGE = "Account created successfully";
 
@@ -64,6 +68,10 @@ public class UserService {
         User user = checkUserExists(userLoginRequest, userByEmail);
         checkCorrectPassword(userLoginRequest, user);
 
+        return generateUserLogin(user);
+    }
+
+    private ResponseEntity<UserLoginResponse> generateUserLogin(User user) {
         UserResponseDTO userResponseDTO = new UserResponseDTO(
                 user.getUsername(),
                 user.getEmail(),
@@ -73,7 +81,8 @@ public class UserService {
         UserLoginResponse userLoginResponse = new UserLoginResponse(
                 jwtUtil.generateAccessToken(user.getId(), user.getRole()),
                 jwtUtil.generateRefreshToken(user.getId(), user.getRole()),
-                userResponseDTO
+                userResponseDTO,
+                ACCESS_EXPIRATION
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(userLoginResponse);
@@ -92,5 +101,17 @@ public class UserService {
         } else {
             return userByEmail.get();
         }
+    }
+
+    public ResponseEntity<UserLoginResponse> refreshToken(String refreshToken) {
+        Long userId = jwtUtil.extractUserId(refreshToken);
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("User with ID: " + userId + " not found (User was deleted)");
+        }
+
+        return generateUserLogin(user.get());
+
     }
 }

@@ -32,4 +32,10 @@ public class UserController {
         log.info("Logging in user: {}", userLoginRequest);
         return userService.loginUser(userLoginRequest);
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<UserLoginResponse> refreshToken(@Valid @RequestBody String refreshToken) {
+        log.info("Refreshing token: {}", refreshToken);
+        return userService.refreshToken(refreshToken);
+    }
 }

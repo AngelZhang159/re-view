@@ -40,7 +40,7 @@ class JwtUtilTest {
 
         String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
 
-        boolean check = jwtUtil.validateToken(jwt, userId);
+        boolean check = jwtUtil.isValidToken(jwt, userId);
 
         assertTrue(check);
     }
@@ -52,7 +52,7 @@ class JwtUtilTest {
 
         String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
 
-        boolean check = jwtUtil.validateToken(jwt, 2L);
+        boolean check = jwtUtil.isValidToken(jwt, 2L);
 
         assertFalse(check);
     }
@@ -81,7 +81,7 @@ class JwtUtilTest {
 
         String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
 
-        boolean check = jwtUtil.validateToken(jwt, userId);
+        boolean check = jwtUtil.isValidToken(jwt, userId);
 
         assertTrue(check);
     }
@@ -93,7 +93,7 @@ class JwtUtilTest {
 
         String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
 
-        boolean check = jwtUtil.validateToken(jwt, 2L);
+        boolean check = jwtUtil.isValidToken(jwt, 2L);
 
         assertFalse(check);
     }
