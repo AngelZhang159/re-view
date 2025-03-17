@@ -27,6 +27,8 @@ public class SecurityConfig {
                         .requestMatchers("/user/register")
                         .permitAll()
                         .requestMatchers("/user/login")
+                        .permitAll()
+                        .requestMatchers("/user/refresh")
                         .permitAll());
         return http.build();
     }

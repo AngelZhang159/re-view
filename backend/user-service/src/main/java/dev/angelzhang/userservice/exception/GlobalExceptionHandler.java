@@ -55,4 +55,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @ExceptionHandler(InvalidJWTException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidJWTException(InvalidJWTException e) {
+        Map<String, String> response = new HashMap<>();
+
+        response.put("error", "Invalid JWT");
+        response.put("message", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
 }

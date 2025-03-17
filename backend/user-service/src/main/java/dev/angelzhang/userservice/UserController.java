@@ -1,9 +1,6 @@
 package dev.angelzhang.userservice;
 
-import dev.angelzhang.userservice.dto.UserLoginRequest;
-import dev.angelzhang.userservice.dto.UserLoginResponse;
-import dev.angelzhang.userservice.dto.UserRegisterResponse;
-import dev.angelzhang.userservice.dto.UserRegisterRequest;
+import dev.angelzhang.userservice.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<UserLoginResponse> refreshToken(@Valid @RequestBody String refreshToken) {
-        log.info("Refreshing token: {}", refreshToken);
-        return userService.refreshToken(refreshToken);
+    public ResponseEntity<UserLoginResponse> refreshToken(@Valid @RequestBody RefreshToken body) {
+        log.info("Refreshing token: {}", body);
+        return userService.refreshToken(body.refreshToken());
     }
 }

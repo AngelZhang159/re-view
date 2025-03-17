@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    
+
     @Value("${jwt.secret}")
     private String key;
     @Value("${jwt.refreshExpiration}")
@@ -27,11 +27,14 @@ public class JwtUtil {
     public String generateAccessToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
+        claims.put("token_type", "access");
         return createToken(claims, userId.toString(), ACCESS_EXPIRATION);
     }
+
     public String generateRefreshToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
+        claims.put("token_type", "refresh");
         return createToken(claims, userId.toString(), REFRESH_EXPIRATION);
     }
 
@@ -75,4 +78,12 @@ public class JwtUtil {
                 .before(new Date());
     }
 
+    public boolean isRefreshToken(String refreshToken) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(refreshToken)
+                .getPayload()
+                .get("token_type", String.class).equals("refresh");
+    }
 }

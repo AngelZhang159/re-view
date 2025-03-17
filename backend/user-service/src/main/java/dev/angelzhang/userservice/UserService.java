@@ -2,12 +2,14 @@ package dev.angelzhang.userservice;
 
 import dev.angelzhang.userservice.dto.*;
 import dev.angelzhang.userservice.enums.Role;
+import dev.angelzhang.userservice.exception.InvalidJWTException;
 import dev.angelzhang.userservice.exception.InvalidPasswordException;
 import dev.angelzhang.userservice.exception.UserAlreadyExistsException;
 import dev.angelzhang.userservice.exception.UserNotFoundException;
 import dev.angelzhang.userservice.util.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     @Value("${jwt.accessExpiration}")
@@ -104,7 +107,15 @@ public class UserService {
     }
 
     public ResponseEntity<UserLoginResponse> refreshToken(String refreshToken) {
-        Long userId = jwtUtil.extractUserId(refreshToken);
+
+        String token = refreshToken.startsWith("Bearer ") ? refreshToken.substring(7) : refreshToken;
+
+        if (!jwtUtil.isRefreshToken(token)) {
+            throw new InvalidJWTException("Invalid JWT, must be refresh token");
+        }
+
+        Long userId = jwtUtil.extractUserId(token);
+
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
@@ -112,6 +123,5 @@ public class UserService {
         }
 
         return generateUserLogin(user.get());
-
     }
 }
