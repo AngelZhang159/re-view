@@ -18,7 +18,7 @@ export class AuthService {
 
   private processLoginResponse(userResponse: UserResponse, rememberMe: boolean ) {
     this.saveUserDetails(userResponse, rememberMe)
-    return userResponse.user
+    return userResponse
   }
 
   private saveUserDetails(userResponse: UserResponse, rememberMe: boolean) {
@@ -50,8 +50,8 @@ export class AuthService {
 
   public refreshToken() {
     const refreshToken = localStorage.getItem("refreshToken");
-    if (!refreshToken) return null
-    return this.apiService.refreshToken({refreshToken: refreshToken}).pipe(map((response: UserResponse) => {
+    if (!refreshToken) throw new Error("No auth token found")
+    return this.apiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserResponse) => {
       return this.processLoginResponse(response, Boolean(localStorage.getItem("rememberMe")))
     }))
   }
