@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
 import {MediaApiService} from './media-api.service';
-import {SearchMultiResponse} from '../models/searchMultiResponse';
 
 @Injectable({
   providedIn: 'root'
