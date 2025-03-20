@@ -33,6 +33,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //Move CORS config to Gateway
     UrlBasedCorsConfigurationSource apiConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Frontend URL
