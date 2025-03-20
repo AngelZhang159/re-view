@@ -1,0 +1,33 @@
+package dev.angelzhang.mediaservice;
+
+import dev.angelzhang.mediaservice.DTO.SearchMultiAPIRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/media/")
+@Slf4j
+public class MediaController {
+
+    private final MediaService mediaService;
+
+    //search/multi?query=PARAM&include_adult=false&language=en-US&page=1
+    @GetMapping("/search/multi")
+    public Mono<SearchMultiAPIRequest> search(
+            @RequestParam String query,
+            @RequestParam(required = false, defaultValue = "false", name = "include_adult") Boolean includeAdult,
+            @RequestParam(required = false, defaultValue = "en-US") String language,
+            @RequestParam(required = false, defaultValue = "1") Integer page) {
+        log.info("New movie search query: {}", query);
+        return mediaService.search(query, includeAdult, language, page);
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        return "API WORKS";
+    }
+
+}
