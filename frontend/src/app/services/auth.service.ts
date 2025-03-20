@@ -8,10 +8,10 @@ import {AuthApiService} from './auth-api.service';
 })
 export class AuthService {
 
-  private apiService = inject(AuthApiService)
+  private authApiService = inject(AuthApiService)
 
   login(email: string, password: string, rememberMe: boolean) {
-    return this.apiService.login({email: email, password: password}).pipe(map((response: UserResponse) => {
+    return this.authApiService.login({email: email, password: password}).pipe(map((response: UserResponse) => {
       return this.processLoginResponse(response, rememberMe)
     }))
   }
@@ -51,7 +51,7 @@ export class AuthService {
   public refreshToken() {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) throw new Error("No auth token found")
-    return this.apiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserResponse) => {
+    return this.authApiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserResponse) => {
       return this.processLoginResponse(response, Boolean(localStorage.getItem("rememberMe")))
     }))
   }
