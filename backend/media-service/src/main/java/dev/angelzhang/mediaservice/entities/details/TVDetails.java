@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -14,12 +15,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class TVDetails {
 
     private Boolean adult;
     private String backdrop_path;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tvDetails", cascade = CascadeType.ALL)
     private List<CreatedBy> created_by;
 
     @ElementCollection
@@ -73,7 +75,7 @@ public class TVDetails {
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<ProductionCountry> production_countries;
 
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "tvDetails", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Season> seasons;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -87,7 +89,10 @@ public class TVDetails {
     private Integer vote_count;
 
     public static TVDetails fromRequest(DetailsAPIRequest request) {
-        return TVDetails.builder()
+
+        log.info("Building TV details from request: Network:{}\n, Season: {}\n", request.networks(), request.seasons());
+
+        TVDetails build = TVDetails.builder()
                 .adult(request.adult())
                 .backdrop_path(request.backdrop_path())
                 .created_by(CreatedBy.fromRequest(request.created_by()))
@@ -121,5 +126,8 @@ public class TVDetails {
                 .vote_average(request.vote_average())
                 .vote_count(request.vote_count())
                 .build();
+
+        log.info("Resulting TV details: Network:{}\n, Season: {}\n", build.getNetworks(), build.getSeasons());
+        return build;
     }
 }

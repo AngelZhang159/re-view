@@ -1,12 +1,12 @@
 package dev.angelzhang.mediaservice.entities.details;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.ManyToOne;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Season {
 
     @Id
@@ -28,6 +29,11 @@ public class Season {
     private String poster_path;
     private Integer season_number;
     private Double vote_average;
+
+    @ManyToOne
+    @JsonIgnore
+    @ToString.Exclude
+    private TVDetails tvDetails;
 
     public static Season fromRequest(dev.angelzhang.mediaservice.dto.details.Season season) {
         return Season.builder()

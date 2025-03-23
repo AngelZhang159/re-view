@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Network {
 
     @Id
@@ -29,7 +27,7 @@ public class Network {
     @ManyToMany(mappedBy = "networks")
     @JsonIgnore
     @ToString.Exclude
-    private List<TVDetails> details;
+    private List<TVDetails> tvDetails;
 
     public static Network fromRequest(dev.angelzhang.mediaservice.dto.details.Network network) {
         return Network.builder()

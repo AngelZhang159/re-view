@@ -71,7 +71,10 @@ public class MediaService {
 
     private Mono<TVDetails> fetchAndSaveTVDetails(Integer id) {
         return fetchDetailsFromAPI("tv", id)
-                .map(details -> (TVDetails) details)
+                .map(details -> {
+                    log.info("TV Details from API fetch to save: {}", details);
+                    return (TVDetails) details;
+                })
                 .doOnNext(tvDetailsRepository::save);
     }
 
