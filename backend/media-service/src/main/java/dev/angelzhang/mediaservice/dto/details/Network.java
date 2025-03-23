@@ -5,5 +5,5 @@ public record Network(
         String logo_path,
         String name,
         String origin_country
-        ) {
+) {
 }

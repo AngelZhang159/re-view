@@ -44,5 +44,11 @@ public class Genre {
                 .map(Genre::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.Genre> toResponse(List<Genre> genres) {
+        return genres.stream()
+                .map(genre -> new dev.angelzhang.mediaservice.dto.details.Genre(genre.getId(), genre.getName()))
+                .collect(Collectors.toList());
+    }
 }
 

@@ -34,7 +34,7 @@ public class ProductionCountry {
 
     public static ProductionCountry fromEntity(dev.angelzhang.mediaservice.dto.details.ProductionCountry productionCountry) {
         return ProductionCountry.builder()
-                .iso_3166_1(productionCountry.iso_3166_1())
+                .iso_3166_1(productionCountry.iso_3166_1().isBlank() ? null : CountryCode.valueOf(productionCountry.iso_3166_1()))
                 .name(productionCountry.name())
                 .build();
     }
@@ -42,6 +42,12 @@ public class ProductionCountry {
     public static List<ProductionCountry> fromRequest(List<dev.angelzhang.mediaservice.dto.details.ProductionCountry> productionCountries) {
         return productionCountries.stream()
                 .map(ProductionCountry::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.ProductionCountry> toResponse(List<ProductionCountry> productionCountries) {
+        return productionCountries.stream()
+                .map(productionCountry -> new dev.angelzhang.mediaservice.dto.details.ProductionCountry(productionCountry.getIso_3166_1().name(), productionCountry.getName()))
                 .collect(Collectors.toList());
     }
 }

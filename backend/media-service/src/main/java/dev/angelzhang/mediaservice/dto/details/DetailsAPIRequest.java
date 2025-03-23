@@ -1,7 +1,5 @@
 package dev.angelzhang.mediaservice.dto.details;
 
-import dev.angelzhang.mediaservice.entities.details.CountryCode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,7 @@ public record DetailsAPIRequest(
         String homepage,
         Integer id,
         String imdb_id,
-        List<CountryCode> origin_country,
+        List<String> origin_country,
         String original_language,
         String original_title,
         String overview,

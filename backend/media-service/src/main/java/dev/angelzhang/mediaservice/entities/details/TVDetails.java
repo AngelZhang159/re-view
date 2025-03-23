@@ -21,15 +21,15 @@ public class TVDetails {
     private Boolean adult;
     private String backdrop_path;
 
-    @OneToMany(mappedBy = "tvDetails", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CreatedBy> created_by;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> episode_run_time;
 
     private String first_air_date;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Genre> genres;
 
     private String homepage;
@@ -39,26 +39,26 @@ public class TVDetails {
 
     private Boolean in_production;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> languages;
 
     private String last_air_date;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Episode last_episode_to_air;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Episode next_episode_to_air;
 
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    private Episode next_episode_to_air;
-
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Network> networks;
 
     private Integer number_of_episodes;
     private Integer number_of_seasons;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<CountryCode> origin_country;
 
     private String original_language;
@@ -69,16 +69,16 @@ public class TVDetails {
     private Double popularity;
     private String poster_path;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<ProductionCompany> production_companies;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<ProductionCountry> production_countries;
 
-    @OneToMany(mappedBy = "tvDetails", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Season> seasons;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<SpokenLanguage> spoken_languages;
 
     private String status;
@@ -110,7 +110,7 @@ public class TVDetails {
                 .networks(Network.fromRequest(request.networks()))
                 .number_of_episodes(request.number_of_episodes())
                 .number_of_seasons(request.number_of_seasons())
-                .origin_country(request.origin_country())
+                .origin_country(CountryCode.fromRequest(request.origin_country()))
                 .original_language(request.original_language())
                 .original_name(request.original_name())
                 .overview(request.overview())

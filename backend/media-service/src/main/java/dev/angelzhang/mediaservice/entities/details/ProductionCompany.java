@@ -39,13 +39,19 @@ public class ProductionCompany {
                 .id(productionCompany.id())
                 .logo_path(productionCompany.logo_path())
                 .name(productionCompany.name())
-                .origin_country(productionCompany.origin_country())
+                .origin_country(productionCompany.origin_country().isBlank() ? null : CountryCode.valueOf(productionCompany.origin_country()))
                 .build();
     }
 
     public static List<ProductionCompany> fromRequest(List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> productionCompanies) {
         return productionCompanies.stream()
                 .map(ProductionCompany::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> toResponse(List<ProductionCompany> productionCompanies) {
+        return productionCompanies.stream()
+                .map(productionCompany -> new dev.angelzhang.mediaservice.dto.details.ProductionCompany(productionCompany.getId(), productionCompany.getLogo_path(), productionCompany.getName(), productionCompany.getOrigin_country() == null ? null : productionCompany.getOrigin_country().name()))
                 .collect(Collectors.toList());
     }
 }

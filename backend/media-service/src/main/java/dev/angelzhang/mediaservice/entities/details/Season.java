@@ -54,4 +54,10 @@ public class Season {
                 .collect(Collectors.toList());
     }
 
+    public static List<dev.angelzhang.mediaservice.dto.details.Season> toResponse(List<Season> seasons) {
+        return seasons.stream()
+                .map(season -> new dev.angelzhang.mediaservice.dto.details.Season(season.getId(), season.getAir_date(), season.getEpisode_count(), season.getName(), season.getOverview(), season.getPoster_path(), season.getSeason_number(), season.getVote_average()))
+                .collect(Collectors.toList());
+    }
+
 }

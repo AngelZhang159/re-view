@@ -24,14 +24,14 @@ public class MovieDetails {
     private Integer id;
     private Boolean adult;
     private String backdrop_path;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private BelongsToCollection belongs_to_collection;
     private Integer budget;
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Genre> genres;
     private String homepage;
     private String imdb_id;
-    @ElementCollection(targetClass = CountryCode.class)
+    @ElementCollection(targetClass = CountryCode.class,fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private List<CountryCode> origin_country;
     private String original_language;
@@ -40,14 +40,14 @@ public class MovieDetails {
     private String overview;
     private Double popularity;
     private String poster_path;
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<ProductionCompany> production_companies;
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<ProductionCountry> production_countries;
     private String release_date;
     private Double revenue;
     private Integer runtime;
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<SpokenLanguage> spoken_languages;
     private String status;
     private String tagline;
@@ -69,7 +69,7 @@ public class MovieDetails {
                 .genres(Genre.fromRequest(movie.genres()))
                 .homepage(movie.homepage())
                 .imdb_id(movie.imdb_id())
-                .origin_country(movie.origin_country())
+                .origin_country(CountryCode.fromRequest(movie.origin_country()))
                 .original_language(movie.original_language())
                 .original_title(movie.original_title())
                 .overview(movie.overview())

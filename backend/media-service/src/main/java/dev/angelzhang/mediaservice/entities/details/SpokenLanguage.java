@@ -41,4 +41,10 @@ public class SpokenLanguage {
                 .map(SpokenLanguage::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.SpokenLanguage> toResponse(List<SpokenLanguage> spokenLanguages) {
+        return spokenLanguages.stream()
+                .map(spokenLanguage -> new dev.angelzhang.mediaservice.dto.details.SpokenLanguage(spokenLanguage.getIso_639_1(), spokenLanguage.getEnglish_name(), spokenLanguage.getName()))
+                .collect(Collectors.toList());
+    }
 }

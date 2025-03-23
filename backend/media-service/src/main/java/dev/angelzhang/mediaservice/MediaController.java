@@ -3,6 +3,7 @@ package dev.angelzhang.mediaservice;
 import dev.angelzhang.mediaservice.dto.searchMulti.SearchMultiAPIRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +27,7 @@ public class MediaController {
     }
 
     @GetMapping("/details/{type}/{id}")
-    public Mono<?> mediaDetails(@PathVariable String type, @PathVariable Integer id) {
+    public ResponseEntity<?> mediaDetails(@PathVariable String type, @PathVariable Integer id) {
         log.info("New movie details query with type: {}, id: {}", type, id);
         return mediaService.getMediaDetailsById(type, id);
     }

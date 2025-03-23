@@ -33,4 +33,8 @@ public class BelongsToCollection {
                 .backdrop_path(belongsToCollection.backdrop_path())
                 .build();
     }
+
+    public static dev.angelzhang.mediaservice.dto.details.BelongsToCollection toResponse(BelongsToCollection belongsToCollection) {
+        return new dev.angelzhang.mediaservice.dto.details.BelongsToCollection(belongsToCollection.getId(), belongsToCollection.getName(), belongsToCollection.getPoster_path(), belongsToCollection.getBackdrop_path());
+    }
 }

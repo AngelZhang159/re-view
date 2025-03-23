@@ -1,5 +1,8 @@
 package dev.angelzhang.mediaservice.entities.details;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum CountryCode {
     AF, AX, AL, DZ, AS, AD, AO, AI, AQ, AG,
     AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB,
@@ -25,5 +28,17 @@ public enum CountryCode {
     LK, SD, SR, SJ, SE, CH, SY, TW, TJ, TZ,
     TH, TL, TG, TK, TO, TT, TN, TR, TM, TC,
     TV, UG, UA, AE, GB, US, UM, UY, UZ, VU,
-    VE, VN, VG, VI, WF, EH, YE, ZM, ZW
+    VE, VN, VG, VI, WF, EH, YE, ZM, ZW;
+
+    public static List<CountryCode> fromRequest(List<String> strings) {
+        return strings.stream()
+                .map(CountryCode::valueOf)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> toResponse(List<CountryCode> countryCodes) {
+        return countryCodes.stream()
+                .map(Enum::toString)
+                .collect(Collectors.toList());
+    }
 }

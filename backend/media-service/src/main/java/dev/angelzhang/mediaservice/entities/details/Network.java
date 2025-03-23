@@ -43,4 +43,10 @@ public class Network {
                 .map(Network::fromRequest)
                 .collect(Collectors.toList());
     }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.Network> toResponse(List<Network> networks) {
+        return networks.stream()
+                .map(network -> new dev.angelzhang.mediaservice.dto.details.Network(network.getId(), network.getLogo_path(), network.getName(), network.getOrigin_country()))
+                .collect(Collectors.toList());
+    }
 }

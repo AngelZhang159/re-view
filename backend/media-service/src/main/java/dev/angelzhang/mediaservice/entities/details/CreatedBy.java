@@ -25,7 +25,7 @@ public class CreatedBy {
     private Integer gender;
     private String profile_path;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JsonIgnore
     @ToString.Exclude
     private TVDetails tvDetails;
@@ -43,5 +43,11 @@ public class CreatedBy {
                 .name(createdBy.name())
                 .original_name(createdBy.original_name())
                 .build();
+    }
+
+    public static List<dev.angelzhang.mediaservice.dto.details.CreatedBy> toResponse(List<CreatedBy> createdBy) {
+        return createdBy.stream()
+                .map(createdBy1 -> new dev.angelzhang.mediaservice.dto.details.CreatedBy(createdBy1.getId(), createdBy1.getCredit_id(), createdBy1.getName(), createdBy1.getOriginal_name(), createdBy1.getGender(), createdBy1.profile_path))
+                .collect(Collectors.toList());
     }
 }
