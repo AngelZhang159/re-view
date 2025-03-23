@@ -2,7 +2,7 @@
 
 <p>main-app works!</p>
 
-<input type="text" placeholder="Search" [formControl]="searchControl"/>
+<input type="search" placeholder="Search" [formControl]="searchControl"/>
 
 @for (item of result.results; track item.id) {
   <a [routerLink]="['/details' + '/' + item.media_type, item.id]">

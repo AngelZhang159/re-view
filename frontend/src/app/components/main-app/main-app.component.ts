@@ -4,7 +4,7 @@ import {Router, RouterLink} from '@angular/router';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
 import {MediaService} from '../../services/media.service';
-import {SearchMultiResponse} from '../../models/searchMultiResponse';
+import {SearchMultiResponse} from '../../models/search-multi-response';
 import {NgOptimizedImage} from '@angular/common';
 
 @Component({
@@ -24,6 +24,7 @@ export class MainAppComponent implements OnInit {
   mediaService = inject(MediaService)
 
   route = inject(Router)
+
   searchControl = new FormControl('');
   public result: SearchMultiResponse = {
     page: 0,
@@ -36,7 +37,9 @@ export class MainAppComponent implements OnInit {
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(query => this.mediaService.searchMulti(query == null ? "" : query))
+      switchMap(query => {
+        return this.mediaService.searchMulti(query == null ? "" : query);
+      })
     ).subscribe(data => this.result = data)
   }
 

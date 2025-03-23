@@ -12,4 +12,8 @@ export class MediaService {
     return this.mediaApiService.searchMulti(query)
   }
 
+  getDetails(type: string, id: string) {
+    return this.mediaApiService.getDetails(type, id)
+  }
+
 }

@@ -1,9 +1,7 @@
 <p>details works!</p>
 <h1>Type: {{type}}, ID: {{id}}</h1>
-@if (type == "movie") {
 
-} @else if (type == "tv"){
+{{JSON.stringify(details)}}
 
-} @else if (type == "person") {
-
-}
+<h1>Name: {{details?.name}}</h1>
+<h1>Title: {{details?.title}}</h1>

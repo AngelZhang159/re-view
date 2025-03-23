@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {loginRequest} from '../models/login';
-import {UserResponse} from '../models/userResponse';
+import {LoginRequest} from '../models/login';
+import {UserResponse} from '../models/user-response';
 import {enviroment} from '../components/enviroments/enviroment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthApiService {
   private http = inject(HttpClient)
   private apiUrl = enviroment.apiUrl
 
-  login(loginRequest: loginRequest) {
+  login(loginRequest: LoginRequest) {
     return this.http.post<UserResponse>(`${this.apiUrl}/user/login`, loginRequest)
   }
 
