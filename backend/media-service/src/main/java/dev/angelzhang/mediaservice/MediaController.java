@@ -1,6 +1,6 @@
 package dev.angelzhang.mediaservice;
 
-import dev.angelzhang.mediaservice.DTO.SearchMultiAPIRequest;
+import dev.angelzhang.mediaservice.dto.searchMulti.SearchMultiAPIRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +23,12 @@ public class MediaController {
             @RequestParam(required = false, defaultValue = "1") Integer page) {
         log.info("New movie search query: {}", query);
         return mediaService.search(query, includeAdult, language, page);
+    }
+
+    @GetMapping("/details/{type}/{id}")
+    public Mono<?> mediaDetails(@PathVariable String type, @PathVariable Integer id) {
+        log.info("New movie details query with type: {}, id: {}", type, id);
+        return mediaService.getMediaDetailsById(type, id);
     }
 
     @GetMapping("/health")
