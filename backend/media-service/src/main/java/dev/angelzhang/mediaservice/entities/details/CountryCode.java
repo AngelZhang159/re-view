@@ -25,5 +25,5 @@ public enum CountryCode {
     LK, SD, SR, SJ, SE, CH, SY, TW, TJ, TZ,
     TH, TL, TG, TK, TO, TT, TN, TR, TM, TC,
     TV, UG, UA, AE, GB, US, UM, UY, UZ, VU,
-    VE, VN, VG, VI, WF, EH, YE, ZM, ZW;
+    VE, VN, VG, VI, WF, EH, YE, ZM, ZW
 }
