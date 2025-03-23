@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -7,5 +8,10 @@ import {Component} from '@angular/core';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent {
+  route = inject(ActivatedRoute)
 
+  type = this.route.snapshot.paramMap.get("type")
+  id = this.route.snapshot.paramMap.get("id")
+
+  
 }
