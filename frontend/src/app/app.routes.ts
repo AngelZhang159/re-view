@@ -5,6 +5,8 @@ import {MainAppComponent} from './components/main-app/main-app.component';
 import {RegisterComponent} from './components/register/register.component';
 import {authGuard} from './guards/auth.guard'
 import {homeGuard} from './guards/home.guard';
+import {DetailsComponent} from './components/details/details.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -24,5 +26,13 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'details/:type/:id',
+    component: DetailsComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
