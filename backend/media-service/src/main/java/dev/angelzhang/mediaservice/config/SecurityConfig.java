@@ -21,7 +21,7 @@ public class SecurityConfig {
                 ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/media/health", "/media/search/*")
+                        .requestMatchers("/media/health", "/media/**")
                         .permitAll());
         return http.build();
     }
