@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -26,7 +27,7 @@ public class JwtUtil {
 
     public String generateAccessToken(Long userId, Role userRole) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", userRole);
+        claims.put("role", List.of(userRole));
         claims.put("token_type", "access");
         return createToken(claims, userId.toString(), ACCESS_EXPIRATION);
     }
