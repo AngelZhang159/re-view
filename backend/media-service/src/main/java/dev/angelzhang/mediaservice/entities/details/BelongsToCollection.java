@@ -26,6 +26,11 @@ public class BelongsToCollection {
     private List<MovieDetails> details;
 
     public static BelongsToCollection fromRequest(dev.angelzhang.mediaservice.dto.details.BelongsToCollection belongsToCollection) {
+
+        if (belongsToCollection == null) {
+            return null;
+        }
+
         return BelongsToCollection.builder()
                 .id(belongsToCollection.id())
                 .name(belongsToCollection.name())
@@ -35,6 +40,9 @@ public class BelongsToCollection {
     }
 
     public static dev.angelzhang.mediaservice.dto.details.BelongsToCollection toResponse(BelongsToCollection belongsToCollection) {
+        if (belongsToCollection == null ) {
+            return null;
+        }
         return new dev.angelzhang.mediaservice.dto.details.BelongsToCollection(belongsToCollection.getId(), belongsToCollection.getName(), belongsToCollection.getPoster_path(), belongsToCollection.getBackdrop_path());
     }
 }

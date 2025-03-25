@@ -1,17 +1,21 @@
 package dev.angelzhang.mediaservice.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
@@ -21,8 +25,11 @@ public class SecurityConfig {
                 ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/media/health", "/media/**")
-                        .permitAll());
+                        .requestMatchers("/media/health")
+                        .permitAll()
+                        .requestMatchers("/media/**")
+                        .authenticated())
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
