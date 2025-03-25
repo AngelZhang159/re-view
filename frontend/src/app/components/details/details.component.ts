@@ -2,10 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DetailsResponse} from '../../models/details-response';
 import {MediaService} from '../../services/media.service';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-details',
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
