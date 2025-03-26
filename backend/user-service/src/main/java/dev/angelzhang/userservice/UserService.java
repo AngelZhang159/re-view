@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,11 +50,11 @@ public class UserService {
         user.setUsername(userRegisterRequest.username());
         user.setPassword(passwordEncoder.encode(userRegisterRequest.password()));
         user.setEmail(userRegisterRequest.email());
-        user.setRole(Role.USER);
+        user.setRole(List.of(Role.USER));
 
-        LocalDate localDate = LocalDate.now();
-        user.setCreatedAt(localDate);
-        user.setUpdatedAt(localDate);
+        Instant instant = Instant.now();
+        user.setCreatedAt(instant);
+        user.setUpdatedAt(instant);
         return user;
     }
 

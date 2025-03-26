@@ -25,14 +25,14 @@ public class JwtUtil {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public String generateAccessToken(Long userId, Role userRole) {
+    public String generateAccessToken(Long userId, List<Role> userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", List.of(userRole));
         claims.put("token_type", "access");
         return createToken(claims, userId.toString(), ACCESS_EXPIRATION);
     }
 
-    public String generateRefreshToken(Long userId, Role userRole) {
+    public String generateRefreshToken(Long userId, List<Role> userRole) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userRole);
         claims.put("token_type", "refresh");

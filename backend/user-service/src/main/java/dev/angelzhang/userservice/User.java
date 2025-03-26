@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,15 +21,10 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Username is mandatory")
     private String username;
 
-    @NotBlank(message = "Password is mandatory")
-    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @Email(message = "Invalid Email")
-    @NotBlank(message = "Email is mandatory")
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -41,14 +38,15 @@ public class User {
 
     private String profilePictureUrl;
 
-    @NotNull(message = "Creation date is mandatory")
-    private LocalDate createdAt;
+    @Column(updatable = false, nullable = false)
+    private Instant createdAt;
 
-    @NotNull(message = "Updated date is mandatory")
-    private LocalDate updatedAt;
+    @Column(nullable = false)
+    private Instant updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Role is mandatory")
-    private Role role;
+    @ElementCollection(targetClass = Role.class)
+    @Column(nullable = false)
+    private List<Role> role;
 
 }

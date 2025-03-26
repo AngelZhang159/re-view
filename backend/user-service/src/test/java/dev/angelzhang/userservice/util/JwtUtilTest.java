@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -19,7 +21,7 @@ class JwtUtilTest {
     @Test
     @DisplayName("Generate access token with correct data")
     void shouldGenerateAccessTokenWhenGivenCorrectData() {
-        String jwt = jwtUtil.generateAccessToken(1L, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(1L, List.of(Role.USER));
         assertNotNull(jwt);
     }
 
@@ -28,7 +30,7 @@ class JwtUtilTest {
     void shouldExtractUserIdFromAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, List.of(Role.USER));
 
         assertEquals(userId, jwtUtil.extractUserId(jwt));
     }
@@ -38,7 +40,7 @@ class JwtUtilTest {
     void shouldValidateAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, List.of(Role.USER));
 
         boolean check = jwtUtil.isValidToken(jwt, userId);
 
@@ -50,7 +52,7 @@ class JwtUtilTest {
     void shouldNotValidateAccessToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateAccessToken(userId, Role.USER);
+        String jwt = jwtUtil.generateAccessToken(userId, List.of(Role.USER));
 
         boolean check = jwtUtil.isValidToken(jwt, 2L);
 
@@ -60,7 +62,7 @@ class JwtUtilTest {
     @Test
     @DisplayName("Generate refresh token with correct data")
     void shouldGenerateRefreshTokenWhenGivenCorrectData() {
-        String jwt = jwtUtil.generateRefreshToken(1L, Role.USER);
+        String jwt = jwtUtil.generateRefreshToken(1L, List.of(Role.USER));
         assertNotNull(jwt);
     }
 
@@ -69,7 +71,7 @@ class JwtUtilTest {
     void shouldExtractUserIdFromRefreshToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
+        String jwt = jwtUtil.generateRefreshToken(userId, List.of(Role.USER));
 
         assertEquals(userId, jwtUtil.extractUserId(jwt));
     }
@@ -79,7 +81,7 @@ class JwtUtilTest {
     void shouldValidateRefreshToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
+        String jwt = jwtUtil.generateRefreshToken(userId, List.of(Role.USER));
 
         boolean check = jwtUtil.isValidToken(jwt, userId);
 
@@ -91,7 +93,7 @@ class JwtUtilTest {
     void shouldNotValidateRefreshToken() {
         Long userId = 1L;
 
-        String jwt = jwtUtil.generateRefreshToken(userId, Role.USER);
+        String jwt = jwtUtil.generateRefreshToken(userId, List.of(Role.USER));
 
         boolean check = jwtUtil.isValidToken(jwt, 2L);
 
