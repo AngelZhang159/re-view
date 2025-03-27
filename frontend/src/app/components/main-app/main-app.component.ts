@@ -1,11 +1,13 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router, RouterLink} from '@angular/router';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MediaService} from '../../services/media.service';
 import {SearchMultiResponse} from '../../models/search-multi-response';
 import {NgOptimizedImage} from '@angular/common';
+import {SearchService} from '../../services/search.service';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-main-app',
@@ -18,14 +20,13 @@ import {NgOptimizedImage} from '@angular/common';
   templateUrl: './main-app.component.html',
   styleUrl: './main-app.component.css'
 })
-export class MainAppComponent implements OnInit {
+export class MainAppComponent {
 
   authService = inject(AuthService)
-  mediaService = inject(MediaService)
+  searchService = inject(SearchService)
 
   route = inject(Router)
 
-  searchControl = new FormControl('');
   public result: SearchMultiResponse = {
     page: 0,
     results: [],
@@ -33,15 +34,12 @@ export class MainAppComponent implements OnInit {
     total_pages: 0
   };
 
-  ngOnInit(): void {
-    this.searchControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(query => {
-        return this.mediaService.searchMulti(query == null ? "" : query);
-      })
-    ).subscribe(data => this.result = data)
+  constructor() {
+    effect(() => {
+      this.result = this.searchService.result();
+    })
   }
+
 
   logOut() {
     this.authService.logOut()

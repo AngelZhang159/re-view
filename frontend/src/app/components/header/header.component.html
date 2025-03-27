@@ -3,10 +3,9 @@
     <a class="text-5xl font-bold" href="{{domain}}">{{ domainName }}</a>
   </div>
 
-  <div class="bg-neutral-800 rounded-full p-4 h-auto w-full">
-
-    <input class="w-full border-none outline-none">
-  </div>
+  <label class="bg-neutral-800 rounded-full h-auto w-full inline-flex items-center peer">
+    <mat-icon fontIcon="search" class="mx-4"/>
+    <input class="w-full border-none outline-none py-4 text-2xl peer" placeholder="Search" type="search" (keyup)="onSearch($event)"/>
+  </label>
 
 </div>
-
