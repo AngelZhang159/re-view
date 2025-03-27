@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SearchMultiResponse} from '../models/search-multi-response';
-import {enviroment} from '../components/enviroments/enviroment';
+import {enviroment} from '../../enviroments/enviroment';
 import {DetailsResponse} from '../models/details-response';
 
 @Injectable({
