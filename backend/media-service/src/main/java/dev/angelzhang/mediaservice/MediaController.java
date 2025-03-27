@@ -17,7 +17,7 @@ public class MediaController {
 
     //search/multi?query=PARAM&include_adult=false&language=en-US&page=1
     @GetMapping("/search/multi")
-    public Mono<SearchMultiAPIRequest> search(
+    public ResponseEntity<SearchMultiAPIRequest> search(
             @RequestParam String query,
             @RequestParam(required = false, defaultValue = "false", name = "include_adult") Boolean includeAdult,
             @RequestParam(required = false, defaultValue = "en-US") String language,

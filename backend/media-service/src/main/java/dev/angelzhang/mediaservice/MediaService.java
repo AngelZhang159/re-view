@@ -27,8 +27,8 @@ public class MediaService {
     private final MovieDetailsRepository movieDetailsRepository;
     private final TVDetailsRepository tvDetailsRepository;
 
-    public Mono<SearchMultiAPIRequest> search(String query, Boolean includeAdult, String language, Integer page) {
-        return webClient
+    public ResponseEntity<SearchMultiAPIRequest> search(String query, Boolean includeAdult, String language, Integer page) {
+        Mono<SearchMultiAPIRequest> searchMultiAPIRequestMono = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/search/multi")
@@ -47,6 +47,8 @@ public class MediaService {
                     );
                     return Mono.just(response);
                 });
+
+        return ResponseEntity.ok(searchMultiAPIRequestMono.block());
     }
 
     public ResponseEntity<?> getMediaDetailsById(String type, Integer id) {
