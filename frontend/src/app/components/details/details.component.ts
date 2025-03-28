@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DetailsResponse} from '../../models/details-response';
 import {MediaService} from '../../services/media.service';
@@ -13,17 +13,20 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit{
-  route = inject(ActivatedRoute)
   mediaService = inject(MediaService)
-  type = this.route.snapshot.paramMap.get("type")
+  type = input.required<string>()
 
-  id = this.route.snapshot.paramMap.get("id")
+  id = input.required<number>()
 
   details: DetailsResponse | undefined;
 
+  constructor() {
+    console.log("DETAILS COMPONENT CONSTRUCTOR")
+  }
+
   ngOnInit(): void {
     if (this.id != null && this.type != null) {
-      this.mediaService.getDetails(this.type, this.id).subscribe(data => {
+      this.mediaService.getDetails(this.type(), this.id()).subscribe(data => {
         console.log(data)
         this.details = data
       })

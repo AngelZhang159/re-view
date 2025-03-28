@@ -16,7 +16,7 @@ export class MediaApiService {
     return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/search/multi?query=${query}`)
   }
 
-  getDetails(type: string, id: string) {
+  getDetails(type: string, id: number) {
     return this.http.get<DetailsResponse>(`${this.apiUrl}/media/details/${type}/${id}`)
   }
 }

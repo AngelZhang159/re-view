@@ -7,6 +7,7 @@ import {authGuard} from './guards/auth.guard'
 import {homeGuard} from './guards/home.guard';
 import {DetailsComponent} from './components/details/details.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {SearchComponent} from './components/search/search.component';
 
 export const routes: Routes = [
   {
@@ -19,17 +20,25 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'app',
-    component: MainAppComponent,
-    canActivate: [authGuard]
-  },
-  {
     path: 'register',
     component: RegisterComponent
   },
   {
-    path: 'details/:type/:id',
-    component: DetailsComponent
+    path: 'app',
+    component: MainAppComponent,
+    // canActivate: [authGuard],
+    children: [
+      {
+        path: 'details/:type/:id',
+        component: DetailsComponent,
+        outlet: 'content'
+      },
+      {
+        path: 'search:query',
+        component: SearchComponent,
+        outlet: 'content'
+      },
+    ]
   },
   {
     path: '**',

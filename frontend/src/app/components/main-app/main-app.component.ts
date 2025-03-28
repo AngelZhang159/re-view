@@ -1,21 +1,21 @@
-import {Component, effect, inject, OnInit} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MediaService} from '../../services/media.service';
-import {SearchMultiResponse} from '../../models/search-multi-response';
-import {NgOptimizedImage} from '@angular/common';
-import {SearchService} from '../../services/search.service';
-import {toObservable} from '@angular/core/rxjs-interop';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
+import {MenuService} from '../../services/menu.service';
+import {MenuComponent} from '../menu/menu.component';
 
 @Component({
   selector: 'app-main-app',
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgOptimizedImage,
-    RouterLink
+    MatSidenavContainer,
+    MatSidenavContent,
+    MatSidenav,
+    MenuComponent,
+    RouterOutlet,
   ],
   templateUrl: './main-app.component.html',
   styleUrl: './main-app.component.css'
@@ -23,20 +23,15 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
 export class MainAppComponent {
 
   authService = inject(AuthService)
-  searchService = inject(SearchService)
+  menuService = inject(MenuService)
 
   route = inject(Router)
+  opened = true;
 
-  public result: SearchMultiResponse = {
-    page: 0,
-    results: [],
-    total_results: 0,
-    total_pages: 0
-  };
 
   constructor() {
     effect(() => {
-      this.result = this.searchService.result();
+      this.opened = this.menuService.opened();
     })
   }
 
@@ -46,4 +41,3 @@ export class MainAppComponent {
     this.route.navigate(["/"])
   }
 }
-
