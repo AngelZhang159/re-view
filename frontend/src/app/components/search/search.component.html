@@ -1,6 +1,5 @@
-
-@for (item of result.results; track item.id) {
-  <a [routerLink]="['/details' + '/' + item.media_type, item.id]" class="h-[240px] w-[160px]">
+@for (item of result ? result().results : null; track item.id) {
+  <a [routerLink]="['/app', { outlets: { content: ['details', item.media_type, item.id] } }]" class="h-[240px] w-[160px]">
     <mat-card appearance="outlined" class="m-6">
       <div class="inline-flex">
         <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.poster_path }}"

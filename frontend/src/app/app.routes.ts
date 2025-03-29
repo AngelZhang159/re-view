@@ -8,6 +8,7 @@ import {homeGuard} from './guards/home.guard';
 import {DetailsComponent} from './components/details/details.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {SearchComponent} from './components/search/search.component';
+import {ContentComponent} from './components/content/content.component';
 
 export const routes: Routes = [
   {
@@ -29,12 +30,17 @@ export const routes: Routes = [
     // canActivate: [authGuard],
     children: [
       {
+        path: '',
+        component: ContentComponent,
+        outlet: 'content'
+      },
+      {
         path: 'details/:type/:id',
         component: DetailsComponent,
         outlet: 'content'
       },
       {
-        path: 'search:query',
+        path: 'search',
         component: SearchComponent,
         outlet: 'content'
       },

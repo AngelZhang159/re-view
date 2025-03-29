@@ -19,6 +19,7 @@ import {inject, Injectable, runInInjectionContext, signal, Injector} from '@angu
       });
 
       setSearchQuery(query: string) {
+        console.log("Searching: " + query);
         this.searchQuery.set(query);
         this.callApi(query);
       }
@@ -33,6 +34,7 @@ import {inject, Injectable, runInInjectionContext, signal, Injector} from '@angu
             .subscribe(query => {
               this.mediaService.searchMulti(query).subscribe(response => {
                 this.result.set(response);
+                console.log("Sending search query SIGNAL")
               });
             });
         });
