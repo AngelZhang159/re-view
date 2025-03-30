@@ -7,6 +7,7 @@ import {NgOptimizedImage} from '@angular/common';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {RouterLink} from '@angular/router';
 import {Carousel} from 'primeng/carousel';
+import {MenuService} from '../../services/menu.service';
 
 @Component({
   selector: 'app-content',
@@ -28,13 +29,15 @@ import {Carousel} from 'primeng/carousel';
 export class ContentComponent {
 
   mediaService = inject(MediaService);
+  menuService = inject(MenuService);
   trendingSeriesToday: any;
   trendingMoviesToday: any;
 
   constructor() {
     this.mediaService.getTrending('tv').subscribe(data => {
-      this.trendingSeriesToday = data.results;
-    })
+        this.trendingSeriesToday = data.results;
+      }
+    )
 
     this.mediaService.getTrending('movie').subscribe(data => {
       this.trendingMoviesToday = data.results;
