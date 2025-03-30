@@ -1,44 +1,40 @@
 <div class="p-12 h-screen overflow-hidden w-auto">
   <h1 class="text-3xl font-bold">TRENDING SERIES</h1>
-  <div class="flex flex-row overflow-x-auto ">
-    @for (item of trendingSeriesToday?.results; track item.id) {
-      <div class="flex :hover:scale-105 transition-transform duration-300 ease-in-out">
-        <mat-card class="h-[300px] w-[160px] m-4 cursor-pointer"
-                  [routerLink]="['/app', { outlets: { content: ['details', item.media_type, item.id] } }]">
-          <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.poster_path }}"
-               height="240" width="160" class="object-cover aspect-[2/3] rounded-xl" alt="{{ item.name }}"/>
-          <div>
-            <mat-card-header>
-              <mat-card-title>
-              <span class="font-bold line-clamp-1 text-xl">
-                {{ item.title ? item.title : item.name }}
-              </span>
-              </mat-card-title>
-            </mat-card-header>
-          </div>
-        </mat-card>
-      </div>
-    }
-  </div>
-  <h1 class="text-3xl font-bold">TRENDING MOVIES</h1>
-  <div class="flex flex-row overflow-x-auto">
-    @for (item of trendingMoviesToday?.results; track item.id) {
-      <div class="flex :hover:scale-105 transition-transform duration-300 ease-in-out">
-        <mat-card class="h-[300px] w-[160px] m-4 cursor-pointer"
-                  [routerLink]="['/app', { outlets: { content: ['details', item.media_type, item.id] } }]">
-          <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.poster_path }}"
-               height="240" width="160" class="object-cover aspect-[2/3] rounded-xl" alt="{{ item.name }}"/>
-          <div>
-            <mat-card-header>
-              <mat-card-title>
-              <span class="font-bold line-clamp-1 text-xl">
-                {{ item.title ? item.title : item.name }}
-              </span>
-              </mat-card-title>
-            </mat-card-header>
-          </div>
-        </mat-card>
-      </div>
-    }
-  </div>
+  <p-carousel [value]="trendingSeriesToday" [numVisible]="6" [numScroll]="1" showIndicators="false">
+    <ng-template let-poster #item>
+      <mat-card class="h-[355px] w-[200px] m-4 cursor-pointer"
+                [routerLink]="['/app', { outlets: { content: ['details', poster.media_type, poster.id] } }]">
+        <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.poster_path }}"
+             height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
+        <div>
+          <mat-card-header>
+            <mat-card-title>
+                      <span class="font-bold line-clamp-1 text-xl">
+                        {{ poster.title ? poster.title : poster.name }}
+                      </span>
+            </mat-card-title>
+          </mat-card-header>
+        </div>
+      </mat-card>
+    </ng-template>
+  </p-carousel>
+    <h1 class="text-3xl font-bold">TRENDING MOVIES</h1>
+  <p-carousel [value]="trendingMoviesToday" [numVisible]="6" [numScroll]="1" showIndicators="false">
+    <ng-template let-poster #item>
+      <mat-card class="h-[355px] w-[200px] m-4 cursor-pointer"
+                [routerLink]="['/app', { outlets: { content: ['details', poster.media_type, poster.id] } }]">
+        <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.poster_path }}"
+             height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
+        <div>
+          <mat-card-header>
+            <mat-card-title>
+                      <span class="font-bold line-clamp-1 text-xl">
+                        {{ poster.title ? poster.title : poster.name }}
+                      </span>
+            </mat-card-title>
+          </mat-card-header>
+        </div>
+      </mat-card>
+    </ng-template>
+  </p-carousel>
 </div>

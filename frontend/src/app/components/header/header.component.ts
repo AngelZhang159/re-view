@@ -3,12 +3,14 @@ import {enviroment} from '../../../enviroments/enviroment';
 import {MatIcon} from '@angular/material/icon';
 import {SearchService} from '../../services/search.service';
 import {MenuService} from '../../services/menu.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-header',
   imports: [
-    MatIcon
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
