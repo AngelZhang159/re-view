@@ -19,4 +19,10 @@ export class MediaApiService {
   getDetails(type: string, id: number) {
     return this.http.get<DetailsResponse>(`${this.apiUrl}/media/details/${type}/${id}`)
   }
+
+  getTrending(type: string) {
+    //type can be 'tv' or 'movie'
+    //can add a time window 'day' or 'week', default is 'day'
+    return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/trending/${type}`)
+  }
 }

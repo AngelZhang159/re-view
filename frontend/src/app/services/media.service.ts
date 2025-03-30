@@ -16,4 +16,7 @@ export class MediaService {
     return this.mediaApiService.getDetails(type, id)
   }
 
+  getTrending(tv: string) {
+    return this.mediaApiService.getTrending(tv)
+  }
 }
