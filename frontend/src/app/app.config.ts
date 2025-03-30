@@ -4,7 +4,29 @@ import {provideRouter, withComponentInputBinding} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import {requestInterceptor} from './interceptors/request.interceptor';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {providePrimeNG} from 'primeng/config';
+import Material from '@primeng/themes/material';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideHttpClient(withFetch(), withInterceptors([requestInterceptor])), provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes, withComponentInputBinding())]
+  providers: [
+    provideHttpClient(
+      withFetch(),
+      withInterceptors(
+        [requestInterceptor]
+      )),
+    provideZoneChangeDetection(
+      {eventCoalescing: true}
+    ),
+    provideRouter(
+      routes,
+      withComponentInputBinding()
+    ),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Material
+      }
+    })
+  ]
 };

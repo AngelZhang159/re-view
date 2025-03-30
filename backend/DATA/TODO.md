@@ -5,6 +5,7 @@
 - [ ] Home page with suggestions, (friend news?)
 - [ ] Friends lists 
     - See their profiles
+      - Add primeng inplace for spoiler tag if they have a review for a movie I haven't seen
     - Newest additions
     - Recommended by them
     - Amount of movies/series
@@ -18,5 +19,11 @@
   - Add to your recommended
   - See your friends
   - Watch time
+  - PrimeNG 
+    - Scroll to top
+    - Skeleton of the movie/series
+    - Progress bar
+    - Spinner
+    - Fade in for cards in search/home page (?)
 
 ### FIX:
