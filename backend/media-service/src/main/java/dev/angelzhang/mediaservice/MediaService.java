@@ -100,4 +100,17 @@ public class MediaService {
                 .block();
     }
 
+    public ResponseEntity<SearchMultiAPIRequest> trending(String type, String typeWindow) {
+        Mono<SearchMultiAPIRequest> searchMultiAPIRequestMono = webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/trending" )
+                        .pathSegment(type)
+                        .pathSegment(typeWindow)
+                        .build())
+                .retrieve()
+                .bodyToMono(SearchMultiAPIRequest.class);
+
+        return ResponseEntity.ok(searchMultiAPIRequestMono.block());
+    }
 }

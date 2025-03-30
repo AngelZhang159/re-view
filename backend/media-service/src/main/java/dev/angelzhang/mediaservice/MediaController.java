@@ -32,9 +32,16 @@ public class MediaController {
         return mediaService.getMediaDetailsById(type, id);
     }
 
+    @GetMapping("/trending/{type}")
+    public ResponseEntity<SearchMultiAPIRequest> trending(
+            @PathVariable String type,
+            @RequestParam(required = false, defaultValue = "day") String timeWindow) {
+        log.info("New trending query");
+        return mediaService.trending(type, timeWindow);
+    }
+
     @GetMapping("/health")
     public String health() {
         return "API WORKS";
     }
-
 }
