@@ -21,10 +21,10 @@ import {debounceTime, distinctUntilChanged} from 'rxjs';
       setSearchQuery(query: string) {
         console.log("Searching: " + query);
         this.searchQuery.set(query);
-        this.callApi(query);
+        this.callApi();
       }
 
-      private callApi(query: string) {
+      private callApi() {
         runInInjectionContext(this.injector, () => {
           toObservable(this.searchQuery)
             .pipe(
