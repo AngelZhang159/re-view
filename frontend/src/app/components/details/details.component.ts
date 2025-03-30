@@ -1,5 +1,4 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {DetailsResponse} from '../../models/details-response';
 import {MediaService} from '../../services/media.service';
 import {NgOptimizedImage} from '@angular/common';

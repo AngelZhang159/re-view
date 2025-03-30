@@ -1,10 +1,10 @@
-import {inject, Injectable, runInInjectionContext, signal, Injector} from '@angular/core';
-    import {SearchMultiResponse} from '../models/search-multi-response';
-    import {MediaService} from './media.service';
-    import {toObservable} from '@angular/core/rxjs-interop';
-    import {debounceTime, distinctUntilChanged} from 'rxjs';
+import {inject, Injectable, Injector, runInInjectionContext, signal} from '@angular/core';
+import {SearchMultiResponse} from '../models/search-multi-response';
+import {MediaService} from './media.service';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {debounceTime, distinctUntilChanged} from 'rxjs';
 
-    @Injectable({
+@Injectable({
       providedIn: 'root'
     })
     export class SearchService {

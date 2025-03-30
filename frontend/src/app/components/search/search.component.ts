@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit, WritableSignal} from '@angular/core';
+import {Component, inject, OnInit, WritableSignal} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatChip, MatChipSet} from '@angular/material/chips';
@@ -6,7 +6,6 @@ import {NgOptimizedImage} from '@angular/common';
 import {SearchMultiResponse} from '../../models/search-multi-response';
 import {SearchService} from '../../services/search.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {map} from 'rxjs';
 
 @Component({
   selector: 'app-search',
