@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {enviroment} from '../../../enviroments/enviroment';
 import {MatIcon} from '@angular/material/icon';
 import {SearchService} from '../../services/search.service';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {Avatar} from 'primeng/avatar';
 import {AuthService} from '../../services/auth.service';
 import {Dialog} from 'primeng/dialog';
@@ -14,7 +14,6 @@ import {ProfileService} from '../../services/profile.service';
   imports: [
     MatIcon,
     Avatar,
-    RouterLink,
     Dialog,
     ProfileComponent,
   ],
