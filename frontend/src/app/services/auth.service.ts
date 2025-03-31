@@ -27,7 +27,11 @@ export class AuthService {
     localStorage.setItem("refreshToken", userResponse.refreshToken)
     localStorage.setItem("username", userResponse.user.username)
     localStorage.setItem("email", userResponse.user.email)
-    localStorage.setItem("profilePicture", userResponse.user.profilePicture)
+    if (userResponse.user.profilePicture != null && userResponse.user.profilePicture !== "" && userResponse.user.profilePicture !== 'null') {
+      localStorage.setItem("profilePicture", userResponse.user.profilePicture)
+    } else {
+      localStorage.setItem("profilePicture", "/icons/user.svg")
+    }
     localStorage.setItem("expiresIn", String((userResponse.expiresIn * 1000) + Date.now()))
     localStorage.setItem("rememberMe", String(rememberMe))
   }
@@ -46,6 +50,18 @@ export class AuthService {
 
   public getRefreshToken() {
     return localStorage.getItem("refreshToken")
+  }
+
+  public getUsername() {
+    return localStorage.getItem("username")
+  }
+
+  public getEmail() {
+    return localStorage.getItem("email")
+  }
+
+  public getProfilePicture() {
+    return localStorage.getItem("profilePicture")
   }
 
   public refreshToken() {
