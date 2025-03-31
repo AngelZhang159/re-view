@@ -1,17 +1,46 @@
-<div class="px-6 py-12">
-  <nav>
-    <ul class="text-4xl text-neutral-300 grid gap-12">
-      <li><a routerLink="/app">HOME</a></li>
-<!--      <li><a>SEARCH</a></li>-->
-      <li>
-        <a routerLink="/app/reviews">REVIEWS</a>
-        <ul class="text-2xl text-neutral-300 pl-6 grid gap-6">
-          <li><a routerLink="/app/reviews/media">- MOVIES & SERIES</a></li>
-<!--          <li><a>- BOOKS</a></li>-->
-        </ul>
-      </li>
-      <li routerLink="/app/friends"><a>FRIENDS</a></li>
-      <li routerLink="/app/settings"><a>SETTINGS</a></li>
-    </ul>
-  </nav>
+<div class="flex w-full h-full">
+
+  <div class="h-full flex flex-col overflow-hidden w-full">
+    <!--  <div class="flex items-center flex-col">-->
+    <!--    <img src="{{(authService.getProfilePicture() == 'null' || authService.getProfilePicture() == null) ? '/icons/user.svg' : authService.getProfilePicture()}}"-->
+    <!--         width="120px" height="120px" alt="" class="mt-12 mb-4"/>-->
+    <!--    <span class="text-3xl mb-4">{{ authService.getUsername() }}</span>-->
+    <!--  </div>-->
+
+    <!--  <mat-divider/>-->
+
+
+    <!--  <div class="h-full m-6 border-2 rounded-2xl">-->
+
+    <mat-nav-list class="flex h-full">
+      <div class="gap-2 grid h-full grid-rows-[auto_auto_auto_1fr] w-auto">
+        @for (item of routeList; track item.label) {
+          @if (item.label.toLowerCase() != 'settings') {
+            <a mat-list-item routerLink="{{item.route}}" [style.height]="'60px'" [style.padding-left]="'16px'"
+               (click)="item.action ? item.action() : null">
+              <mat-icon matListItemIcon class="scale-125">
+                {{ item.icon }}
+              </mat-icon>
+              <span class="text-xl font-bold text-neutral-400">
+          {{ item.label }}
+          </span>
+            </a>
+          } @else {
+            <mat-divider/>
+            <a mat-list-item routerLink="{{item.route}}" class="flex" [style.height]="'60px'"
+               [style.padding-left]="'16px'">
+              <mat-icon matListItemIcon class="scale-125">
+                {{ item.icon }}
+              </mat-icon>
+              <span class="text-xl font-bold text-neutral-400">
+          {{ item.label }}
+        </span>
+            </a>
+          }
+        }
+      </div>
+    </mat-nav-list>
+    <!--  </div>-->
+  </div>
+  <mat-divider vertical/>
 </div>

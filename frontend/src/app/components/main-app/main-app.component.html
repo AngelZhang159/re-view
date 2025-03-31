@@ -1,5 +1,5 @@
-<mat-sidenav-container class="h-full w-full">
-  <mat-sidenav mode="side" [(opened)]="opened">
+<mat-sidenav-container class="w-full" style="height: calc(100vh - 128px);">
+  <mat-sidenav mode="side" [(opened)]="opened" [style.width]="sideNavWidth()">
     <app-menu/>
   </mat-sidenav>
   <mat-sidenav-content>

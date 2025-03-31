@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, computed, effect, inject} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router, RouterOutlet} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -27,6 +27,8 @@ export class MainAppComponent {
 
   route = inject(Router)
   opened = true;
+
+  sideNavWidth = computed(() => this.opened ? '280px' : '65px')
 
 
   constructor() {
