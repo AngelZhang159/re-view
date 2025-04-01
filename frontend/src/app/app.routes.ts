@@ -8,6 +8,7 @@ import {DetailsComponent} from './components/details/details.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {SearchComponent} from './components/search/search.component';
 import {ContentComponent} from './components/content/content.component';
+import {authGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -26,7 +27,7 @@ export const routes: Routes = [
   {
     path: 'app',
     component: MainAppComponent,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: '',
