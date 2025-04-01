@@ -15,7 +15,7 @@
       <ng-template let-poster #item>
         <mat-card
           class="h-[355px] w-[200px] m-4 cursor-pointer flex transform hover:scale-105 transition-transform duration-300 ease-in-out"
-          [routerLink]="['/app', { outlets: { content: ['details', poster.media_type, poster.id] } }]">
+          (click)="openDrawer(poster.media_type, poster.id)">
           <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.poster_path }}"
                height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
           <div>
@@ -36,7 +36,7 @@
       <ng-template let-poster #item>
         <mat-card
           class="h-[355px] w-[200px] m-4 cursor-pointer flex transform hover:scale-105 transition-transform duration-300 ease-in-out"
-          [routerLink]="['/app', { outlets: { content: ['details', poster.media_type, poster.id] } }]">
+        (click)="openDrawer(poster.media_type, poster.id)">
           <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.poster_path }}"
                height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
           <div>

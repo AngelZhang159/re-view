@@ -2,11 +2,12 @@ import {Component, inject} from '@angular/core';
 import {MediaService} from '../../services/media.service';
 import {MatCard, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
-import {RouterLink} from '@angular/router';
 import {Carousel} from 'primeng/carousel';
 import {MenuService} from '../../services/menu.service';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {DetailsComponent} from '../details/details.component';
 
 @Component({
   selector: 'app-content',
@@ -15,7 +16,6 @@ import {MatIconButton} from '@angular/material/button';
     MatCardHeader,
     MatCardTitle,
     NgOptimizedImage,
-    RouterLink,
     Carousel,
     MatIcon,
     MatIconButton
@@ -27,6 +27,7 @@ export class ContentComponent {
 
   mediaService = inject(MediaService);
   menuService = inject(MenuService);
+  private bottomSheet = inject(MatBottomSheet)
 
   trendingSeriesToday: any;
   trendingMoviesToday: any;
@@ -42,4 +43,11 @@ export class ContentComponent {
     })
   }
 
+  openDrawer(media_type: any, id: number) {
+    if (id != null || id != undefined && media_type != null || media_type != undefined) {
+      this.mediaService.getDetails(media_type, id).subscribe(data => {
+        this.bottomSheet.open(DetailsComponent, {data: {details: data}, height: '80vh'});
+      })
+    }
+  }
 }

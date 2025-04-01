@@ -1,36 +1,25 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {DetailsResponse} from '../../models/details-response';
-import {MediaService} from '../../services/media.service';
-import {NgOptimizedImage} from '@angular/common';
+import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
+import {NgOptimizedImage, NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-details',
   imports: [
-    NgOptimizedImage
+    NgOptimizedImage,
+    NgStyle
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
-export class DetailsComponent implements OnInit{
-  mediaService = inject(MediaService)
-  type = input.required<string>()
+export class DetailsComponent {
 
-  id = input.required<number>()
-
-  details: DetailsResponse | undefined;
-
-  constructor() {
-    console.log("DETAILS COMPONENT CONSTRUCTOR")
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { details: DetailsResponse }) {
+    this.details = data.details
+    console.log(JSON.stringify(this.details))
   }
 
-  ngOnInit(): void {
-    if (this.id != null && this.type != null) {
-      this.mediaService.getDetails(this.type(), this.id()).subscribe(data => {
-        console.log(data)
-        this.details = data
-      })
-    }
-  }
+  details: DetailsResponse;
 
   protected readonly JSON = JSON;
 }
