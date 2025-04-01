@@ -29,3 +29,4 @@
 ### FIX:
 
 - [ ] Cache trending for a day (maybe batch with 1 day repetition and return the same response everytime?)
+- [ ] Add profile functionality
