@@ -5,6 +5,12 @@ import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {ProfileService} from '../../services/profile.service';
 import {AuthService} from '../../services/auth.service';
+import {NgOptimizedImage} from '@angular/common';
+import {IftaLabel} from 'primeng/iftalabel';
+import {FormsModule} from '@angular/forms';
+import {InputText} from 'primeng/inputtext';
+import {ButtonGroup} from 'primeng/buttongroup';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +18,13 @@ import {AuthService} from '../../services/auth.service';
     MatIconButton,
     Avatar,
     MatDivider,
-    MatIcon
+    MatIcon,
+    NgOptimizedImage,
+    IftaLabel,
+    FormsModule,
+    InputText,
+    ButtonGroup,
+    Button
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -21,5 +33,8 @@ export class ProfileComponent {
 
   profileService = inject(ProfileService);
   authService = inject(AuthService);
+  usernameForm: any;
+  oldPasswordForm: any;
+  newPasswordForm: any;
 
 }

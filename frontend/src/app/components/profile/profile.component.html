@@ -1,26 +1,62 @@
-<div class="w-[500px] h-[700px] bg-neutral-900 rounded-2xl flex flex-col">
-  <div class="flex flex-row justify-between items-center p-6">
+<div class="bg-neutral-900 rounded-2xl flex flex-col px-12 gap-8">
+  <div class="flex flex-row justify-between items-center py-6">
     <h1 class="text-3xl font-bold">Profile</h1>
     <button mat-icon-button (click)="profileService.open.set(!profileService.open())">
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="flex flex-col items-center">
-    <p-avatar image="{{authService.getProfilePicture()}}" size="xlarge" shape="circle"/>
-    <span class="text-3xl mt-4 mb-4">{{ authService.getUsername() }}</span>
+  <div class="flex flex-col gap-4 font-bold">
+    <span>Profile picture</span>
+    <div class="flex-row flex justify-between items-center gap-8">
+      <div class="flex-col">
+        <img src="{{authService.getProfilePicture()}}" width="100px" height="100px" alt=""/>
+      </div>
+      <div class="card flex justify-center gap-4">
+        <p-button severity="info" label="Change picture" icon="pi pi-cloud-upload"/>
+      </div>
+      <div class="card flex justify-center gap-4">
+        <p-button icon="pi pi-trash" variant="outlined" severity="danger" label="Delete picture"/>
+      </div>
+    </div>
+    <span>Profile name</span>
+    <p-ifta-label>
+      <input class="w-full" pInputText id="username" [(ngModel)]="usernameForm" autocomplete="off"
+             placeholder="{{authService.getUsername()}}"/>
+      <label for="username">Username</label>
+    </p-ifta-label>
+    <span>Email</span>
+    <input class="w-full" pInputText disabled autocomplete="off" placeholder="{{authService.getEmail()}}"/>
+    <mat-divider/>
+    <span>Change password</span>
+    <p-ifta-label>
+      <input class="w-full" pInputText id="oldPassword" [(ngModel)]="oldPasswordForm" autocomplete="off"
+             placeholder="●●●●●●●●"/>
+      <label for="username">Old password</label>
+    </p-ifta-label>
+    <p-ifta-label>
+      <input class="w-full" pInputText id="newPassword" [(ngModel)]="newPasswordForm" autocomplete="off"
+             placeholder="●●●●●●●●"/>
+      <label for="username">New password</label>
+    </p-ifta-label>
+
+    <div class="card flex justify-end gap-4">
+      <p-button icon="pi pi-save" severity="info" label="Save"/>
+    </div>
   </div>
-  <mat-divider/>
-<!--  <div class="flex flex-col gap-2 p-6">-->
-<!--    @for (item of routeList; track item.label) {-->
-<!--      <a mat-list-item routerLink="{{item.route}}" [style.height]="'60px'" [style.padding-left]="'16px'">-->
-<!--        <mat-icon matListItemIcon class="scale-125">-->
-<!--          {{ item.icon }}-->
-<!--        </mat-icon>-->
-<!--        <span class="text-xl font-bold text-neutral-400">-->
-<!--          {{ item.label }}-->
-<!--        </span>-->
-<!--      </a>-->
-<!--    }-->
-<!--  </div>-->
+
+  <div>
+  </div>
+  <!--  <div class="flex flex-col gap-2 p-6">-->
+  <!--    @for (item of routeList; track item.label) {-->
+  <!--      <a mat-list-item routerLink="{{item.route}}" [style.height]="'60px'" [style.padding-left]="'16px'">-->
+  <!--        <mat-icon matListItemIcon class="scale-125">-->
+  <!--          {{ item.icon }}-->
+  <!--        </mat-icon>-->
+  <!--        <span class="text-xl font-bold text-neutral-400">-->
+  <!--          {{ item.label }}-->
+  <!--        </span>-->
+  <!--      </a>-->
+  <!--    }-->
+  <!--  </div>-->
 
 </div>
