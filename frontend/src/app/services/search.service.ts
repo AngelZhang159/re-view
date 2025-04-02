@@ -19,9 +19,10 @@ import {debounceTime, distinctUntilChanged} from 'rxjs';
       });
 
       setSearchQuery(query: string) {
-        console.log("Searching: " + query);
-        this.searchQuery.set(query);
-        this.callApi();
+        if (query != this.searchQuery()) {
+          this.searchQuery.set(query);
+          this.callApi();
+        }
       }
 
       private callApi() {
@@ -34,7 +35,6 @@ import {debounceTime, distinctUntilChanged} from 'rxjs';
             .subscribe(query => {
               this.mediaService.searchMulti(query).subscribe(response => {
                 this.result.set(response);
-                console.log("Sending search query SIGNAL")
               });
             });
         });
