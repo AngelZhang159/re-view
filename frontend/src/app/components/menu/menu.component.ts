@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
     },
     {
       label: 'Close',
-      icon: this.menuService.opened() ? 'close' : 'menu',
+      icon: 'menu',
       action: () => {
         this.menuService.toggle();
       }
