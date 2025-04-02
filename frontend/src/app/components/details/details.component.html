@@ -13,17 +13,19 @@
     <img class="h-[550px] w-auto rounded-2xl" ngSrc="https://image.tmdb.org/t/p/original/{{details.poster_path}}"
          alt="backdrop"
          width="100" height="100"/>
-    <div class="flex-col flex h-full w-screen text-ellipsis overflow-hidden p-6 gap-6">
-      <h1 class=" truncate font-bold overflow-hidden text-6xl">
-        <span>{{ details.name ? details.name : details.title }}</span>
-      </h1>
+    <div class="flex-col flex h-full w-screen text-ellipsis overflow-hidden px-6 gap-6">
+      <div>
+        <h1 class="truncate font-bold overflow-hidden text-6xl pb-4">
+          <span>{{ details.name ? details.name : details.title }}</span>
+        </h1>
 
-      @if ((details.original_name || details.original_title) &&
-      (details.original_name != details.name || details.original_title != details.title)) {
-        <h2 class="truncate text-4xl font-bold text-neutral-400">
-          <span>{{ details.original_name ? details.original_name : details.original_title }}</span>
-        </h2>
-      }
+        @if ((details.original_name || details.original_title) &&
+        (details.original_name != details.name || details.original_title != details.title)) {
+          <h2 class="truncate text-4xl font-bold text-neutral-400">
+            <span>{{ details.original_name ? details.original_name : details.original_title }}</span>
+          </h2>
+        }
+      </div>
 
       <p class="text-2xl">
         {{ details.overview }}
@@ -36,27 +38,29 @@
           }
         </mat-chip-set>
       </div>
+      <div class="flex flex-row gap-8">
 
-      @if (details.origin_country) {
-        <div>
-          <span>Origin countries</span>
-          <mat-chip-set>
-            @for (country of details.origin_country; track country) {
-              <mat-chip>{{ getCountryFlag(country.toString()) }} {{ country }}</mat-chip>
-            }
-          </mat-chip-set>
-        </div>
-      }
-      @if (details.production_countries) {
-        <div>
-          <span>Production countries</span>
-          <mat-chip-set>
-            @for (country of details.production_countries; track country) {
-              <mat-chip>{{ getCountryFlag(country.iso_3166_1) }} {{ country.iso_3166_1 }}</mat-chip>
-            }
-          </mat-chip-set>
-        </div>
-      }
+        @if (details.origin_country) {
+          <div>
+            <span>Origin countries</span>
+            <mat-chip-set>
+              @for (country of details.origin_country; track country) {
+                <mat-chip>{{ getCountryFlag(country.toString()) }} {{ country }}</mat-chip>
+              }
+            </mat-chip-set>
+          </div>
+        }
+        @if (details.production_countries) {
+          <div>
+            <span>Production countries</span>
+            <mat-chip-set>
+              @for (country of details.production_countries; track country) {
+                <mat-chip>{{ getCountryFlag(country.iso_3166_1) }} {{ country.iso_3166_1 }}</mat-chip>
+              }
+            </mat-chip-set>
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>

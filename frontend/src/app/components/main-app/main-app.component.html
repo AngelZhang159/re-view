@@ -1,8 +1,8 @@
 <mat-sidenav-container class="w-full" style="height: calc(100vh - 128px);">
-  <mat-sidenav mode="side" [(opened)]="opened" [style.width]="sideNavWidth()">
+  <mat-sidenav mode="side" opened="true" [style.width]="menuService.opened() ? '280px' : '100px'" [style.overflow]="'hidden'">
     <app-menu/>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [style.margin-left]="menuService.opened() ? '280px' : '100px'">
     <router-outlet name="content"/>
   </mat-sidenav-content>
 </mat-sidenav-container>
