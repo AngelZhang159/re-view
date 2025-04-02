@@ -1,16 +1,7 @@
-<div class="flex flex-row {{!menuService.opened() ? 'ml-6' : '}}">
-  <div class="flex-col">
-    @if (!menuService.opened()) {
-      <button mat-icon-button class="scale-200 cursor-pointer mt-10 ml-6"
-              (click)="menuService.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    }
-  </div>
-
-  <div class="p-12 h-screen overflow-hidden w-auto">
+<div class="w-full flex items-stretch justify-stretch">
+  <div class="p-12 overflow-hidden flex-wrap w-fit h-fit">
     <h1 class="text-3xl font-bold">TRENDING SERIES</h1>
-    <p-carousel [value]="trendingSeriesToday" [numVisible]=" menuService.opened() ? 6 : 7 " [numScroll]="1"
+    <p-carousel [value]="trendingSeriesToday" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
                 showIndicators="false">
       <ng-template let-poster #item>
         <mat-card
@@ -31,7 +22,7 @@
       </ng-template>
     </p-carousel>
     <h1 class="text-3xl font-bold">TRENDING MOVIES</h1>
-    <p-carousel [value]="trendingMoviesToday" [numVisible]=" menuService.opened() ? 6 : 7 " [numScroll]="1"
+    <p-carousel [value]="trendingMoviesToday" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
                 showIndicators="false">
       <ng-template let-poster #item>
         <mat-card

@@ -4,8 +4,6 @@ import {MatCard, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Carousel} from 'primeng/carousel';
 import {MenuService} from '../../services/menu.service';
-import {MatIcon} from '@angular/material/icon';
-import {MatIconButton} from '@angular/material/button';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {DetailsComponent} from '../details/details.component';
 
@@ -16,9 +14,7 @@ import {DetailsComponent} from '../details/details.component';
     MatCardHeader,
     MatCardTitle,
     NgOptimizedImage,
-    Carousel,
-    MatIcon,
-    MatIconButton
+    Carousel
   ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css'
