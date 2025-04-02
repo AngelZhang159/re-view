@@ -29,15 +29,11 @@ export class HeaderComponent {
   authService = inject(AuthService);
   profileService = inject(ProfileService);
 
-  lastQuery = "";
-
   onEnter($event: any) {
     const value = ($event.target as HTMLInputElement).value;
-    if (value != this.lastQuery) {
-      this.lastQuery = value
-      this.searchService.setSearchQuery(value);
-      this.router.navigate(['/app', {outlets: {content: 'search'}}], {queryParams: {query: value}});
-    }
+
+    this.searchService.setSearchQuery(value);
+    this.router.navigate(['/app', {outlets: {content: 'search'}}], {queryParams: {query: value}});
   }
 
 }
