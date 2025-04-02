@@ -1,10 +1,10 @@
 @for (item of result ? result().results : null; track item.id) {
-  <a [routerLink]="['/app', { outlets: { content: ['details', item.media_type, item.id] } }]" class="h-[240px] w-[160px]">
+  <a (click)="openDrawer(item.media_type, item.id)" class="h-[240px] w-[160px] cursor-pointer">
     <mat-card appearance="outlined" class="m-6">
       <div class="inline-flex">
         <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.poster_path }}"
              height="240" width="160" class="object-cover aspect-[2/3] rounded-xl" alt="{{ item.name }}"/>
-        <div>
+        <div class="flex flex-col">
           <mat-card-header>
             <mat-card-title>
               <span class="text-3xl">
@@ -18,15 +18,15 @@
             </mat-card-title>
           </mat-card-header>
 
-          <mat-card-content>
-            <p class="py-4 text-xl overflow-hidden text-ellipsis line-clamp-4">
+          <mat-card-content class="flex-1">
+            <p class="text-xl overflow-hidden text-ellipsis line-clamp-4 mt-2">
               {{ item.overview }}
             </p>
           </mat-card-content>
 
           <mat-card-footer>
             @if (item.origin_country != undefined && item.origin_country.length > 0) {
-              <mat-chip-set class="px-6 py-2 items-center">
+              <mat-chip-set class="px-4 py-2 items-center">
                 @for (country of item.origin_country; track country) {
                   <mat-chip color="primary">
                         <span class="text-neutral-500">
