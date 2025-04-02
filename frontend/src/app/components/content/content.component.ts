@@ -21,8 +21,8 @@ import {DetailsComponent} from '../details/details.component';
 })
 export class ContentComponent {
 
-  mediaService = inject(MediaService);
   menuService = inject(MenuService);
+  mediaService = inject(MediaService);
   private bottomSheet = inject(MatBottomSheet)
 
   trendingSeriesToday: any;
