@@ -9,6 +9,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {SearchComponent} from './components/search/search.component';
 import {ContentComponent} from './components/content/content.component';
 import {authGuard} from './guards/auth.guard';
+import {ReviewComponent} from './components/review/review.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,17 @@ export const routes: Routes = [
         component: SearchComponent,
         outlet: 'content'
       },
+      {
+        path: 'reviews',
+        component: ReviewComponent,
+        outlet: 'content',
+        // children: [
+        //   {
+        //     path: ':id',
+        //     component: ReviewComponent,
+        //   }
+        // ]
+      }
     ]
   },
   {
