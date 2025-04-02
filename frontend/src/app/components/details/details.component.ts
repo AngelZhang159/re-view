@@ -3,6 +3,8 @@ import {CountryCode, DetailsResponse, ProductionCountry} from '../../models/deta
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 import {NgOptimizedImage, NgStyle} from '@angular/common';
 import {MatChip, MatChipSet} from '@angular/material/chips';
+import {Button} from 'primeng/button';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-details',
@@ -10,7 +12,9 @@ import {MatChip, MatChipSet} from '@angular/material/chips';
     NgOptimizedImage,
     NgStyle,
     MatChipSet,
-    MatChip
+    MatChip,
+    Button,
+    MatIcon
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
