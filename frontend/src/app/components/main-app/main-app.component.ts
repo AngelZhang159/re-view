@@ -26,17 +26,6 @@ export class MainAppComponent {
   menuService = inject(MenuService)
 
   route = inject(Router)
-  opened = true;
-
-  sideNavWidth = computed(() => this.opened ? '280px' : '65px')
-
-
-  constructor() {
-    effect(() => {
-      this.opened = this.menuService.opened();
-    })
-  }
-
 
   logOut() {
     this.authService.logOut()
