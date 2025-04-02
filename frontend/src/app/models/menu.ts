@@ -1,6 +1,6 @@
 export type menuList = {
   label: string;
-  route: string;
+  route?: string | [any];
   icon: string;
   action?: () => void;
 }

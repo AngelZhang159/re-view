@@ -5,6 +5,7 @@ import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {MenuService} from '../../services/menu.service';
 import {menuList} from '../../models/menu';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-menu',
@@ -15,6 +16,7 @@ import {menuList} from '../../models/menu';
     RouterLink,
     MatListItemIcon,
     MatDivider,
+    NgStyle,
 
   ],
   templateUrl: './menu.component.html',
@@ -39,25 +41,24 @@ export class MenuComponent implements OnInit {
     },
     {
       label: 'Reviews',
-      route: '/app/reviews',
+      route: [{outlets: {content: ["reviews"]}}],
       icon: 'star'
     },
     {
       label: 'Friends',
-      route: '/app/friends',
+      route: [{outlets: {content: ["friends"]}}],
       icon: 'people'
     },
     {
-      label: this.menuService.opened() ? 'Close' : '',
+      label: 'Close',
       icon: this.menuService.opened() ? 'close' : 'menu',
-      route: '',
       action: () => {
         this.menuService.toggle();
       }
     },
     {
       label: 'Settings',
-      route: '/app/settings',
+      route: [{outlets: {content: ["settings"]}}],
       icon: 'settings'
     }
   ]
@@ -98,4 +99,5 @@ export class MenuComponent implements OnInit {
     ]
   }
 
+  protected readonly JSON = JSON;
 }
