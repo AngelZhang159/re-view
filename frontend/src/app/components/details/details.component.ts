@@ -1,10 +1,12 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject, Inject} from '@angular/core';
 import {CountryCode, DetailsResponse, ProductionCountry} from '../../models/details-response';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 import {NgOptimizedImage, NgStyle} from '@angular/common';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {Button} from 'primeng/button';
 import {MatIcon} from '@angular/material/icon';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateReviewComponent} from '../create-review/create-review.component';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +22,8 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent {
+
+  dialog = inject(MatDialog)
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { details: DetailsResponse }) {
     this.details = data.details
@@ -39,10 +43,15 @@ export class DetailsComponent {
     return String.fromCodePoint(firstChar, secondChar);
   }
 
-  areCountriesEqual(origin_country: CountryCode[], production_countries: ProductionCountry[]) {
-    return origin_country.length === production_countries.length &&
-      origin_country.every((country, index) => {
-        return country.toString() === production_countries[index].iso_3166_1;
-      });
+  openCreateReviewDialog() {
+    this.dialog.open(CreateReviewComponent, {
+      data: {
+        details: this.details
+      },
+      height: '600px',
+      width: '800px',
+      maxWidth: '1200px',
+      maxHeight: '800px',
+    })
   }
 }
