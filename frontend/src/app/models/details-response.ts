@@ -47,7 +47,8 @@ export type DetailsResponse = {
   gender: number,
   known_for_department: string,
   place_of_birth: string,
-  profile_path: string
+  profile_path: string,
+  media_type: string,
 }
 
 export type BelongsToCollection = {
