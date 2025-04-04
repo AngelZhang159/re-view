@@ -58,7 +58,8 @@ public record DetailsAPIResponse(
         Integer gender,
         String known_for_department,
         String place_of_birth,
-        String profile_path
+        String profile_path,
+        String media_type
 ) {
     public static DetailsAPIResponse toTVDetailsResponse(TVDetails tvDetails) {
         return new DetailsAPIResponse(
@@ -112,7 +113,8 @@ public record DetailsAPIResponse(
                 null, // gender (not in TVDetails)
                 null, // known_for_department (not in TVDetails)
                 null, // place_of_birth (not in TVDetails)
-                null  // profile_path (not in TVDetails)
+                null,  // profile_path (not in TVDetails)
+                "tv"
         );
     }
 
@@ -166,6 +168,7 @@ public record DetailsAPIResponse(
                 null,
                 null,
                 null,
-                null);
+                null,
+                "movie");
     }
 }

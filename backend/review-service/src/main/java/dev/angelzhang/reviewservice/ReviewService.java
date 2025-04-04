@@ -8,6 +8,8 @@ import dev.angelzhang.reviewservice.entities.TVReview;
 import dev.angelzhang.reviewservice.enums.Type;
 import dev.angelzhang.reviewservice.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -97,5 +99,35 @@ public class ReviewService {
         reviewRepository.save(review);
         ReviewResponse reviewResponse = ReviewResponse.toResponse(review);
         return ResponseEntity.ok(reviewResponse);
+    }
+
+    public ResponseEntity<Page<ReviewResponse>> getAllReviews(String token, Long userId, String type, Integer page, Integer size) {
+
+        Long tokenUserId = jwtUtil.extractUserId(token.substring(7));
+
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+
+        Page<Review> reviewPage;
+        if (userId == null) {
+            if (type == null || type.isBlank()) {
+                reviewPage = reviewRepository.findAll(pageable);
+            } else {
+                reviewPage = reviewRepository.findByTypeAndUserId(Type.fromString(type), tokenUserId, pageable);
+            }
+        } else {
+            if (type == null || type.isBlank()) {
+                reviewPage = reviewRepository.findByUserId(userId, pageable);
+            } else {
+                reviewPage = reviewRepository.findByTypeAndUserId(Type.fromString(type), tokenUserId, pageable);
+            }
+        }
+
+        if (reviewPage.isEmpty()) return ResponseEntity.notFound().build();
+
+        //TODO
+        //is itself? is that profile public? is friend?
+        Page<ReviewResponse> reviewResponsePage = reviewPage.map(ReviewResponse::toResponse);
+
+        return ResponseEntity.ok((reviewResponsePage));
     }
 }
