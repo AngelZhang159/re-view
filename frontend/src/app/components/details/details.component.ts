@@ -1,5 +1,5 @@
 import {Component, inject, Inject} from '@angular/core';
-import {CountryCode, DetailsResponse, ProductionCountry} from '../../models/details-response';
+import {DetailsResponse} from '../../models/details-response';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 import {NgOptimizedImage, NgStyle} from '@angular/common';
 import {MatChip, MatChipSet} from '@angular/material/chips';
