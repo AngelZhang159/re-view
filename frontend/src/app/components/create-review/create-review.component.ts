@@ -8,6 +8,7 @@ import {Rating} from 'primeng/rating';
 import {MatDialogClose} from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ReviewService} from '../../services/review.service';
 
 @Component({
   selector: 'app-create-review',
@@ -31,6 +32,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class CreateReviewComponent {
 
   snackBar = inject(MatSnackBar)
+  reviewService = inject(ReviewService)
 
   constructor(@Inject(DIALOG_DATA) public data: { details: DetailsResponse }) {
     this.details = data.details
@@ -44,12 +46,24 @@ export class CreateReviewComponent {
 
   closeCreateReviewDialog() {
 
+    console.log("Sending info from :" + JSON.stringify(this.details))
+
     //TODO show modal on complete or error (snackbar maybe)
-
-    this.snackBar.open("Review saved", "Close", {
-      duration: 2000,
+    this.reviewService.createReview(this.details.media_type, this.details.id, this.reviewText, this.rating, undefined).subscribe({
+      next: (response) => {
+        console.log('Review created successfully:', response);
+        this.snackBar.open('Review created successfully', 'Close', {
+          duration: 2000,
+        });
+      },
+      error: (error) => {
+        console.error('Error creating review:', error);
+        this.snackBar.open('Error creating review: ' + JSON.stringify(error), 'Close', {
+          duration: 2000,
+          politeness: "assertive"
+        });
+      }
     })
-
   }
 
   isRated: boolean = this.rating == null;
