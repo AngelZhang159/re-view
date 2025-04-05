@@ -1,4 +1,4 @@
-import {Component, inject, Inject} from '@angular/core';
+import {Component, inject, Inject, ViewEncapsulation} from '@angular/core';
 import {DetailsResponse} from '../../models/details-response';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 import {NgOptimizedImage, NgStyle} from '@angular/common';
@@ -19,7 +19,8 @@ import {CreateReviewComponent} from '../create-review/create-review.component';
     MatIcon
   ],
   templateUrl: './details.component.html',
-  styleUrl: './details.component.css'
+  styleUrl: './details.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent {
 
