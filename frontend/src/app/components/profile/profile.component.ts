@@ -2,12 +2,12 @@ import {Component, inject} from '@angular/core';
 import {MatDivider} from '@angular/material/divider';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
-import {ProfileService} from '../../services/profile.service';
 import {AuthService} from '../../services/auth.service';
 import {IftaLabel} from 'primeng/iftalabel';
 import {FormsModule} from '@angular/forms';
 import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
+import {MatDialogClose} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -18,14 +18,14 @@ import {Button} from 'primeng/button';
     IftaLabel,
     FormsModule,
     InputText,
-    Button
+    Button,
+    MatDialogClose
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
 
-  profileService = inject(ProfileService);
   authService = inject(AuthService);
   usernameForm: any;
   oldPasswordForm: any;
