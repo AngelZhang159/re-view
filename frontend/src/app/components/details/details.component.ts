@@ -50,8 +50,8 @@ export class DetailsComponent {
       },
       height: '600px',
       width: '800px',
-      maxWidth: '1200px',
       maxHeight: '800px',
+      maxWidth: '1200px',
     })
   }
 }

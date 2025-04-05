@@ -1,21 +1,21 @@
-<p-stepper [value]="1" class="py-10 px-12 w-full h-full">
+<p-stepper [value]="1" class="py-10 px-12 w-full h-full" disabled="true">
   <p-step-list>
-    <p-step [value]="1">Rating</p-step>
-    <p-step [value]="2">Review</p-step>
+    <p-step [value]="1" [disabled]="true">Rating</p-step>
+    <p-step [value]="2" [disabled]="true">Review</p-step>
   </p-step-list>
-  <p-step-panels>
-    <p-step-panel [value]="1">
+  <p-step-panels class="">
+    <p-step-panel [value]="1" class="">
       <ng-template #content let-activateCallback="activateCallback" class="flex-wrap flex h-full">
         <div class="flex flex-col px-16 py-8 gap-12 justify-center h-full">
           <div class="flex w-full justify-center">
             <span
-              class="bg-neutral-400 text-6xl rounded-full w-20 h-20 flex justify-center items-center">{{ rating }}</span>
+              class="bg-neutral-400 text-6xl rounded-full w-24 h-24 flex justify-center items-center">{{ rating }}</span>
           </div>
           <div class="flex justify-center">
-            <p-rating [(ngModel)]="rating" [stars]="10"/>
+            <p-rating [(ngModel)]="rating" [stars]="10" class="scale-150" (ngModelChange)="checkRated()"/>
           </div>
           <div class="flex flex-row justify-end align-bottom">
-            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)"/>
+            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="isRated"/>
           </div>
         </div>
       </ng-template>
@@ -23,13 +23,25 @@
 
     <p-step-panel [value]="2">
       <ng-template #content let-activateCallback="activateCallback">
-        <div>
-          <div class="flex">
-            <p-editor placeholder="Write you review here"/>
+        <div class="flex flex-col justify-center">
+          <div class="flex justify-center">
+            <form class="example-form flex flex-col gap-4 w-full h-full">
+<!--              <mat-form-field>-->
+<!--                <mat-label>Title</mat-label>-->
+<!--                <input matInput>-->
+<!--              </mat-form-field>-->
+
+              <mat-form-field>
+                <mat-label>Review</mat-label>
+                <textarea matInput [style.height]="'270px'" maxlength="2048" [(ngModel)]="reviewText" name="reviewText"></textarea>
+                <span>{{reviewText.length}}/2048</span>
+              </mat-form-field>
+            </form>
+
           </div>
           <div class="flex pt-6 justify-between">
             <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)"/>
-            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)"/>
+            <p-button label="Done" icon="pi pi-arrow-right" iconPos="right" (onClick)="closeCreateReviewDialog()" mat-dialog-close />
           </div>
         </div>
       </ng-template>
