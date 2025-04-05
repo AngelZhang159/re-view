@@ -1,9 +1,37 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {enviroment} from '../../enviroments/enviroment';
+import {ReviewRequest} from '../models/review';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewApiService {
 
-  constructor() { }
+  http = inject(HttpClient)
+  private apiUrl = enviroment.apiReviewUrl
+
+  createReview(reviewRequest: ReviewRequest) {
+    return this.http.post(this.apiUrl + '/review', reviewRequest)
+  }
+
+  deleteReview(reviewId: number) {
+    return this.http.delete(this.apiUrl + '/review/' + reviewId)
+  }
+
+  getReview(reviewId: number) {
+    return this.http.get(this.apiUrl + '/review/' + reviewId)
+  }
+
+  updateReview(reviewId: number, reviewRequest: ReviewRequest) {
+    return this.http.patch(this.apiUrl + '/review/' + reviewId, reviewRequest)
+  }
+
+  getReviews() {
+    return this.http.get(this.apiUrl + '/review/list')
+  }
+
+  getReviewsByUser(userId: number) {
+    return this.http.get(this.apiUrl + '/review/list/' + userId)
+  }
 }
