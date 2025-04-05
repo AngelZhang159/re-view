@@ -8,13 +8,8 @@
     <input class="border-none outline-none py-4 text-2xl" placeholder="Search" type="search" (keydown.enter)="onEnter($event)"/>
   </label>
 
-  <a class="ml-auto cursor-pointer" (click)="profileService.open.set(!profileService.open())">
+  <a class="ml-auto cursor-pointer" (click)="openProfile()">
     <p-avatar image="{{authService.getProfilePicture()}}" size="xlarge" shape="circle"/>
   </a>
 
-  <p-dialog maskStyleClass="backdrop-blur" [visible]="profileService.open()" styleClass="!border-0 !bg-transparent">
-    <ng-template #headless>
-      <app-profile/>
-    </ng-template>
-  </p-dialog>
 </div>

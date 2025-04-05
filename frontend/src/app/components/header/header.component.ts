@@ -5,17 +5,15 @@ import {SearchService} from '../../services/search.service';
 import {Router} from '@angular/router';
 import {Avatar} from 'primeng/avatar';
 import {AuthService} from '../../services/auth.service';
-import {Dialog} from 'primeng/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {ProfileComponent} from '../profile/profile.component';
-import {ProfileService} from '../../services/profile.service';
 
 @Component({
   selector: 'app-header',
   imports: [
     MatIcon,
     Avatar,
-    Dialog,
-    ProfileComponent,
+
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -23,11 +21,11 @@ import {ProfileService} from '../../services/profile.service';
 export class HeaderComponent {
   domain: string = enviroment.domain;
   domainName: string = enviroment.domainName;
+  dialog = inject(MatDialog);
 
   router = inject(Router);
   searchService = inject(SearchService);
   authService = inject(AuthService);
-  profileService = inject(ProfileService);
 
   onEnter($event: any) {
     const value = ($event.target as HTMLInputElement).value;
@@ -36,4 +34,7 @@ export class HeaderComponent {
     this.router.navigate(['/app', {outlets: {content: 'search'}}], {queryParams: {query: value}});
   }
 
+  openProfile() {
+    this.dialog.open(ProfileComponent)
+  }
 }
