@@ -27,6 +27,8 @@ public class MediaService {
     private final MovieDetailsRepository movieDetailsRepository;
     private final TVDetailsRepository tvDetailsRepository;
 
+    //TODO migrate to REST Client to use serial http instead of Web Client reactive
+
     public ResponseEntity<SearchMultiAPIRequest> search(String query, Boolean includeAdult, String language, Integer page) {
         Mono<SearchMultiAPIRequest> searchMultiAPIRequestMono = webClient
                 .get()
