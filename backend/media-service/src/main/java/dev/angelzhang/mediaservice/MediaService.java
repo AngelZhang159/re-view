@@ -64,11 +64,7 @@ public class MediaService {
 
     private ResponseEntity<?> findTVById(Integer id) {
         Optional<TVDetails> byId = tvDetailsRepository.findById(id);
-        if (byId.isPresent()) {
-            return ResponseEntity.ok(DetailsAPIResponse.toTVDetailsResponse(byId.get()));
-        } else {
-            return ResponseEntity.ok(fetchAndSaveTVDetails(id));
-        }
+        return byId.map(tvDetails -> ResponseEntity.ok(DetailsAPIResponse.toTVDetailsResponse(tvDetails))).orElseGet(() -> ResponseEntity.ok(fetchAndSaveTVDetails(id)));
     }
 
     private DetailsAPIResponse fetchAndSaveTVDetails(Integer id) {
@@ -84,11 +80,7 @@ public class MediaService {
 
     private ResponseEntity<?> findMovieById(Integer id) {
         Optional<MovieDetails> byId = movieDetailsRepository.findById(id);
-        if (byId.isPresent()) {
-            return ResponseEntity.ok(DetailsAPIResponse.toMovieDetailsResponse(byId.get()));
-        } else {
-            return ResponseEntity.ok(fetchAndSaveMovieDetails(id));
-        }
+        return byId.map(movieDetails -> ResponseEntity.ok(DetailsAPIResponse.toMovieDetailsResponse(movieDetails))).orElseGet(() -> ResponseEntity.ok(fetchAndSaveMovieDetails(id)));
     }
 
     private DetailsAPIResponse fetchAndSaveMovieDetails(Integer id) {
