@@ -19,7 +19,7 @@ public enum Type {
                 return type;
             }
         }
-        throw new IllegalArgumentException("Unknown type: " + value);
+        throw new IllegalArgumentException("Unknown mediaType: " + value);
     }
 
     public String toString() {

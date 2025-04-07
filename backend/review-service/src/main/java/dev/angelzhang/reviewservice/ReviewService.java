@@ -44,7 +44,7 @@ public class ReviewService {
 
         Review savedReview = reviewRepository.save(review);
 
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(savedReview);
+        ReviewResponse reviewResponse = ReviewResponse.toResponse(savedReview, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -52,7 +52,8 @@ public class ReviewService {
         Review review = findValidateReview(token, reviewId);
         if (review == null) return ResponseEntity.notFound().build();
 
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review);
+        DetailsAPIResponse detailsAPIResponse = getDetails(token, review);
+        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -61,7 +62,7 @@ public class ReviewService {
         Review review = findValidateReview(token, reviewId);
 
         if (review == null) return ResponseEntity.notFound().build();
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review);
+        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
         reviewRepository.deleteById(reviewId);
 
         return ResponseEntity.ok(reviewResponse);
@@ -104,7 +105,7 @@ public class ReviewService {
         }
         review.setUpdatedAt(Instant.now());
         reviewRepository.save(review);
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review);
+        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -133,8 +134,19 @@ public class ReviewService {
 
         //TODO
         //is itself? is that profile public? is friend?
-        Page<ReviewResponse> reviewResponsePage = reviewPage.map(ReviewResponse::toResponse);
+        Page<ReviewResponse> reviewResponsePage = reviewPage.map((review) -> ReviewResponse.toResponse(review, getDetails(token, review)));
 
         return ResponseEntity.ok((reviewResponsePage));
+    }
+
+
+    private DetailsAPIResponse getDetails(String token, Review review) {
+
+        if (review instanceof TVReview) {
+            return mediaClient.details(token, Type.TV.getLabel(), ((TVReview) review).getTvId());
+        } else if (review instanceof MovieReview) {
+            return mediaClient.details(token, Type.MOVIE.getLabel(), ((MovieReview) review).getMovieId());
+        }
+        throw new UnsupportedOperationException("Not supported review type");
     }
 }
