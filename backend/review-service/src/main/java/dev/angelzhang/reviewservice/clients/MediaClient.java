@@ -7,7 +7,8 @@ import org.springframework.web.service.annotation.GetExchange;
 
 public interface MediaClient {
 
-    @GetExchange("/details/{type}/{id}")
-    DetailsAPIResponse details(@RequestHeader(value = "Authorization") String token, @PathVariable String type, @PathVariable Integer id);
+    @GetExchange("/details/{type}/{mediaId}")
+    DetailsAPIResponse details(@RequestHeader(value = "Authorization") String token, @PathVariable String type, @PathVariable Long mediaId);
+
 
 }
