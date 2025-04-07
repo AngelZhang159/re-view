@@ -13,7 +13,7 @@ public record DetailsAPIResponse(
         Integer budget,
         List<Genre> genres,
         String homepage,
-        Integer id,
+        Long id,
         String imdb_id,
         List<String> origin_country,
         String original_language,
