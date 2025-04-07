@@ -1,7 +1,9 @@
 package dev.angelzhang.reviewservice;
 
+import dev.angelzhang.reviewservice.clients.MediaClient;
 import dev.angelzhang.reviewservice.dto.ReviewRequest;
 import dev.angelzhang.reviewservice.dto.ReviewResponse;
+import dev.angelzhang.reviewservice.dto.media.details.DetailsAPIResponse;
 import dev.angelzhang.reviewservice.entities.MovieReview;
 import dev.angelzhang.reviewservice.entities.Review;
 import dev.angelzhang.reviewservice.entities.TVReview;
@@ -21,13 +23,18 @@ import java.util.Optional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final MediaClient mediaClient;
     private final JwtUtil jwtUtil;
 
     public ResponseEntity<ReviewResponse> createReview(String token, ReviewRequest reviewRequest) {
 
         Long userId = jwtUtil.extractUserId(token.substring(7));
 
-        //TODO: Validate mediaId maybe
+        //prefetch review to keep it in the db for future access and not saturate the api key
+        DetailsAPIResponse details = mediaClient.details(token, reviewRequest.type(), reviewRequest.mediaId());
+
+        if (details == null) return ResponseEntity.badRequest().build();
+
         Review review = new Review();
         if (reviewRequest.type().equals(Type.TV.getLabel())) {
             review = TVReview.fromRequest(userId, reviewRequest);
