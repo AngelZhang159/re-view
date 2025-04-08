@@ -31,3 +31,4 @@
 - [ ] Cache trending for a day (maybe batch with 1 day repetition and return the same response everytime?)
 - [ ] Add profile functionality
 - [ ] Fix sidebar
+- [ ] Change all responses to be in the same format (Camel Case) with properties
