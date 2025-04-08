@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "762bb392-879b-43cf-a522-40b4e0045c86",
+		"name": "API Documentation #reference",
+		"description": "This template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n### How to use this template:\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33760086"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"aa\",\n    \"password\": \"a\",\n    \"email\": \"aa@a.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_user}}/user/register",
+							"host": [
+								"{{base_url_user}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"a@a.com\",\n    \"password\": \"a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_user}}/user/login",
+							"host": [
+								"{{base_url_user}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"info"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "TEST TOKEN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_user}}/user/test",
+							"host": [
+								"{{base_url_user}}"
+							],
+							"path": [
+								"user",
+								"test"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			],
+			"description": "The `/me` endpoints let you manage information about the authenticated user."
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_media}}/media/health",
+							"host": [
+								"{{base_url_media}}"
+							],
+							"path": [
+								"media",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search multi",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_media}}/media/search/multi?query=shingeki",
+							"host": [
+								"{{base_url_media}}"
+							],
+							"path": [
+								"media",
+								"search",
+								"multi"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "shingeki"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_media}}/media/details/movie/950387",
+							"host": [
+								"{{base_url_media}}"
+							],
+							"path": [
+								"media",
+								"details",
+								"movie",
+								"950387"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trending today",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_media}}/media/trending/movie",
+							"host": [
+								"{{base_url_media}}"
+							],
+							"path": [
+								"media",
+								"trending",
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TV details",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Movie details Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_media}}/media/details/tv/1931",
+									"host": [
+										"{{base_url_media}}"
+									],
+									"path": [
+										"media",
+										"details",
+										"tv",
+										"1931"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Mar 2025 19:16:56 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"adult\": false,\n    \"backdrop_path\": \"/d0sRMzJoDt3scmmlSumlNEm7m2v.jpg\",\n    \"created_by\": [\n        {\n            \"id\": 139473,\n            \"credit_id\": \"5c49a30bc3a36847828aeab2\",\n            \"name\": \"Michael Eisner\",\n            \"original_name\": \"Michael Eisner\"\n        },\n        {\n            \"id\": 568693,\n            \"credit_id\": \"52571b9d760ee3776a1a612d\",\n            \"name\": \"Jymn Magon\",\n            \"original_name\": \"Jymn Magon\"\n        },\n        {\n            \"id\": 1458349,\n            \"credit_id\": \"59531810c3a36809c602f1af\",\n            \"name\": \"Art Vitello\",\n            \"original_name\": \"Art Vitello\"\n        }\n    ],\n    \"episode_run_time\": [\n        11\n    ],\n    \"first_air_date\": \"1985-09-14\",\n    \"genres\": [\n        {\n            \"id\": 16,\n            \"name\": \"Animation\"\n        },\n        {\n            \"id\": 10751,\n            \"name\": \"Family\"\n        },\n        {\n            \"id\": 10762,\n            \"name\": \"Kids\"\n        }\n    ],\n    \"homepage\": \"\",\n    \"id\": 1931,\n    \"in_production\": false,\n    \"languages\": [\n        \"en\"\n    ],\n    \"last_air_date\": \"1991-02-22\",\n    \"last_episode_to_air\": {},\n    \"name\": \"Disney's Adventures of the Gummi Bears\",\n    \"next_episode_to_air\": null,\n    \"networks\": [\n        {\n            \"id\": 2,\n            \"logo_path\": \"/2uy2ZWcplrSObIyt4x0Y9rkG6qO.png\",\n            \"name\": \"ABC\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 6,\n            \"logo_path\": \"/cm111bsDVlYaC1foL0itvEI4yLG.png\",\n            \"name\": \"NBC\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 184,\n            \"name\": \"Syndication\",\n            \"origin_country\": \"US\"\n        }\n    ],\n    \"number_of_episodes\": 95,\n    \"number_of_seasons\": 6,\n    \"origin_country\": [\n        \"US\"\n    ],\n    \"original_language\": \"en\",\n    \"original_name\": \"Disney's Adventures of the Gummi Bears\",\n    \"overview\": \"Join the world’s sweetest heroes for high adventure in a mystical land of giants and wizards, ogres and dragons, and wondrous creatures both good and evil. Meet Gruffi, Zummi, Cubbi, Grammi, Tummi, Sunni, and all the legendary Gummis as they laugh, play, foil dastardly plots, and fight for what's right.\",\n    \"popularity\": 53.315,\n    \"poster_path\": \"/mqbX2l5Te3yMdAjDxvs5kRk0bhN.jpg\",\n    \"production_companies\": [\n        {\n            \"id\": 670,\n            \"logo_path\": \"/rRGi5UkwvdOPSfr5Xf42RZUsYgd.png\",\n            \"name\": \"Walt Disney Television\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 3069,\n            \"logo_path\": \"/tpGaXEBassYaiEBvnJ7K5vchT50.png\",\n            \"name\": \"Tokyo Movie Shinsha\",\n            \"origin_country\": \"JP\"\n        }\n    ],\n    \"production_countries\": [\n        {\n            \"iso_3166_1\": \"JP\",\n            \"name\": \"Japan\"\n        },\n        {\n            \"iso_3166_1\": \"US\",\n            \"name\": \"United States of America\"\n        }\n    ],\n    \"seasons\": [\n        {\n            \"id\": 5600,\n            \"air_date\": \"1985-09-14\",\n            \"episode_count\": 21,\n            \"name\": \"Season 1\",\n            \"overview\": \"\",\n            \"poster_path\": \"/2YT70akRlP2eG2UKsgeHC6ZdpXz.jpg\",\n            \"season_number\": 1,\n            \"vote_average\": 7.7\n        },\n        {\n            \"id\": 5601,\n            \"air_date\": \"1986-09-13\",\n            \"episode_count\": 12,\n            \"name\": \"Season 2\",\n            \"overview\": \"\",\n            \"poster_path\": \"/8qclYHAGlYkVtPp3ajhvdOiwlp6.jpg\",\n            \"season_number\": 2,\n            \"vote_average\": 7.6\n        },\n        {\n            \"id\": 5605,\n            \"air_date\": \"1987-09-12\",\n            \"episode_count\": 14,\n            \"name\": \"Season 3\",\n            \"overview\": \"\",\n            \"poster_path\": \"/AlSHW2xfNM0juNxZjiNKRw69UMy.jpg\",\n            \"season_number\": 3,\n            \"vote_average\": 6.8\n        },\n        {\n            \"id\": 5602,\n            \"air_date\": \"1988-09-10\",\n            \"episode_count\": 16,\n            \"name\": \"Season 4\",\n            \"overview\": \"\",\n            \"poster_path\": \"/3b4qWWZsI6vLM1t5pWgBymYJMGx.jpg\",\n            \"season_number\": 4,\n            \"vote_average\": 6.7\n        },\n        {\n            \"id\": 5604,\n            \"air_date\": \"1989-09-09\",\n            \"episode_count\": 13,\n            \"name\": \"Season 5\",\n            \"overview\": \"\",\n            \"poster_path\": \"/zsne8nJENoWjS9fHaRqsVLj0lXv.jpg\",\n            \"season_number\": 5,\n            \"vote_average\": 7.2\n        },\n        {\n            \"id\": 5603,\n            \"air_date\": \"1990-09-10\",\n            \"episode_count\": 19,\n            \"name\": \"Season 6\",\n            \"overview\": \"\",\n            \"poster_path\": \"/wK8JqWNPIXkSSNdyju46du47QCQ.jpg\",\n            \"season_number\": 6,\n            \"vote_average\": 7.2\n        }\n    ],\n    \"spoken_languages\": [\n        {\n            \"iso_639_1\": \"en\",\n            \"english_name\": \"English\",\n            \"name\": \"English\"\n        }\n    ],\n    \"status\": \"Ended\",\n    \"tagline\": \"Family\",\n    \"type\": \"Scripted\",\n    \"vote_average\": 7.4,\n    \"vote_count\": 228\n}"
+						},
+						{
+							"name": "Movie details Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_media}}/media/details/tv/1931",
+									"host": [
+										"{{base_url_media}}"
+									],
+									"path": [
+										"media",
+										"details",
+										"tv",
+										"1931"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Mar 2025 19:17:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"adult\": false,\n    \"backdrop_path\": \"/d0sRMzJoDt3scmmlSumlNEm7m2v.jpg\",\n    \"created_by\": [],\n    \"episode_run_time\": [\n        11\n    ],\n    \"first_air_date\": \"1985-09-14\",\n    \"genres\": [\n        {\n            \"id\": 16,\n            \"name\": \"Animation\"\n        },\n        {\n            \"id\": 10751,\n            \"name\": \"Family\"\n        },\n        {\n            \"id\": 10762,\n            \"name\": \"Kids\"\n        }\n    ],\n    \"homepage\": \"\",\n    \"id\": 1931,\n    \"in_production\": false,\n    \"languages\": [\n        \"en\"\n    ],\n    \"last_air_date\": \"1991-02-22\",\n    \"last_episode_to_air\": {},\n    \"name\": \"Disney's Adventures of the Gummi Bears\",\n    \"next_episode_to_air\": null,\n    \"networks\": [\n        {\n            \"id\": 2,\n            \"logo_path\": \"/2uy2ZWcplrSObIyt4x0Y9rkG6qO.png\",\n            \"name\": \"ABC\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 6,\n            \"logo_path\": \"/cm111bsDVlYaC1foL0itvEI4yLG.png\",\n            \"name\": \"NBC\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 184,\n            \"name\": \"Syndication\",\n            \"origin_country\": \"US\"\n        }\n    ],\n    \"number_of_episodes\": 95,\n    \"number_of_seasons\": 6,\n    \"origin_country\": [\n        \"US\"\n    ],\n    \"original_language\": \"en\",\n    \"original_name\": \"Disney's Adventures of the Gummi Bears\",\n    \"overview\": \"Join the world’s sweetest heroes for high adventure in a mystical land of giants and wizards, ogres and dragons, and wondrous creatures both good and evil. Meet Gruffi, Zummi, Cubbi, Grammi, Tummi, Sunni, and all the legendary Gummis as they laugh, play, foil dastardly plots, and fight for what's right.\",\n    \"popularity\": 53.315,\n    \"poster_path\": \"/mqbX2l5Te3yMdAjDxvs5kRk0bhN.jpg\",\n    \"production_companies\": [\n        {\n            \"id\": 670,\n            \"logo_path\": \"/rRGi5UkwvdOPSfr5Xf42RZUsYgd.png\",\n            \"name\": \"Walt Disney Television\",\n            \"origin_country\": \"US\"\n        },\n        {\n            \"id\": 3069,\n            \"logo_path\": \"/tpGaXEBassYaiEBvnJ7K5vchT50.png\",\n            \"name\": \"Tokyo Movie Shinsha\",\n            \"origin_country\": \"JP\"\n        }\n    ],\n    \"production_countries\": [\n        {\n            \"iso_3166_1\": \"JP\",\n            \"name\": \"Japan\"\n        },\n        {\n            \"iso_3166_1\": \"US\",\n            \"name\": \"United States of America\"\n        }\n    ],\n    \"seasons\": [],\n    \"spoken_languages\": [\n        {\n            \"iso_639_1\": \"en\",\n            \"english_name\": \"English\",\n            \"name\": \"English\"\n        }\n    ],\n    \"status\": \"Ended\",\n    \"tagline\": \"Family\",\n    \"type\": \"Scripted\",\n    \"vote_average\": 7.4,\n    \"vote_count\": 228\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "New review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_review}}",
+							"host": [
+								"{{base_url_review}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update review",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 5,\r\n    \"review\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_review}}/review/2",
+							"host": [
+								"{{base_url_review}}"
+							],
+							"path": [
+								"review",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one review by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_review}}/review/2",
+							"host": [
+								"{{base_url_review}}"
+							],
+							"path": [
+								"review",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews of an account by JWT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_review}}/review/list",
+							"host": [
+								"{{base_url_review}}"
+							],
+							"path": [
+								"review",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete review by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_review}}/review/3",
+							"host": [
+								"{{base_url_review}}"
+							],
+							"path": [
+								"review",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbWyJVU0VSIl1dLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwic3ViIjoiMSIsImlhdCI6MTc0Mzk1NzU4MiwiZXhwIjoxNzQzOTYxMTgyLCJpc3MiOiJhbmdlbHpoYW5nLmRldiJ9.i99wMCo2f7z2daZ1XTQlJ8DFI2s_u9W2AWAjh2UyefzvmPLFTqqF5xfvUkFFfPQnlERPUcKNxU7ol-_cVVHDJw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/review/test/details/tv/1931",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"review",
+								"test",
+								"details",
+								"tv",
+								"1931"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.environment.get(\"token\")) {\r",
+					"    pm.sendRequest({\r",
+					"        url: 'http://localhost:8000/user/login',\r",
+					"        method: 'POST',\r",
+					"        header: { 'Content-Type': 'application/json' },\r",
+					"        body: {\r",
+					"            mode: 'raw',\r",
+					"            raw: JSON.stringify({\r",
+					"                email: 'a@a.com',\r",
+					"                password: 'a'\r",
+					"            })\r",
+					"        }\r",
+					"    }, function (err, res) {\r",
+					"        pm.environment.set(\"token\", res.json().accessToken);\r",
+					"    });\r",
+					"}\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base_url_user",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "base_url_media",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "base_url_review",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
