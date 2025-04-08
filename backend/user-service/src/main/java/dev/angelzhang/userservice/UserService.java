@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +27,6 @@ public class UserService {
 
     @Value("${jwt.accessExpiration}")
     private Long ACCESS_EXPIRATION;
-
-    private final String MESSAGE = "Account created successfully";
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -42,7 +39,15 @@ public class UserService {
 
         userRepository.save(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new UserRegisterResponse(user.getId(), user.getUsername(), user.getEmail(), MESSAGE));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        new UserRegisterResponse(
+                                user.getId(),
+                                user.getUsername(),
+                                user.getEmail(),
+                                "Account created successfully")
+                );
     }
 
     private User createUserWithDefaults(UserRegisterRequest userRegisterRequest) {
