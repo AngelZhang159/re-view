@@ -1,9 +1,7 @@
 package dev.angelzhang.reviewservice;
 
-import dev.angelzhang.reviewservice.clients.MediaClient;
 import dev.angelzhang.reviewservice.dto.ReviewRequest;
 import dev.angelzhang.reviewservice.dto.ReviewResponse;
-import dev.angelzhang.reviewservice.dto.media.details.DetailsAPIResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final MediaClient mediaClient;
 
     @PostMapping
     public ResponseEntity<ReviewResponse> createReview(@RequestHeader("Authorization") String token, @RequestBody @Valid ReviewRequest reviewRequest) {
