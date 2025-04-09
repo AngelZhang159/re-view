@@ -63,14 +63,9 @@ public class ReviewController {
     ) {
         return reviewService.getAllReviews(token, null, type, page, size);
     }
-//
+//      TODO: maybe add this
 //    @GetMapping("/{userId}/{type}")
 //    public ResponseEntity<ReviewResponse> getReviewsByType(@NotNull @PathVariable Long userId, @NotBlank @PathVariable String type) {
 //        return ResponseEntity.ok(reviewService.getReviewsByType(userId, type));
 //    }
-
-    @GetMapping("/test/details")
-    public DetailsAPIResponse test() {
-        return mediaClient.details("Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbWyJVU0VSIl1dLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwic3ViIjoiMSIsImlhdCI6MTc0NDA0MjUxMSwiZXhwIjoxNzQ0MDQ2MTExLCJpc3MiOiJhbmdlbHpoYW5nLmRldiJ9.HVrkR6ZIvdmoP-GU2UhZFFhdYR-n7wq4VOxCSyfF39XU9L-JV2udCaurqKUF4W2s-nH_dwAu0FPpGA-HDP5iWw", "movie", 1999999L);
-    }
 }
