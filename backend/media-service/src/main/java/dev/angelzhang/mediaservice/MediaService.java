@@ -1,5 +1,6 @@
 package dev.angelzhang.mediaservice;
 
+import dev.angelzhang.mediaservice.clients.TMDBClient;
 import dev.angelzhang.mediaservice.dto.details.DetailsAPIRequest;
 import dev.angelzhang.mediaservice.dto.details.DetailsAPIResponse;
 import dev.angelzhang.mediaservice.dto.searchMulti.SearchMultiAPIBody;
@@ -12,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -23,34 +22,20 @@ import java.util.Optional;
 @Slf4j
 public class MediaService {
 
-    private final WebClient webClient;
+    private final TMDBClient tmdbClient;
     private final MovieDetailsRepository movieDetailsRepository;
     private final TVDetailsRepository tvDetailsRepository;
 
-    //TODO migrate to REST Client to use serial http instead of Web Client reactive
-
     public ResponseEntity<SearchMultiAPIRequest> search(String query, Boolean includeAdult, String language, Integer page) {
-        Mono<SearchMultiAPIRequest> searchMultiAPIRequestMono = webClient
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/search/multi")
-                        .queryParam("query", query)
-                        .queryParam("include_adult", includeAdult)
-                        .queryParam("language", language)
-                        .queryParam("page", page)
-                        .build())
-                .retrieve()
-                .bodyToMono(SearchMultiAPIRequest.class)
-                .flatMap(response -> {
-                    response.results().sort(
-                            Comparator
-                                    .comparing((SearchMultiAPIBody body) -> body.poster_path() != null ? 0 : 1)
-                                    .thenComparing(SearchMultiAPIBody::vote_count, Comparator.nullsLast(Comparator.reverseOrder()))
-                    );
-                    return Mono.just(response);
-                });
 
-        return ResponseEntity.ok(searchMultiAPIRequestMono.block());
+        SearchMultiAPIRequest searchMultiAPIRequest = tmdbClient.searchMulti(query, includeAdult, language, page);
+        searchMultiAPIRequest.results().sort(
+                Comparator
+                        .comparing((SearchMultiAPIBody body) -> body.poster_path() != null ? 0 : 1)
+                        .thenComparing(SearchMultiAPIBody::vote_count, Comparator.nullsLast(Comparator.reverseOrder()))
+        );
+
+        return ResponseEntity.ok(searchMultiAPIRequest);
     }
 
     public ResponseEntity<?> getMediaDetailsById(String type, Integer id) {
@@ -68,14 +53,13 @@ public class MediaService {
     }
 
     private DetailsAPIResponse fetchAndSaveTVDetails(Integer id) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/tv/" + id).build())
-                .retrieve()
-                .bodyToMono(DetailsAPIRequest.class)
-                .map(TVDetails::fromRequest)
-                .doOnNext(tvDetailsRepository::save)
-                .map(DetailsAPIResponse::toTVDetailsResponse)
-                .block();
+        DetailsAPIRequest tvDetails = tmdbClient.getTVDetails(id);
+
+        TVDetails tvDetails1 = TVDetails.fromRequest(tvDetails);
+
+        tvDetailsRepository.save(tvDetails1);
+
+        return DetailsAPIResponse.toTVDetailsResponse(tvDetails1);
     }
 
     private ResponseEntity<?> findMovieById(Integer id) {
@@ -84,27 +68,19 @@ public class MediaService {
     }
 
     private DetailsAPIResponse fetchAndSaveMovieDetails(Integer id) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/movie/" + id).build())
-                .retrieve()
-                .bodyToMono(DetailsAPIRequest.class)
-                .map(MovieDetails::fromRequest)
-                .doOnNext(movieDetailsRepository::save)
-                .map(DetailsAPIResponse::toMovieDetailsResponse)
-                .block();
+        DetailsAPIRequest movieDetails = tmdbClient.getMovieDetails(id);
+
+        MovieDetails movieDetails1 = MovieDetails.fromRequest(movieDetails);
+
+        movieDetailsRepository.save(movieDetails1);
+
+        return DetailsAPIResponse.toMovieDetailsResponse(movieDetails1);
     }
 
     public ResponseEntity<SearchMultiAPIRequest> trending(String type, String typeWindow) {
-        Mono<SearchMultiAPIRequest> searchMultiAPIRequestMono = webClient
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/trending" )
-                        .pathSegment(type)
-                        .pathSegment(typeWindow)
-                        .build())
-                .retrieve()
-                .bodyToMono(SearchMultiAPIRequest.class);
+        //TODO cache results maybe
+        SearchMultiAPIRequest searchMultiAPIRequest = tmdbClient.trending(type, typeWindow);
 
-        return ResponseEntity.ok(searchMultiAPIRequestMono.block());
+        return ResponseEntity.ok(searchMultiAPIRequest);
     }
 }
