@@ -3,128 +3,96 @@ package dev.angelzhang.mediaservice.entities.details;
 import dev.angelzhang.mediaservice.dto.details.DetailsAPIRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-public class TVDetails {
-
-    private Boolean adult;
-    private String backdrop_path;
+public class TVDetails extends MediaDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CreatedBy> created_by;
+    private List<CreatedBy> createdBy;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Integer> episode_run_time;
+    private List<Integer> episodeRunTime;
 
-    private String first_air_date;
-
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    private List<Genre> genres;
-
-    private String homepage;
-
-    @Id
-    private Integer id;
-
-    private Boolean in_production;
+    private String firstAirDate;
+    private Boolean inProduction;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> languages;
 
-    private String last_air_date;
+    private String lastAirDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Episode last_episode_to_air;
+    private Episode lastEpisodeToAir;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Episode next_episode_to_air;
+    private Episode nextEpisodeToAir;
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     private List<Network> networks;
 
-    private Integer number_of_episodes;
-    private Integer number_of_seasons;
+    private Integer numberOfEpisodes;
+    private Integer numberOfSeasons;
+    private String originalName;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<CountryCode> origin_country;
-
-    private String original_language;
-    private String original_name;
-    @Column(length = 1024)
-    private String overview;
-
-    private Double popularity;
-    private String poster_path;
-
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    private List<ProductionCompany> production_companies;
-
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    private List<ProductionCountry> production_countries;
-
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     private List<Season> seasons;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    private List<SpokenLanguage> spoken_languages;
-
-    private String status;
-    private String tagline;
     private String type;
 
-    private Double vote_average;
-    private Integer vote_count;
-
-    public static TVDetails fromRequest(DetailsAPIRequest request) {
+    public static TVDetails toEntity(DetailsAPIRequest request) {
 
         log.info("Building TV details from request: Network:{}\n, Season: {}\n", request.networks(), request.seasons());
 
         TVDetails build = TVDetails.builder()
                 .adult(request.adult())
-                .backdrop_path(request.backdrop_path())
-                .created_by(CreatedBy.fromRequest(request.created_by()))
-                .episode_run_time(request.episode_run_time())
-                .first_air_date(request.first_air_date())
-                .genres(Genre.fromRequest(request.genres()))
+                .backdropPath(request.backdropPath())
+                .genres(request.genres() != null ? Genre.toEntity(request.genres()) : null)
                 .homepage(request.homepage())
                 .id(request.id())
-                .in_production(request.in_production())
-                .languages(request.languages())
-                .last_air_date(request.last_air_date())
-                .last_episode_to_air(Episode.fromRequest(request.last_episode_to_air()))
-                .name(request.name())
-                .next_episode_to_air(Episode.fromRequest(request.next_episode_to_air()))
-                .networks(Network.fromRequest(request.networks()))
-                .number_of_episodes(request.number_of_episodes())
-                .number_of_seasons(request.number_of_seasons())
-                .origin_country(CountryCode.fromRequest(request.origin_country()))
-                .original_language(request.original_language())
-                .original_name(request.original_name())
+                .originCountry(request.originCountry() != null ? CountryCode.toEntity(request.originCountry()) : null)
+                .originalLanguage(request.originalLanguage())
                 .overview(request.overview())
                 .popularity(request.popularity())
-                .poster_path(request.poster_path())
-                .production_companies(ProductionCompany.fromRequest(request.production_companies()))
-                .production_countries(ProductionCountry.fromRequest(request.production_countries()))
-                .seasons(Season.fromRequest(request.seasons()))
-                .spoken_languages(SpokenLanguage.fromRequest(request.spoken_languages()))
+                .posterPath(request.posterPath())
+                .productionCompanies(request.productionCompanies() != null ? ProductionCompany.toEntity(request.productionCompanies()) : null)
+                .productionCountries(request.productionCountries() != null ? ProductionCountry.toEntity(request.productionCountries()) : null)
+                .spokenLanguages(request.spokenLanguages() != null ? SpokenLanguage.toEntity(request.spokenLanguages()) : null)
                 .status(request.status())
                 .tagline(request.tagline())
+                .voteAverage(request.voteAverage())
+                .voteCount(request.voteCount())
+                .createdBy(request.createdBy() != null ? CreatedBy.toEntity(request.createdBy()) : null)
+                .episodeRunTime(request.episodeRunTime())
+                .firstAirDate(request.firstAirDate())
+                .inProduction(request.inProduction())
+                .languages(request.languages())
+                .lastAirDate(request.lastAirDate())
+                .lastEpisodeToAir(Episode.toEntity(request.lastEpisodeToAir()))
+                .nextEpisodeToAir(Episode.toEntity(request.nextEpisodeToAir()))
+                .name(request.name())
+                .networks(request.networks() != null ? Network.toEntity(request.networks()) : null)
+                .numberOfEpisodes(request.numberOfEpisodes())
+                .numberOfSeasons(request.numberOfSeasons())
+                .originalName(request.originalName())
+                .seasons(request.seasons() != null ? Season.toEntity(request.seasons()) : null)
                 .type(request.type())
-                .vote_average(request.vote_average())
-                .vote_count(request.vote_count())
                 .build();
 
         log.info("Resulting TV details: Network:{}\n, Season: {}\n", build.getNetworks(), build.getSeasons());
