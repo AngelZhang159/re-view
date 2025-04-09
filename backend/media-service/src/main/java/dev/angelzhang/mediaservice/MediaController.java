@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/media/")
+@RequestMapping("/media")
 @Slf4j
 public class MediaController {
 
@@ -37,10 +37,5 @@ public class MediaController {
             @RequestParam(required = false, defaultValue = "day") String timeWindow) {
         log.info("New trending query");
         return mediaService.trending(type, timeWindow);
-    }
-
-    @GetMapping("/health")
-    public String health() {
-        return "API WORKS";
     }
 }
