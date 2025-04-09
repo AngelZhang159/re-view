@@ -16,8 +16,7 @@ public class MediaClientConfig {
 
     @Bean
     MediaClient mediaClient() {
-        String mediaServiceUrl = mediaUrl;
-        RestClient client = RestClient.create(mediaServiceUrl);
+        RestClient client = RestClient.create(mediaUrl);
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(client)).build();
 
