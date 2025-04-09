@@ -2,7 +2,10 @@ package dev.angelzhang.mediaservice.entities.details;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.angelzhang.mediaservice.dto.details.DetailsAPIRequest;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
