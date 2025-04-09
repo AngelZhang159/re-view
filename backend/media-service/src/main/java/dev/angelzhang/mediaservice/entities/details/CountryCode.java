@@ -30,13 +30,13 @@ public enum CountryCode {
     TV, UG, UA, AE, GB, US, UM, UY, UZ, VU,
     VE, VN, VG, VI, WF, EH, YE, ZM, ZW;
 
-    public static List<CountryCode> fromRequest(List<String> strings) {
+    public static List<CountryCode> toEntity(List<String> strings) {
         return strings.stream()
                 .map(CountryCode::valueOf)
                 .collect(Collectors.toList());
     }
 
-    public static List<String> toResponse(List<CountryCode> countryCodes) {
+    public static List<String> toDTO(List<CountryCode> countryCodes) {
         return countryCodes.stream()
                 .map(Enum::toString)
                 .collect(Collectors.toList());

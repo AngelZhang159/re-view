@@ -19,35 +19,35 @@ import java.util.stream.Collectors;
 public class CreatedBy {
     @Id
     private Integer id;
-    private String credit_id;
+    private String creditId;
     private String name;
-    private String original_name;
+    private String originalName;
     private Integer gender;
-    private String profile_path;
+    private String profilePath;
 
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude
     private TVDetails tvDetails;
 
-    public static List<CreatedBy> fromRequest(List<dev.angelzhang.mediaservice.dto.details.CreatedBy> createdBy) {
+    public static List<CreatedBy> toEntity(List<dev.angelzhang.mediaservice.dto.details.CreatedBy> createdBy) {
         return createdBy.stream()
-                .map(CreatedBy::fromEntity)
+                .map(CreatedBy::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static CreatedBy fromEntity(dev.angelzhang.mediaservice.dto.details.CreatedBy createdBy) {
+    public static CreatedBy toEntity(dev.angelzhang.mediaservice.dto.details.CreatedBy createdBy) {
         return CreatedBy.builder()
                 .id(createdBy.id())
-                .credit_id(createdBy.credit_id())
+                .creditId(createdBy.creditId())
                 .name(createdBy.name())
-                .original_name(createdBy.original_name())
+                .originalName(createdBy.originalName())
                 .build();
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.CreatedBy> toResponse(List<CreatedBy> createdBy) {
+    public static List<dev.angelzhang.mediaservice.dto.details.CreatedBy> toDTO(List<CreatedBy> createdBy) {
         return createdBy.stream()
-                .map(createdBy1 -> new dev.angelzhang.mediaservice.dto.details.CreatedBy(createdBy1.getId(), createdBy1.getCredit_id(), createdBy1.getName(), createdBy1.getOriginal_name(), createdBy1.getGender(), createdBy1.profile_path))
+                .map(createdBy1 -> new dev.angelzhang.mediaservice.dto.details.CreatedBy(createdBy1.getId(), createdBy1.getCreditId(), createdBy1.getName(), createdBy1.getOriginalName(), createdBy1.getGender(), createdBy1.profilePath))
                 .collect(Collectors.toList());
     }
 }

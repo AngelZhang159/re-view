@@ -20,33 +20,33 @@ public class Network {
 
     @Id
     private Integer id;
-    private String logo_path;
+    private String logoPath;
     private String name;
-    private String origin_country;
+    private String originCountry;
 
     @ManyToMany(mappedBy = "networks")
     @JsonIgnore
     @ToString.Exclude
     private List<TVDetails> tvDetails;
 
-    public static Network fromRequest(dev.angelzhang.mediaservice.dto.details.Network network) {
+    public static Network toEntity(dev.angelzhang.mediaservice.dto.details.Network network) {
         return Network.builder()
                 .id(network.id())
-                .logo_path(network.logo_path())
+                .logoPath(network.logoPath())
                 .name(network.name())
-                .origin_country(network.origin_country())
+                .originCountry(network.originCountry())
                 .build();
     }
 
-    public static List<Network> fromRequest(List<dev.angelzhang.mediaservice.dto.details.Network> networks) {
+    public static List<Network> toEntity(List<dev.angelzhang.mediaservice.dto.details.Network> networks) {
         return networks.stream()
-                .map(Network::fromRequest)
+                .map(Network::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.Network> toResponse(List<Network> networks) {
+    public static List<dev.angelzhang.mediaservice.dto.details.Network> toDTO(List<Network> networks) {
         return networks.stream()
-                .map(network -> new dev.angelzhang.mediaservice.dto.details.Network(network.getId(), network.getLogo_path(), network.getName(), network.getOrigin_country()))
+                .map(network -> new dev.angelzhang.mediaservice.dto.details.Network(network.getId(), network.getLogoPath(), network.getName(), network.getOriginCountry()))
                 .collect(Collectors.toList());
     }
 }

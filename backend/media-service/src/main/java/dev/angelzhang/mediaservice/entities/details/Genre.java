@@ -32,20 +32,20 @@ public class Genre {
     @ToString.Exclude
     private List<TVDetails> tvDetails;
 
-    public static Genre fromEntity(dev.angelzhang.mediaservice.dto.details.Genre genre) {
+    public static Genre toEntity(dev.angelzhang.mediaservice.dto.details.Genre genre) {
         return Genre.builder()
                 .id(genre.id())
                 .name(genre.name())
                 .build();
     }
 
-    public static List<Genre> fromRequest(List<dev.angelzhang.mediaservice.dto.details.Genre> genres) {
+    public static List<Genre> toEntity(List<dev.angelzhang.mediaservice.dto.details.Genre> genres) {
         return genres.stream()
-                .map(Genre::fromEntity)
+                .map(Genre::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.Genre> toResponse(List<Genre> genres) {
+    public static List<dev.angelzhang.mediaservice.dto.details.Genre> toDTO(List<Genre> genres) {
         return genres.stream()
                 .map(genre -> new dev.angelzhang.mediaservice.dto.details.Genre(genre.getId(), genre.getName()))
                 .collect(Collectors.toList());

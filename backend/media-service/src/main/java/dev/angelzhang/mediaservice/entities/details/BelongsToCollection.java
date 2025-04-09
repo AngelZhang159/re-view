@@ -17,15 +17,15 @@ public class BelongsToCollection {
     @Id
     private Integer id;
     private String name;
-    private String poster_path;
-    private String backdrop_path;
+    private String posterPath;
+    private String backdropPath;
 
     @OneToMany
     @JsonIgnore
     @ToString.Exclude
     private List<MovieDetails> details;
 
-    public static BelongsToCollection fromRequest(dev.angelzhang.mediaservice.dto.details.BelongsToCollection belongsToCollection) {
+    public static BelongsToCollection toEntity(dev.angelzhang.mediaservice.dto.details.BelongsToCollection belongsToCollection) {
 
         if (belongsToCollection == null) {
             return null;
@@ -34,15 +34,15 @@ public class BelongsToCollection {
         return BelongsToCollection.builder()
                 .id(belongsToCollection.id())
                 .name(belongsToCollection.name())
-                .poster_path(belongsToCollection.poster_path())
-                .backdrop_path(belongsToCollection.backdrop_path())
+                .posterPath(belongsToCollection.posterPath())
+                .backdropPath(belongsToCollection.backdropPath())
                 .build();
     }
 
-    public static dev.angelzhang.mediaservice.dto.details.BelongsToCollection toResponse(BelongsToCollection belongsToCollection) {
+    public static dev.angelzhang.mediaservice.dto.details.BelongsToCollection toDTO(BelongsToCollection belongsToCollection) {
         if (belongsToCollection == null ) {
             return null;
         }
-        return new dev.angelzhang.mediaservice.dto.details.BelongsToCollection(belongsToCollection.getId(), belongsToCollection.getName(), belongsToCollection.getPoster_path(), belongsToCollection.getBackdrop_path());
+        return new dev.angelzhang.mediaservice.dto.details.BelongsToCollection(belongsToCollection.getId(), belongsToCollection.getName(), belongsToCollection.getPosterPath(), belongsToCollection.getBackdropPath());
     }
 }

@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -31,50 +33,60 @@ public class MediaService {
         SearchMultiAPIRequest searchMultiAPIRequest = tmdbClient.searchMulti(query, includeAdult, language, page);
         searchMultiAPIRequest.results().sort(
                 Comparator
-                        .comparing((SearchMultiAPIBody body) -> body.poster_path() != null ? 0 : 1)
-                        .thenComparing(SearchMultiAPIBody::vote_count, Comparator.nullsLast(Comparator.reverseOrder()))
+                        .comparing((SearchMultiAPIBody body) -> body.posterPath() != null ? 0 : 1)
+                        .thenComparing(SearchMultiAPIBody::voteCount, Comparator.nullsLast(Comparator.reverseOrder()))
         );
 
         return ResponseEntity.ok(searchMultiAPIRequest);
     }
 
-    public ResponseEntity<?> getMediaDetailsById(String type, Integer id) {
+    public ResponseEntity<?> getMediaDetailsById(String type, Long id) {
         return switch (type) {
             case "movie" -> findMovieById(id);
             case "tv" -> findTVById(id);
-//            case "person" -> ResponseEntity.badRequest();
             default -> ResponseEntity.badRequest().build();
         };
     }
 
-    private ResponseEntity<?> findTVById(Integer id) {
+    private ResponseEntity<?> findTVById(Long id) {
         Optional<TVDetails> byId = tvDetailsRepository.findById(id);
-        return byId.map(tvDetails -> ResponseEntity.ok(DetailsAPIResponse.toTVDetailsResponse(tvDetails))).orElseGet(() -> ResponseEntity.ok(fetchAndSaveTVDetails(id)));
+        return byId
+                .map(
+                        tvDetails -> ResponseEntity
+                                .ok(
+                                        DetailsAPIResponse
+                                                .toTVDTO(tvDetails)))
+                .orElseGet(
+                        () -> ResponseEntity
+                                .ok(fetchAndSaveTVDetails(id)));
     }
 
-    private DetailsAPIResponse fetchAndSaveTVDetails(Integer id) {
+    private DetailsAPIResponse fetchAndSaveTVDetails(Long id) {
         DetailsAPIRequest tvDetails = tmdbClient.getTVDetails(id);
 
-        TVDetails tvDetails1 = TVDetails.fromRequest(tvDetails);
+        TVDetails tvDetails1 = TVDetails.toEntity(tvDetails);
 
         tvDetailsRepository.save(tvDetails1);
 
-        return DetailsAPIResponse.toTVDetailsResponse(tvDetails1);
+        return DetailsAPIResponse.toTVDTO(tvDetails1);
     }
 
-    private ResponseEntity<?> findMovieById(Integer id) {
-        Optional<MovieDetails> byId = movieDetailsRepository.findById(id);
-        return byId.map(movieDetails -> ResponseEntity.ok(DetailsAPIResponse.toMovieDetailsResponse(movieDetails))).orElseGet(() -> ResponseEntity.ok(fetchAndSaveMovieDetails(id)));
+    private ResponseEntity<?> findMovieById(Long id) {
+        return movieDetailsRepository.findById(id)
+                .map(movieDetails -> ResponseEntity.ok(
+                        DetailsAPIResponse.toMovieDTO(movieDetails)))
+                .orElseGet(() -> ResponseEntity.ok(
+                        fetchAndSaveMovieDetails(id)));
     }
 
-    private DetailsAPIResponse fetchAndSaveMovieDetails(Integer id) {
+    private DetailsAPIResponse fetchAndSaveMovieDetails(Long id) {
         DetailsAPIRequest movieDetails = tmdbClient.getMovieDetails(id);
 
-        MovieDetails movieDetails1 = MovieDetails.fromRequest(movieDetails);
+        MovieDetails movieDetails1 = MovieDetails.toEntity(movieDetails);
 
         movieDetailsRepository.save(movieDetails1);
 
-        return DetailsAPIResponse.toMovieDetailsResponse(movieDetails1);
+        return DetailsAPIResponse.toMovieDTO(movieDetails1);
     }
 
     public ResponseEntity<SearchMultiAPIRequest> trending(String type, String typeWindow) {

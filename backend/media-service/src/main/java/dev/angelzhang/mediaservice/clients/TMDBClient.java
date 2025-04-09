@@ -15,10 +15,10 @@ public interface TMDBClient {
                                       @RequestParam Integer page);
 
     @GetExchange("/tv/{id}")
-    DetailsAPIRequest getTVDetails(@PathVariable Integer id);
+    DetailsAPIRequest getTVDetails(@PathVariable Long id);
 
     @GetExchange("/movie/{id}")
-    DetailsAPIRequest getMovieDetails(@PathVariable Integer id);
+    DetailsAPIRequest getMovieDetails(@PathVariable Long id);
 
     @GetExchange("/trending/{type}/{timeWindow}")
     SearchMultiAPIRequest trending(@PathVariable String type,

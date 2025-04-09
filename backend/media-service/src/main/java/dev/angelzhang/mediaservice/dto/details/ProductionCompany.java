@@ -2,8 +2,8 @@ package dev.angelzhang.mediaservice.dto.details;
 
 public record ProductionCompany(
          Integer id,
-         String logo_path,
+         String logoPath,
          String name,
-         String origin_country
+         String originCountry
 ) {
 }

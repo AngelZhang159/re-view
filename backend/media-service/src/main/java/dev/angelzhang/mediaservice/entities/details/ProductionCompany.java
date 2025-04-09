@@ -20,38 +20,38 @@ public class ProductionCompany {
 
     @Id
     private Integer id;
-    private String logo_path;
+    private String logoPath;
     private String name;
-    private CountryCode origin_country;
+    private CountryCode originCountry;
 
-    @ManyToMany(mappedBy = "production_companies")
+    @ManyToMany(mappedBy = "productionCompanies")
     @JsonIgnore
     @ToString.Exclude
     private List<MovieDetails> movieDetails;
 
-    @ManyToMany(mappedBy = "production_companies")
+    @ManyToMany(mappedBy = "productionCompanies")
     @JsonIgnore
     @ToString.Exclude
     private List<TVDetails> tvDetails;
 
-    public static ProductionCompany fromEntity(dev.angelzhang.mediaservice.dto.details.ProductionCompany productionCompany) {
+    public static ProductionCompany toEntity(dev.angelzhang.mediaservice.dto.details.ProductionCompany productionCompany) {
         return ProductionCompany.builder()
                 .id(productionCompany.id())
-                .logo_path(productionCompany.logo_path())
+                .logoPath(productionCompany.logoPath())
                 .name(productionCompany.name())
-                .origin_country(productionCompany.origin_country().isBlank() ? null : CountryCode.valueOf(productionCompany.origin_country()))
+                .originCountry(productionCompany.originCountry() == null || productionCompany.originCountry().isBlank() ? null : CountryCode.valueOf(productionCompany.originCountry()))
                 .build();
     }
 
-    public static List<ProductionCompany> fromRequest(List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> productionCompanies) {
+    public static List<ProductionCompany> toEntity(List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> productionCompanies) {
         return productionCompanies.stream()
-                .map(ProductionCompany::fromEntity)
+                .map(ProductionCompany::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> toResponse(List<ProductionCompany> productionCompanies) {
+    public static List<dev.angelzhang.mediaservice.dto.details.ProductionCompany> toDTO(List<ProductionCompany> productionCompanies) {
         return productionCompanies.stream()
-                .map(productionCompany -> new dev.angelzhang.mediaservice.dto.details.ProductionCompany(productionCompany.getId(), productionCompany.getLogo_path(), productionCompany.getName(), productionCompany.getOrigin_country() == null ? null : productionCompany.getOrigin_country().name()))
+                .map(productionCompany -> new dev.angelzhang.mediaservice.dto.details.ProductionCompany(productionCompany.getId(), productionCompany.getLogoPath(), productionCompany.getName(), productionCompany.getOriginCountry() == null ? null : productionCompany.getOriginCountry().name()))
                 .collect(Collectors.toList());
     }
 }

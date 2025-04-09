@@ -19,32 +19,32 @@ import java.util.stream.Collectors;
 public class SpokenLanguage {
 
     @Id
-    private String iso_639_1;
-    private String english_name;
+    private String iso6391;
+    private String englishName;
     private String name;
 
-    @ManyToMany(mappedBy = "spoken_languages")
+    @ManyToMany(mappedBy = "spokenLanguages")
     @JsonIgnore
     @ToString.Exclude
     private List<MovieDetails> details;
 
-    public static SpokenLanguage fromEntity(dev.angelzhang.mediaservice.dto.details.SpokenLanguage spokenLanguage) {
+    public static SpokenLanguage toEntity(dev.angelzhang.mediaservice.dto.details.SpokenLanguage spokenLanguage) {
         return SpokenLanguage.builder()
-                .iso_639_1(spokenLanguage.iso_639_1())
-                .english_name(spokenLanguage.english_name())
+                .iso6391(spokenLanguage.iso6391())
+                .englishName(spokenLanguage.englishName())
                 .name(spokenLanguage.name())
                 .build();
     }
 
-    public static List<SpokenLanguage> fromRequest(List<dev.angelzhang.mediaservice.dto.details.SpokenLanguage> spokenLanguages) {
+    public static List<SpokenLanguage> toEntity(List<dev.angelzhang.mediaservice.dto.details.SpokenLanguage> spokenLanguages) {
         return spokenLanguages.stream()
-                .map(SpokenLanguage::fromEntity)
+                .map(SpokenLanguage::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.SpokenLanguage> toResponse(List<SpokenLanguage> spokenLanguages) {
+    public static List<dev.angelzhang.mediaservice.dto.details.SpokenLanguage> toDTO(List<SpokenLanguage> spokenLanguages) {
         return spokenLanguages.stream()
-                .map(spokenLanguage -> new dev.angelzhang.mediaservice.dto.details.SpokenLanguage(spokenLanguage.getIso_639_1(), spokenLanguage.getEnglish_name(), spokenLanguage.getName()))
+                .map(spokenLanguage -> new dev.angelzhang.mediaservice.dto.details.SpokenLanguage(spokenLanguage.getIso6391(), spokenLanguage.getEnglishName(), spokenLanguage.getName()))
                 .collect(Collectors.toList());
     }
 }

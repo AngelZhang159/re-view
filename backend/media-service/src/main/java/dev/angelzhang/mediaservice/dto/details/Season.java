@@ -2,12 +2,12 @@ package dev.angelzhang.mediaservice.dto.details;
 
 public record Season(
          Integer id,
-         String air_date,
-         Integer episode_count,
+         String airDate,
+         Integer episodeCount,
          String name,
          String overview,
-         String poster_path,
-         Integer season_number,
-         Double vote_average
+         String posterPath,
+         Integer seasonNumber,
+         Double voteAverage
 ) {
 }

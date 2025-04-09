@@ -1,26 +1,31 @@
 package dev.angelzhang.mediaservice.dto.searchMulti;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.util.ArrayList;
 
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record SearchMultiAPIBody(
-        String backdrop_path,
+        String backdropPath,
         Integer id,
         String title,
-        String original_title,
+        String originalTitle,
         String overview,
-        String poster_path,
-        String media_type,
+        String posterPath,
+        String mediaType,
         Boolean adult,
-        String original_language,
-        ArrayList<Integer> genre_ids,
+        String originalLanguage,
+        ArrayList<Integer> genreIds,
         Double popularity,
-        String release_date,
+        String releaseDate,
         Boolean video,
-        Double vote_average,
-        Integer vote_count,
+        Double voteAverage,
+        Integer voteCount,
         String name,
-        String original_name,
-        String first_air_date,
-        ArrayList<String> origin_country
+        String originalName,
+        String firstAirDate,
+        ArrayList<String> originCountry
 ) {
 }

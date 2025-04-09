@@ -21,42 +21,42 @@ public class Season {
 
     @Id
     private Integer id;
-    private String air_date;
-    private Integer episode_count;
+    private String airDate;
+    private Integer episodeCount;
     private String name;
     @Column(length = 1024)
     private String overview;
-    private String poster_path;
-    private Integer season_number;
-    private Double vote_average;
+    private String posterPath;
+    private Integer seasonNumber;
+    private Double voteAverage;
 
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude
     private TVDetails tvDetails;
 
-    public static Season fromRequest(dev.angelzhang.mediaservice.dto.details.Season season) {
+    public static Season toEntity(dev.angelzhang.mediaservice.dto.details.Season season) {
         return Season.builder()
                 .id(season.id())
-                .air_date(season.air_date())
-                .episode_count(season.episode_count())
+                .airDate(season.airDate())
+                .episodeCount(season.episodeCount())
                 .name(season.name())
                 .overview(season.overview())
-                .poster_path(season.poster_path())
-                .season_number(season.season_number())
-                .vote_average(season.vote_average())
+                .posterPath(season.posterPath())
+                .seasonNumber(season.seasonNumber())
+                .voteAverage(season.voteAverage())
                 .build();
     }
 
-    public static List<Season> fromRequest(List<dev.angelzhang.mediaservice.dto.details.Season> seasons) {
+    public static List<Season> toEntity(List<dev.angelzhang.mediaservice.dto.details.Season> seasons) {
         return seasons.stream()
-                .map(Season::fromRequest)
+                .map(Season::toEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<dev.angelzhang.mediaservice.dto.details.Season> toResponse(List<Season> seasons) {
+    public static List<dev.angelzhang.mediaservice.dto.details.Season> toDTO(List<Season> seasons) {
         return seasons.stream()
-                .map(season -> new dev.angelzhang.mediaservice.dto.details.Season(season.getId(), season.getAir_date(), season.getEpisode_count(), season.getName(), season.getOverview(), season.getPoster_path(), season.getSeason_number(), season.getVote_average()))
+                .map(season -> new dev.angelzhang.mediaservice.dto.details.Season(season.getId(), season.getAirDate(), season.getEpisodeCount(), season.getName(), season.getOverview(), season.getPosterPath(), season.getSeasonNumber(), season.getVoteAverage()))
                 .collect(Collectors.toList());
     }
 

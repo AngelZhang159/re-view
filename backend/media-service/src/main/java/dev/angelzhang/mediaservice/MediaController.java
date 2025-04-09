@@ -27,7 +27,7 @@ public class MediaController {
     }
 
     @GetMapping("/details/{type}/{id}")
-    public ResponseEntity<?> mediaDetails(@PathVariable String type, @PathVariable Integer id) {
+    public ResponseEntity<?> mediaDetails(@PathVariable String type, @PathVariable Long id) {
         log.info("New movie details query with type: {}, id: {}", type, id);
         return mediaService.getMediaDetailsById(type, id);
     }

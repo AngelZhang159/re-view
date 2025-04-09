@@ -4,15 +4,15 @@ public record Episode(
          Integer id,
          String name,
          String overview,
-         Double vote_average,
-         Integer vote_count,
-         String air_date,
-         Integer episode_number,
-         String episode_type,
-         String production_code,
+         Double voteAverage,
+         Integer voteCount,
+         String airDate,
+         Integer episodeNumber,
+         String episodeType,
+         String productionCode,
          Integer runtime,
-         Integer season_number,
-         Integer show_id,
-         String still_path
+         Integer seasonNumber,
+         Integer showId,
+         String stillPath
 ) {
 }

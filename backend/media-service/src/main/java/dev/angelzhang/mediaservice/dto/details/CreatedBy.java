@@ -2,10 +2,10 @@ package dev.angelzhang.mediaservice.dto.details;
 
 public record CreatedBy(
          Integer id,
-         String credit_id,
+         String creditId,
          String name,
-         String original_name,
+         String originalName,
          Integer gender,
-         String profile_path
+         String profilePath
 ) {
 }

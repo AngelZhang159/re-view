@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TVDetailsRepository extends JpaRepository<TVDetails, Integer> {
+public interface TVDetailsRepository extends JpaRepository<TVDetails, Long> {
 }
