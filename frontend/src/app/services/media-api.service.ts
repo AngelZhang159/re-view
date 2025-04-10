@@ -16,13 +16,13 @@ export class MediaApiService {
     return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/search/multi?query=${query}`)
   }
 
-  getDetails(type: string, id: number) {
-    return this.http.get<DetailsResponse>(`${this.apiUrl}/media/details/${type}/${id}`)
+  getDetails(mediaType: string, id: number) {
+    return this.http.get<DetailsResponse>(`${this.apiUrl}/media/details/${mediaType}/${id}`)
   }
 
-  getTrending(type: string) {
+  getTrending(mediaType: string) {
     //type can be 'tv' or 'movie'
     //can add a time window 'day' or 'week', default is 'day'
-    return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/trending/${type}`)
+    return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/trending/${mediaType}`)
   }
 }

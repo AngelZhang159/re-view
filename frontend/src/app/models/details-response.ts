@@ -1,61 +1,61 @@
 export type DetailsResponse = {
   adult: boolean,
-  backdrop_path: string,
-  belongs_to_collection: BelongsToCollection,
+  backdropPath: string,
+  belongsToCollection: BelongsToCollection,
   budget: number,
   genres: Genre[],
   homepage: string,
   id: number,
-  imdb_id: string,
-  origin_country: CountryCode[],
-  original_language: string,
-  original_title: string,
+  imdbId: string,
+  originCountry: CountryCode[],
+  originalLanguage: string,
+  originalTitle: string,
   overview: string,
   popularity: number,
-  poster_path: string,
-  production_companies: ProductionCompany[],
-  production_countries: ProductionCountry[],
-  release_date: string,
+  posterPath: string,
+  productionCompanies: ProductionCompany[],
+  productionCountries: ProductionCountry[],
+  releaseDate: string,
   revenue: number,
   runtime: number,
-  spoken_languages: SpokenLanguage[],
+  spokenLanguages: SpokenLanguage[],
   status: string,
   tagline: string,
   title: string,
   video: boolean,
-  vote_average: number,
-  vote_count: number,
-  created_by: CreatedBy[],
-  episode_run_time: number[],
-  first_air_date: string,
-  in_production: boolean,
+  voteAverage: number,
+  voteCount: number,
+  createdBy: CreatedBy[],
+  episodeRunTime: number[],
+  firstAirDate: string,
+  inProduction: boolean,
   languages: string[],
-  last_air_date: string,
-  last_episode_to_air: Episode,
+  lastAirDate: string,
+  lastEpisodeToAir: Episode,
   name: string,
-  next_episode_to_air: Episode,
+  nextEpisodeToAir: Episode,
   networks: Network[],
-  number_of_episodes: number,
-  number_of_seasons: number,
-  original_name: string,
+  numberOfEpisodes: number,
+  numberOfSeasons: number,
+  originalName: string,
   seasons: Season[],
   type: string,
-  also_known_as: string[],
+  alsoKnownAs: string[],
   biography: string,
   birthday: string,
   deathday: string,
   gender: number,
-  known_for_department: string,
-  place_of_birth: string,
-  profile_path: string,
-  media_type: string,
+  knownForDepartment: string,
+  placeOfBirth: string,
+  profilePath: string,
+  mediaType: string,
 }
 
 export type BelongsToCollection = {
   id: number,
   name: string,
-  poster_path: string,
-  backdrop_path: string
+  posterPath: string,
+  backdropPath: string
 }
 
 export type Genre = {
@@ -65,9 +65,9 @@ export type Genre = {
 
 export type ProductionCompany = {
   id: number,
-  logo_path: string,
+  logoPath: string,
   name: string,
-  origin_country: string
+  originCountry: string
 }
 
 export type ProductionCountry = {
@@ -76,52 +76,52 @@ export type ProductionCountry = {
 }
 
 export type SpokenLanguage = {
-  english_name: string,
+  englishName: string,
   iso_639_1: string,
   name: string
 }
 
 export type CreatedBy = {
   id: number,
-  credit_id: string,
+  creditId: string,
   name: string,
-  original_name: string,
+  originalName: string,
   gender: number,
-  profile_path: string
+  profilePath: string
 }
 
 export type Episode = {
   id: number,
   name: string,
   overview: string,
-  vote_average: number,
-  vote_count: number
-  air_date: string,
-  episode_number: number,
-  episode_type: string,
-  production_code: string,
+  voteAverage: number,
+  voteCount: number
+  airDate: string,
+  episodeNumber: number,
+  episodeType: string,
+  productionCode: string,
   runtime: number,
-  season_number: number,
-  show_id: number,
-  still_path: string,
+  seasonNumber: number,
+  showId: number,
+  stillPath: string,
 }
 
 export type Network = {
   id: number,
-  logo_path: string,
+  logoPath: string,
   name: string,
-  origin_country: string
+  originCountry: string
 }
 
 export type Season = {
   id: number,
-  air_date: string,
-  episode_count: number,
+  airDate: string,
+  episodeCount: number,
   name: string,
   overview: string,
-  poster_path: string,
-  season_number: number,
-  vote_average: number
+  posterPath: string,
+  seasonNumber: number,
+  voteAverage: number
 }
 
 export enum CountryCode {

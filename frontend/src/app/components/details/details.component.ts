@@ -28,12 +28,10 @@ export class DetailsComponent {
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { details: DetailsResponse }) {
     this.details = data.details
-    console.log(JSON.stringify(this.details))
   }
 
   details: DetailsResponse;
 
-  protected readonly JSON = JSON;
   protected readonly String = String;
 
   getCountryFlag(country: string): string {

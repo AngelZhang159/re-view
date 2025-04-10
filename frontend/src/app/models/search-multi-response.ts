@@ -1,28 +1,28 @@
 export interface SearchMultiResponse {
   page: number
   results: SearchMultiBody[]
-  total_pages: number
-  total_results: number
+  totalPages: number
+  totalResults: number
 }
 
 export interface SearchMultiBody {
-  backdrop_path?: string
+  backdropPath?: string
   id: number
   title?: string
-  original_title?: string
+  originalTitle?: string
   overview: string
-  poster_path: string
-  media_type: string
+  posterPath: string
+  mediaType: string
   adult: boolean
-  original_language: string
-  genre_ids: number[]
+  originalLanguage: string
+  genreIds: number[]
   popularity: number
-  release_date?: string
+  releaseDate?: string
   video?: boolean
-  vote_average: number
-  vote_count: number
+  voteAverage: number
+  voteCount: number
   name?: string
-  original_name?: string
-  first_air_date?: string
-  origin_country?: string[]
+  originalName?: string
+  firstAirDate?: string
+  originCountry?: string[]
 }

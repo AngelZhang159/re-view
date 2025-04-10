@@ -12,8 +12,8 @@ export class MediaService {
     return this.mediaApiService.searchMulti(query)
   }
 
-  getDetails(type: string, id: number) {
-    return this.mediaApiService.getDetails(type, id)
+  getDetails(mediaType: string, id: number) {
+    return this.mediaApiService.getDetails(mediaType, id)
   }
 
   getTrending(tv: string) {

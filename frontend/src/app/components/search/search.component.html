@@ -1,8 +1,8 @@
 @for (item of result ? result().results : null; track item.id) {
-  <a (click)="openDrawer(item.media_type, item.id)" class="h-[240px] w-[160px] cursor-pointer">
+  <a (click)="openDrawer(item.mediaType, item.id)" class="h-[240px] w-[160px] cursor-pointer">
     <mat-card appearance="outlined" class="m-6">
       <div class="inline-flex">
-        <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.poster_path }}"
+        <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + item.posterPath }}"
              height="240" width="160" class="object-cover aspect-[2/3] rounded-xl" alt="{{ item.name }}"/>
         <div class="flex flex-col">
           <mat-card-header>
@@ -10,9 +10,9 @@
               <span class="text-3xl">
               {{ item.title ? item.title : item.name }}
               </span>
-              @if (item.original_name && !(item.original_name == item.name || item.original_name == item.title)) {
+              @if (item.originalName && !(item.originalName == item.name || item.originalName == item.title)) {
                 <span class="text-neutral-500 text-2xl">
-                  | {{ item.original_name }}
+                  | {{ item.originalName }}
                 </span>
               }
             </mat-card-title>
@@ -25,9 +25,9 @@
           </mat-card-content>
 
           <mat-card-footer>
-            @if (item.origin_country != undefined && item.origin_country.length > 0) {
+            @if (item.originCountry != undefined && item.originCountry.length > 0) {
               <mat-chip-set class="px-4 py-2 items-center">
-                @for (country of item.origin_country; track country) {
+                @for (country of item.originCountry; track country) {
                   <mat-chip color="primary">
                         <span class="text-neutral-500">
                           {{ country }}

@@ -43,9 +43,9 @@ export class SearchComponent implements OnInit {
     this.searchService.setSearchQuery(this.query ? this.query : '');
   }
 
-  openDrawer(media_type: any, id: number) {
-    if (id != null || id != undefined && media_type != null || media_type != undefined) {
-      this.mediaService.getDetails(media_type, id).subscribe(data => {
+  openDrawer(mediaType: any, id: number) {
+    if (id != null || id != undefined && mediaType != null || mediaType != undefined) {
+      this.mediaService.getDetails(mediaType, id).subscribe(data => {
         this.bottomSheet.open(DetailsComponent, {data: {details: data}, height: '80vh'});
       })
     }

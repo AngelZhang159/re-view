@@ -14,8 +14,8 @@ import {debounceTime, distinctUntilChanged} from 'rxjs';
       result = signal<SearchMultiResponse>({
         page: 0,
         results: [],
-        total_results: 0,
-        total_pages: 0
+        totalResults: 0,
+        totalPages: 0
       });
 
       setSearchQuery(query: string) {

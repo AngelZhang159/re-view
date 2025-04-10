@@ -1,15 +1,15 @@
 <div class="relative h-full bg-neutral-900">
   <div
-    [ngStyle]="{'background-image': 'url(https://image.tmdb.org/t/p/original/' + details.backdrop_path + ')'}"
+    [ngStyle]="{'background-image': 'url(https://image.tmdb.org/t/p/original/' + details.backdropPath + ')'}"
     class="bg-cover bg-center absolute overflow-hidden w-full h-full opacity-25 blur-sm">
   </div>
   <div class="flex-row flex items-center w-full h-full z-10 p-10">
 
     <img class="h-[550px] w-auto rounded-2xl blur-3xl absolute z-20"
-         ngSrc="https://image.tmdb.org/t/p/original/{{details.poster_path}}"
+         ngSrc="https://image.tmdb.org/t/p/original/{{details.posterPath}}"
          alt="backdrop"
          width="100" height="100"/>
-    <img class="h-[550px] w-auto rounded-2xl z-30" ngSrc="https://image.tmdb.org/t/p/original/{{details.poster_path}}"
+    <img class="h-[550px] w-auto rounded-2xl z-30" ngSrc="https://image.tmdb.org/t/p/original/{{details.posterPath}}"
          alt="backdrop"
          width="100" height="100"/>
     <div class="flex-col flex h-full w-screen text-ellipsis overflow-hidden px-6 gap-5">
@@ -18,10 +18,10 @@
           <span>{{ details.name ? details.name : details.title }}</span>
         </h1>
 
-        @if ((details.original_name || details.original_title) &&
-        (details.original_name != details.name || details.original_title != details.title)) {
+        @if ((details.originalName || details.originalTitle) &&
+        (details.originalName != details.name || details.originalTitle != details.title)) {
           <h2 class="truncate text-4xl font-bold text-neutral-400">
-            <span>{{ details.original_name ? details.original_name : details.original_title }}</span>
+            <span>{{ details.originalName ? details.originalName : details.originalTitle }}</span>
           </h2>
         }
       </div>
@@ -41,21 +41,21 @@
           </div>
           <div class="flex flex-row gap-8">
 
-            @if (details.origin_country) {
+            @if (details.originCountry) {
               <div>
                 <span>Origin countries</span>
                 <mat-chip-set>
-                  @for (country of details.origin_country; track country) {
+                  @for (country of details.originCountry; track country) {
                     <mat-chip>{{ getCountryFlag(country.toString()) }} {{ country }}</mat-chip>
                   }
                 </mat-chip-set>
               </div>
             }
-            @if (details.production_countries) {
+            @if (details.productionCountries) {
               <div>
                 <span>Production countries</span>
                 <mat-chip-set>
-                  @for (country of details.production_countries; track country) {
+                  @for (country of details.productionCountries; track country) {
                     <mat-chip>{{ getCountryFlag(country.iso_3166_1) }} {{ country.iso_3166_1 }}</mat-chip>
                   }
                 </mat-chip-set>
