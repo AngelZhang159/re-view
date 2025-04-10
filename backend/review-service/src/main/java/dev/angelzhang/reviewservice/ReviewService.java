@@ -118,13 +118,13 @@ public class ReviewService {
         Page<Review> reviewPage;
         if (userId == null) {
             if (type == null || type.isBlank()) {
-                reviewPage = reviewRepository.findAll(pageable);
+                reviewPage = reviewRepository.findAllByUserId(tokenUserId, pageable);
             } else {
                 reviewPage = reviewRepository.findByTypeAndUserId(Type.fromString(type), tokenUserId, pageable);
             }
         } else {
             if (type == null || type.isBlank()) {
-                reviewPage = reviewRepository.findByUserId(userId, pageable);
+                reviewPage = reviewRepository.findAllByUserId(userId, pageable);
             } else {
                 reviewPage = reviewRepository.findByTypeAndUserId(Type.fromString(type), tokenUserId, pageable);
             }
@@ -133,7 +133,10 @@ public class ReviewService {
         if (reviewPage.isEmpty()) return ResponseEntity.notFound().build();
 
         //TODO
+        //right now any user can see any review by any user
         //is itself? is that profile public? is friend?
+        //TODO change this to call a new method, from current review, get id and type of media and make a Map<Media, ID>
+        //call in bulk to the media service to get all details and then map them to the ReviewResponse
         Page<ReviewResponse> reviewResponsePage = reviewPage.map((review) -> ReviewResponse.toResponse(review, getDetails(token, review)));
 
         return ResponseEntity.ok((reviewResponsePage));
