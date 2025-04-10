@@ -52,7 +52,6 @@ public class ReviewService {
         Review review = findValidateReview(token, reviewId);
         if (review == null) return ResponseEntity.notFound().build();
 
-        DetailsAPIResponse detailsAPIResponse = getDetails(token, review);
         ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
