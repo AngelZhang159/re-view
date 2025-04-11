@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {enviroment} from '../../enviroments/enviroment';
-import {ReviewRequest} from '../models/review';
+import {ReviewRequest, ReviewResponsePage} from '../models/review';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class ReviewApiService {
   }
 
   getReviews() {
-    return this.http.get(this.apiUrl + '/review/list')
+    return this.http.get<ReviewResponsePage>(this.apiUrl + '/review/list')
   }
 
   getReviewsByUser(userId: number) {
