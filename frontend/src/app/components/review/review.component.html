@@ -1,22 +1,16 @@
-<div class="flex w-full h-full">
+<div class="grid w-full h-full {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
 
-  <p-tabs value="all" class="w-full h-full">
-    <p-tablist class="">
-      @for (tab of tabs; track tab.value) {
-        <p-tab [value]="tab.value">
-          <span class="text-xl px-4 py-2">
-            {{tab.title}}
-          </span>
-        </p-tab>
-      }
-    </p-tablist>
-    <p-tabpanels class="h-full">
-      @for (tab of tabs; track tab.value) {
-        <p-tabpanel>
-          content
-        </p-tabpanel>
-      }
-    </p-tabpanels>
-  </p-tabs>
+  @if (reviewResponsePage == undefined || reviewResponsePage.totalElements != 0) {
+    @for (review of reviewResponsePage?.content; track review.id) {
+      <div class="fle">
+        <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200"/>
+      </div>
+    }
+  } @else {
+    <span class="flex w-full h-full justify-center items-center">
+      No reviews found
+    </span>
+  }
 
 </div>
+
