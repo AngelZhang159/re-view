@@ -1,35 +1,32 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
+import {ReviewService} from '../../services/review.service';
+import {ReviewResponsePage} from '../../models/review';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {NgOptimizedImage} from '@angular/common';
+import {MenuService} from '../../services/menu.service';
 
 @Component({
   selector: 'app-review',
   imports: [
-    Tabs,
-    TabList,
-    TabPanels,
-    TabPanel,
-    Tab
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    NgOptimizedImage
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
 })
 export class ReviewComponent {
-  tabs = [
-    {
-      title: 'ALL',
-      value: 'all',
-      content: 'All reviews content goes here'
-    },
-    {
-      title: 'MOVIES',
-      value: 'movies',
-      content: 'My reviews content goes here'
-    },
-    {
-      title: 'SERIES',
-      value: 'series',
-      content: 'Friends reviews content goes here'
-    }
-  ];
 
+  reviewService = inject(ReviewService)
+  menuService = inject(MenuService)
+
+  reviewResponsePage : ReviewResponsePage | undefined;
+
+  constructor() {
+    this.reviewService.getReviews().subscribe(data => {
+      this.reviewResponsePage = data;
+    })
+  }
 }
