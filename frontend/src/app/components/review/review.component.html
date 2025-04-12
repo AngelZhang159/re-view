@@ -2,8 +2,8 @@
 
   @if (reviewResponsePage == undefined || reviewResponsePage.totalElements != 0) {
     @for (review of reviewResponsePage?.content; track review.id) {
-      <div class="fle">
-        <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200"/>
+      <div class="flex">
+        <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200" alt=""/>
       </div>
     }
   } @else {
