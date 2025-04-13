@@ -3,8 +3,8 @@ package dev.angelzhang.userservice.dto;
 import jakarta.validation.constraints.NotEmpty;
 
 public record UserRegisterRequest(
-    @NotEmpty String username,
-    @NotEmpty String password,
-    @NotEmpty String email
+    @NotEmpty(message = "Username can not be empty") String username,
+    @NotEmpty(message = "Password can not be empty") String password,
+    @NotEmpty(message = "Email can not be empty") String email
 ) {
 }
