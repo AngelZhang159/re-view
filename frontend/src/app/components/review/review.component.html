@@ -2,7 +2,7 @@
 
   @if (reviewResponsePage == undefined || reviewResponsePage.totalElements != 0) {
     @for (review of reviewResponsePage?.content; track review.id) {
-      <div class="flex">
+      <div>
         <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200" alt=""/>
       </div>
     }
