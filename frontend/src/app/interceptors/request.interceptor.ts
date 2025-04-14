@@ -23,7 +23,7 @@ export const requestInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(clonedRequest).pipe(catchError((err) => {
-    if (err.status === 403) {
+    if (err.status === 403 && !req.url.includes("refresh")) {
       console.error("Failed request: " + JSON.stringify(err))
       return authService.refreshToken().pipe(
         switchMap(response => {
