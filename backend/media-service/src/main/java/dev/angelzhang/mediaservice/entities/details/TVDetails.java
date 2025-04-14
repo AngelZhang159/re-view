@@ -3,17 +3,17 @@ package dev.angelzhang.mediaservice.entities.details;
 import dev.angelzhang.mediaservice.dto.details.DetailsAPIRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -98,4 +98,5 @@ public class TVDetails extends MediaDetails {
         log.info("Resulting TV details: Network:{}\n, Season: {}\n", build.getNetworks(), build.getSeasons());
         return build;
     }
+
 }

@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Season {
 
     @Id
@@ -59,5 +60,4 @@ public class Season {
                 .map(season -> new dev.angelzhang.mediaservice.dto.details.Season(season.getId(), season.getAirDate(), season.getEpisodeCount(), season.getName(), season.getOverview(), season.getPosterPath(), season.getSeasonNumber(), season.getVoteAverage()))
                 .collect(Collectors.toList());
     }
-
 }
