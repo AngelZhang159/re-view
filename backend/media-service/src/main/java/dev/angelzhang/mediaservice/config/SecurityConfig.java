@@ -22,7 +22,7 @@ public class SecurityConfig {
         http
                 .cors(cors ->
                         cors.configurationSource(apiConfigurationSource()
-                ))
+                        ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/media/health")
