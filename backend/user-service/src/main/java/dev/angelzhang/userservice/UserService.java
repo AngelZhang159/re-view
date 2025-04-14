@@ -33,7 +33,7 @@ public class UserService {
     private final JwtUtil jwtUtil;
 
     public ResponseEntity<UserRegisterResponse> registerUser(UserRegisterRequest userRegisterRequest) {
-        if (!userRepository.existsByUsernameOrEmail(userRegisterRequest.username(), userRegisterRequest.email()))
+        if (userRepository.existsByUsernameOrEmail(userRegisterRequest.username(), userRegisterRequest.email()))
             throw new UserAlreadyExistsException("User with email '" + userRegisterRequest.email() + "' or username '" + userRegisterRequest.username() + "' already exists.");
         //TODO Check if the password is valid (?)
         User user = UserMapper.toEntity(userRegisterRequest, passwordEncoder.encode(userRegisterRequest.password()));
