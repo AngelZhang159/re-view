@@ -1,6 +1,8 @@
 package dev.angelzhang.mediaservice.dto.details;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import dev.angelzhang.mediaservice.entities.details.CountryCode;
 import dev.angelzhang.mediaservice.entities.details.MovieDetails;
 import dev.angelzhang.mediaservice.entities.details.TVDetails;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record DetailsAPIResponse(
         Boolean adult,
         String backdropPath,
@@ -128,7 +131,7 @@ public record DetailsAPIResponse(
                 movieDetails.getHomepage(),
                 movieDetails.getId(),
                 movieDetails.getImdbId(),
-                null, // originCountry (not in MovieDetails)
+                movieDetails.getOriginCountry() != null ? CountryCode.toDTO(movieDetails.getOriginCountry()) :null,
                 movieDetails.getOriginalLanguage(),
                 movieDetails.getOriginalTitle(),
                 movieDetails.getOverview(),
