@@ -1,13 +1,15 @@
 package dev.angelzhang.userservice;
 
-import dev.angelzhang.userservice.dto.*;
-import dev.angelzhang.userservice.enums.Role;
+import dev.angelzhang.userservice.dto.UserLoginRequest;
+import dev.angelzhang.userservice.dto.UserLoginResponse;
+import dev.angelzhang.userservice.dto.UserRegisterRequest;
+import dev.angelzhang.userservice.dto.UserRegisterResponse;
 import dev.angelzhang.userservice.exception.InvalidJWTException;
 import dev.angelzhang.userservice.exception.InvalidPasswordException;
 import dev.angelzhang.userservice.exception.UserAlreadyExistsException;
 import dev.angelzhang.userservice.exception.UserNotFoundException;
+import dev.angelzhang.userservice.mapper.UserMapper;
 import dev.angelzhang.userservice.util.JwtUtil;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,102 +33,54 @@ public class UserService {
     private final JwtUtil jwtUtil;
 
     public ResponseEntity<UserRegisterResponse> registerUser(UserRegisterRequest userRegisterRequest) {
-        checkUserAlreadyExists(userRegisterRequest);
-
-        User user = createUserWithDefaults(userRegisterRequest);
+        if (!userRepository.existsByUsernameOrEmail(userRegisterRequest.username(), userRegisterRequest.email()))
+            throw new UserAlreadyExistsException("User with email '" + userRegisterRequest.email() + "' or username '" + userRegisterRequest.username() + "' already exists.");
+        //TODO Check if the password is valid (?)
+        User user = UserMapper.toEntity(userRegisterRequest, passwordEncoder.encode(userRegisterRequest.password()));
 
         userRepository.save(user);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(
-                        new UserRegisterResponse(
-                                user.getId(),
-                                user.getUsername(),
-                                user.getEmail(),
-                                "Account created successfully")
-                );
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toRegisterDTO(user));
     }
 
-    private User createUserWithDefaults(UserRegisterRequest userRegisterRequest) {
-        User user = new User();
-        user.setUsername(userRegisterRequest.username());
-        user.setPassword(passwordEncoder.encode(userRegisterRequest.password()));
-        user.setEmail(userRegisterRequest.email());
-        user.setRole(List.of(Role.USER));
-
-        Instant instant = Instant.now();
-        user.setCreatedAt(instant);
-        user.setUpdatedAt(instant);
-        return user;
-    }
-
-    private void checkUserAlreadyExists(UserRegisterRequest userRegisterRequest) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(userRegisterRequest.email());
-        if (userByEmail.isPresent())
-            throw new UserAlreadyExistsException("User with email '" + userRegisterRequest.email() + "' already exists.");
-        Optional<User> userByUsername = userRepository.findUserByUsername(userRegisterRequest.username());
-        if (userByUsername.isPresent())
-            throw new UserAlreadyExistsException("User with username '" + userRegisterRequest.username() + "' already exists.");
-    }
-
-    public ResponseEntity<UserLoginResponse> loginUser(@Valid UserLoginRequest userLoginRequest) {
+    public ResponseEntity<UserLoginResponse> loginUser(UserLoginRequest userLoginRequest) {
         Optional<User> userByEmail = userRepository.findUserByEmail(userLoginRequest.email());
 
-        User user = checkUserExists(userLoginRequest, userByEmail);
-        checkCorrectPassword(userLoginRequest, user);
+        // Check if user exists
+        User user = userByEmail.orElseThrow(() -> new UserNotFoundException("User with email '" + userLoginRequest.email() + "' not found."));
+        // Check if the password is correct
+        if (!passwordEncoder.matches(userLoginRequest.password(), user.getPassword()))
+            throw new InvalidPasswordException("Invalid password");
 
-        return generateUserLogin(user);
-    }
-
-    private ResponseEntity<UserLoginResponse> generateUserLogin(User user) {
-        UserResponseDTO userResponseDTO = new UserResponseDTO(
-                user.getUsername(),
-                user.getEmail(),
-                user.getProfilePictureUrl()
-        );
-
-        UserLoginResponse userLoginResponse = new UserLoginResponse(
+        UserLoginResponse userResponse = UserMapper.toLoginDTO(
+                user,
                 jwtUtil.generateAccessToken(user.getId(), user.getRole()),
                 jwtUtil.generateRefreshToken(user.getId(), user.getRole()),
-                userResponseDTO,
                 ACCESS_EXPIRATION
         );
 
-        return ResponseEntity.status(HttpStatus.OK).body(userLoginResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 
-    private void checkCorrectPassword(UserLoginRequest userLoginRequest, User user) {
-        if (!passwordEncoder.matches(userLoginRequest.password(), user.getPassword())) {
-            throw new InvalidPasswordException("Invalid password");
-        }
-    }
-
-    private static User checkUserExists(UserLoginRequest userLoginRequest, Optional<User> userByEmail) {
-        if (userByEmail.isEmpty()) {
-            String errMsg = "User with email '" + userLoginRequest.email() + "' not found";
-            throw new UserNotFoundException(errMsg);
-        } else {
-            return userByEmail.get();
-        }
-    }
 
     public ResponseEntity<UserLoginResponse> refreshToken(String refreshToken) {
 
         String token = refreshToken.startsWith("Bearer ") ? refreshToken.substring(7) : refreshToken;
 
-        if (!jwtUtil.isRefreshToken(token)) {
-            throw new InvalidJWTException("Invalid JWT, must be refresh token");
-        }
+        if (!jwtUtil.isRefreshToken(token)) throw new InvalidJWTException("Invalid JWT, must be refresh token");
 
-        Long userId = jwtUtil.extractUserId(token);
+        User user = userRepository.findById(jwtUtil.extractUserId(token))
+                .orElseThrow(() ->
+                        new UserNotFoundException("User not found (User was probably deleted)")
+                );
 
-        Optional<User> user = userRepository.findById(userId);
+        UserLoginResponse userResponse = UserMapper.toLoginDTO(
+                user,
+                jwtUtil.generateAccessToken(user.getId(), user.getRole()),
+                jwtUtil.generateRefreshToken(user.getId(), user.getRole()),
+                ACCESS_EXPIRATION
+        );
 
-        if (user.isEmpty()) {
-            throw new UserNotFoundException("User with ID: " + userId + " not found (User was deleted)");
-        }
-
-        return generateUserLogin(user.get());
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 }
