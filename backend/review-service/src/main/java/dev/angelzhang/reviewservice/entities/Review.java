@@ -3,14 +3,16 @@ package dev.angelzhang.reviewservice.entities;
 import dev.angelzhang.reviewservice.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
 @NoArgsConstructor
