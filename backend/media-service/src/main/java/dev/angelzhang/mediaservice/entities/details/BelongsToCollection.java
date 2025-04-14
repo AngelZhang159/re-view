@@ -12,7 +12,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class BelongsToCollection {
     @Id
     private Integer id;
@@ -27,9 +28,7 @@ public class BelongsToCollection {
 
     public static BelongsToCollection toEntity(dev.angelzhang.mediaservice.dto.details.BelongsToCollection belongsToCollection) {
 
-        if (belongsToCollection == null) {
-            return null;
-        }
+        if (belongsToCollection == null) return null;
 
         return BelongsToCollection.builder()
                 .id(belongsToCollection.id())
@@ -40,9 +39,7 @@ public class BelongsToCollection {
     }
 
     public static dev.angelzhang.mediaservice.dto.details.BelongsToCollection toDTO(BelongsToCollection belongsToCollection) {
-        if (belongsToCollection == null ) {
-            return null;
-        }
+        if (belongsToCollection == null) return null;
         return new dev.angelzhang.mediaservice.dto.details.BelongsToCollection(belongsToCollection.getId(), belongsToCollection.getName(), belongsToCollection.getPosterPath(), belongsToCollection.getBackdropPath());
     }
 }
