@@ -3,12 +3,12 @@ package dev.angelzhang.mediaservice.dto.searchMulti;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record SearchMultiAPIRequest(
         Integer page,
-        ArrayList<SearchMultiAPIBody> results,
+        List<SearchMultiAPIBody> results,
         Integer totalPages,
         Integer totalResults
 ) {

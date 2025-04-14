@@ -3,7 +3,7 @@ package dev.angelzhang.mediaservice.dto.searchMulti;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -17,7 +17,7 @@ public record SearchMultiAPIBody(
         String mediaType,
         Boolean adult,
         String originalLanguage,
-        ArrayList<Integer> genreIds,
+        List<Integer> genreIds,
         Double popularity,
         String releaseDate,
         Boolean video,
@@ -26,6 +26,6 @@ public record SearchMultiAPIBody(
         String name,
         String originalName,
         String firstAirDate,
-        ArrayList<String> originCountry
+        List<String> originCountry
 ) {
 }

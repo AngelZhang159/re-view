@@ -3,7 +3,6 @@ package dev.angelzhang.mediaservice.dto.details;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -49,7 +48,7 @@ public record DetailsAPIRequest(
         String originalName,
         List<Season> seasons,
         String type,
-        ArrayList<String> alsoKnownAs,
+        List<String> alsoKnownAs,
         String biography,
         String birthday,
         String deathday,
