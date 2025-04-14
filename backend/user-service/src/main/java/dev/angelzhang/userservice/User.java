@@ -2,18 +2,17 @@ package dev.angelzhang.userservice;
 
 import dev.angelzhang.userservice.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Data
+@Getter
+@Setter
 public class User {
 
     @Id
