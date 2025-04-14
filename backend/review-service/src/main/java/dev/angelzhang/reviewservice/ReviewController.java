@@ -26,11 +26,13 @@ public class ReviewController {
 
     @GetMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> getReview(@RequestHeader("Authorization") String token, @PathVariable @NotNull Long reviewId) {
+        log.info("Getting review with ID: {}", reviewId);
         return reviewService.getReview(token, reviewId);
     }
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> deleteReview(@RequestHeader("Authorization") String token, @PathVariable Long reviewId) {
+        log.info("Deleting review with ID: {}", reviewId);
         return reviewService.deleteReview(token, reviewId);
     }
 
@@ -48,6 +50,7 @@ public class ReviewController {
             @RequestParam(value = "size", defaultValue = "30") Integer size,
             @RequestParam(value = "type", required = false) String type
     ) {
+        log.info("Getting all reviews for user ID: {}", userId);
         return reviewService.getAllReviews(token, userId, type, page, size);
     }
 
@@ -58,6 +61,7 @@ public class ReviewController {
             @RequestParam(value = "size", defaultValue = "30") Integer size,
             @RequestParam(value = "type", required = false) String type
     ) {
+        log.info("Getting all reviews of the user");
         return reviewService.getAllReviews(token, null, type, page, size);
     }
 //      TODO: maybe add this
