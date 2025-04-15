@@ -1,9 +1,13 @@
-<div class="grid w-full h-full {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
+<div class="grid w-full h-full px-16 {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
 
   @if (reviewResponsePage == undefined || reviewResponsePage.totalElements != 0) {
     @for (review of reviewResponsePage?.content; track review.id) {
-      <div>
-        <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200" alt=""/>
+      <div class="relative m-4 justify-center items-center flex h-[300px] w-[200px]">
+          <div class="flex w-full justify-end items-end h-full absolute">
+            <span class="text-3xl bg-neutral-300 text-black rounded-2xl p-2 m-4">{{ review.rating }}</span>
+          </div>
+          <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300" width="200" alt=""
+               class="rounded-2xl"/>
       </div>
     }
   } @else {
