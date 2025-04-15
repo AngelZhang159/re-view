@@ -1,10 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {Component, inject} from '@angular/core';
 import {MatDivider, MatListItem, MatListItemIcon, MatNavList} from '@angular/material/list';
 import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {MenuService} from '../../services/menu.service';
-import {menuList} from '../../models/menu';
+import {MenuList} from '../../models/menu';
 import {NgStyle} from '@angular/common';
 
 @Component({
@@ -23,22 +22,21 @@ import {NgStyle} from '@angular/common';
   styleUrl: './menu.component.css'
 })
 
-export class MenuComponent implements OnInit {
+export class MenuComponent {
 
   menuService = inject(MenuService);
 
-  items: MenuItem[] = [];
-  routeList: menuList[] = [
+  routeList: MenuList[] = [
     {
       label: 'Home',
       route: '/app',
       icon: 'home'
     },
-    {
-      label: 'Search',
-      route: '/app/search',
-      icon: 'search'
-    },
+    // {
+    //   label: 'Search',
+    //   route: '/app/search',
+    //   icon: 'search'
+    // },
     {
       label: 'Reviews',
       route: [{outlets: {content: ["reviews"]}}],
@@ -47,7 +45,7 @@ export class MenuComponent implements OnInit {
     {
       label: 'Friends',
       route: [{outlets: {content: ["friends"]}}],
-      icon: 'people'
+      icon: 'people',
     },
     {
       label: 'Close',
@@ -59,45 +57,7 @@ export class MenuComponent implements OnInit {
     {
       label: 'Settings',
       route: [{outlets: {content: ["settings"]}}],
-      icon: 'settings'
+      icon: 'settings',
     }
   ]
-
-  ngOnInit(): void {
-    this.items = [
-      {
-        label: 'Home',
-        icon: 'pi pi-home',
-        routerLink: '/app'
-      },
-      {
-        label: 'Search',
-        icon: 'pi pi-search',
-        routerLink: '/app/search'
-      },
-      {
-        label: 'Reviews',
-        icon: 'pi pi-star',
-        // items: [
-        //   {
-        //     label: 'Movies & Series',
-        //     icon: 'pi pi-star',
-        //     routerLink: '/app/reviews/movies',
-        //   },
-        // ]
-      },
-      {
-        label: 'Friends',
-        icon: 'pi pi-users',
-        routerLink: '/app/friends',
-      },
-      {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        routerLink: '/app/settings',
-      }
-    ]
-  }
-
-  protected readonly JSON = JSON;
 }
