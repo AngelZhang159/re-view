@@ -129,7 +129,7 @@ public class ReviewService {
             }
         }
 
-        if (reviewPage.isEmpty()) return ResponseEntity.notFound().build();
+//        if (reviewPage.isEmpty()) return ResponseEntity.notFound().build();
 
         //TODO
         //right now any user can see any review by any user
