@@ -1,20 +1,19 @@
-<div class="grid w-full h-full px-16 {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
-
-  @if (reviewResponsePage == undefined || reviewResponsePage.totalElements != 0) {
+@if (!reviewResponsePage?.empty) {
+  <div class="grid w-full h-full px-16 {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
     @for (review of reviewResponsePage?.content; track review.id) {
       <div class="relative m-4 justify-center items-center flex h-[300px] w-[200px]">
-          <div class="flex w-full justify-end items-end h-full absolute">
-            <span class="text-3xl bg-neutral-300 text-black rounded-2xl p-2 m-4">{{ review.rating }}</span>
-          </div>
-          <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" fill alt=""
-               class="rounded-2xl"/>
+        <div class="flex w-full justify-end items-end h-full absolute">
+          <span class="text-3xl bg-neutral-300 text-black rounded-2xl p-2 m-4">{{ review.rating }}</span>
+        </div>
+        <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" fill alt=""
+             class="rounded-2xl -z-10"/>
       </div>
     }
-  } @else {
-    <span class="flex w-full h-full justify-center items-center">
-      No reviews found
-    </span>
-  }
-
-</div>
-
+  </div>
+} @else {
+  <div class="flex w-full h-full">
+      <span class="flex items-center justify-center w-full">
+        No reviews found
+      </span>
+  </div>
+}
