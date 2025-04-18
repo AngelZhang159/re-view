@@ -2,7 +2,6 @@ package dev.angelzhang.reviewservice.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.angelzhang.reviewservice.dto.media.details.DetailsAPIResponse;
 import dev.angelzhang.reviewservice.entities.Review;
 import dev.angelzhang.reviewservice.entities.TVReview;
@@ -12,7 +11,7 @@ import java.time.Instant;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ReviewResponse(
         Long id,
-        String userId,
+        Long userId,
         String mediaType,
         Long mediaId,
         String mediaTitle,
@@ -27,7 +26,7 @@ public record ReviewResponse(
     public static ReviewResponse toResponse(Review review, DetailsAPIResponse detailsAPIResponse) {
         return new ReviewResponse(
                 review.getId(),
-                review.getUserId().toString(),
+                review.getUserId(),
                 review.getType().toString(),
                 detailsAPIResponse.id(),
                 detailsAPIResponse.title() == null || detailsAPIResponse.title().isBlank() ? detailsAPIResponse.name() : detailsAPIResponse.title(),
