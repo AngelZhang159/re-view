@@ -1,4 +1,5 @@
 name: deploy-angular-frontend
+
 on:
   push:
     branches: main
@@ -26,11 +27,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: node.js
+      - name: setup node.js
         uses: actions/setup-node@v3.9.1
         with:
           node-version: '22.x'
-                  
+
       - name: install dependencies
         run: npm install --legacy-peer-deps
         working-directory: "./frontend"
@@ -39,15 +40,17 @@ jobs:
         run: npm run build
         working-directory: "./frontend"
 
+      - name: upload artifacts
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: "./frontend/dist/re-view/browser"
+
       - name: configure github pages
         uses: actions/configure-pages@v5.0.0
-
-      - name: upload artifacts
-      - uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: ./frontend/dist/re-view/browser
+          branch: gh-pages
+          folder: ./frontend/dist/re-view/browser
 
       - name: deploy
         id: deployment
         uses: actions/deploy-pages@v4.0.5
-        
