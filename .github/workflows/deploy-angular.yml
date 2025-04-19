@@ -32,11 +32,11 @@ jobs:
           node-version: '22.x'
                   
       - name: install dependencies
-      - run: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
         working-directory: "./frontend"
 
       - name: build project
-      - run: npm run build
+        run: npm run build
         working-directory: "./frontend"
 
       - name: configure github pages
