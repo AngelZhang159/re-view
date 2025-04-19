@@ -1,0 +1,41 @@
+name: deploy-angular-frontend
+
+on:
+  push:
+    branches: main
+    paths: "./frontend"
+  pull_request:
+    branches: main
+    paths: "./frontend"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+     
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: setup node.js
+        uses: actions/setup-node@v3.9.1
+        with:
+          node-version: '22.x'
+
+      - name: install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: "./frontend"
+
+      - name: build project
+        run: npm run build
+        working-directory: "./frontend"
