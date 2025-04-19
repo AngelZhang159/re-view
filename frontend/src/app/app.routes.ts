@@ -1,65 +1,59 @@
 import {Routes} from '@angular/router';
-import {HomeComponent} from './components/home/home.component';
-import {LoginComponent} from './components/login/login.component';
-import {MainAppComponent} from './components/main-app/main-app.component';
-import {RegisterComponent} from './components/register/register.component';
 import {homeGuard} from './guards/home.guard';
-import {DetailsComponent} from './components/details/details.component';
-import {NotFoundComponent} from './components/not-found/not-found.component';
-import {SearchComponent} from './components/search/search.component';
-import {ContentComponent} from './components/content/content.component';
 import {authGuard} from './guards/auth.guard';
-import {ReviewComponent} from './components/review/review.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [homeGuard]
+    loadComponent: () =>
+      import('./components/home/home.component').then(m => m.HomeComponent),
+    canActivate: [homeGuard],
   },
   {
     path: 'login',
-    component: LoginComponent
+    loadComponent: () =>
+      import('./components/login/login.component').then(m => m.LoginComponent),
   },
   {
     path: 'register',
-    component: RegisterComponent
+    loadComponent: () =>
+      import('./components/register/register.component').then(m => m.RegisterComponent),
   },
   {
     path: 'app',
-    component: MainAppComponent,
+    loadComponent: () =>
+      import('./components/main-app/main-app.component').then(m => m.MainAppComponent),
     canActivate: [authGuard],
     children: [
       {
         path: '',
-        component: ContentComponent,
-        outlet: 'content'
+        loadComponent: () =>
+          import('./components/content/content.component').then(m => m.ContentComponent),
+        outlet: 'content',
       },
       {
         path: 'details/:type/:id',
-        component: DetailsComponent,
-        outlet: 'content'
+        loadComponent: () =>
+          import('./components/details/details.component').then(m => m.DetailsComponent),
+        outlet: 'content',
       },
       {
         path: 'search',
-        component: SearchComponent,
-        outlet: 'content'
+        loadComponent: () =>
+          import('./components/search/search.component').then(m => m.SearchComponent),
+        outlet: 'content',
       },
       {
         path: 'reviews',
-        component: ReviewComponent,
+        loadComponent: () =>
+          import('./components/review/review.component').then(m => m.ReviewComponent),
         outlet: 'content',
-        // children: [
-        //   {
-        //     path: ':id',
-        //     component: ReviewComponent,
-        //   }
-        // ]
-      }
-    ]
+      },
+    ],
   },
   {
     path: '**',
-    component: NotFoundComponent
-  }
+    loadComponent: () =>
+      import('./components/not-found/not-found.component').then(m => m.NotFoundComponent),
+  },
 ];
