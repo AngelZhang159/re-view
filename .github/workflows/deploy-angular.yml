@@ -16,7 +16,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
-      
+     
     environment:
       name: production
       url: ${{ steps.deployment.outputs.page_url }}
@@ -48,8 +48,8 @@ jobs:
       - name: configure github pages
         uses: actions/configure-pages@v5.0.0
         with:
-          branch: gh-pages
-          folder: ./frontend/dist/re-view/browser
+          branch: gh-pages  # The branch to deploy to (default is gh-pages)
+          folder: ./frontend/dist/re-view/browser  # The folder containing your built static files
 
       - name: deploy
         id: deployment
