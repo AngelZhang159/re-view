@@ -3,10 +3,12 @@ name: deploy-angular-frontend
 on:
   push:
     branches: main
-    paths: "./frontend"
+    paths:
+      - 'frontend/**'
   pull_request:
     branches: main
-    paths: "./frontend"
+    paths:
+      - 'frontend/**'
 
 jobs:
   deploy:
@@ -39,3 +41,12 @@ jobs:
       - name: build project
         run: npm run build
         working-directory: "./frontend"
+
+      - name: upload artifacts
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: "./frontend/dist/re-view/browser"
+          
+      - name: deploy
+        id: deployment
+        uses: actions/deploy-pages@v4.0.5
