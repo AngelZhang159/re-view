@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {enviroment} from '../../enviroments/enviroment';
+import {environment} from '../../environments/environment';
 import {ReviewRequest, ReviewResponsePage} from '../models/review';
 
 @Injectable({
@@ -9,7 +9,7 @@ import {ReviewRequest, ReviewResponsePage} from '../models/review';
 export class ReviewApiService {
 
   http = inject(HttpClient)
-  private apiUrl = enviroment.apiReviewUrl
+  private apiUrl = environment.apiReviewUrl
 
   createReview(reviewRequest: ReviewRequest) {
     return this.http.post(this.apiUrl + '/review', reviewRequest)

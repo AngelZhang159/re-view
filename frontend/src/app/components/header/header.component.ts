@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {enviroment} from '../../../enviroments/enviroment';
+import {environment} from '../../../environments/environment';
 import {MatIcon} from '@angular/material/icon';
 import {SearchService} from '../../services/search.service';
 import {Router} from '@angular/router';
@@ -19,8 +19,8 @@ import {ProfileComponent} from '../profile/profile.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  domain: string = enviroment.domain;
-  domainName: string = enviroment.domainName;
+  domain: string = environment.domain;
+  domainName: string = environment.domainName;
   dialog = inject(MatDialog);
 
   router = inject(Router);

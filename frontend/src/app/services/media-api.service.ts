@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SearchMultiResponse} from '../models/search-multi-response';
-import {enviroment} from '../../enviroments/enviroment';
+import {environment} from '../../environments/environment';
 import {DetailsResponse} from '../models/details-response';
 
 @Injectable({
@@ -10,7 +10,7 @@ import {DetailsResponse} from '../models/details-response';
 export class MediaApiService {
 
   http = inject(HttpClient)
-  private apiUrl = enviroment.apiMediaUrl
+  private apiUrl = environment.apiMediaUrl
 
   searchMulti(query: string) {
     return this.http.get<SearchMultiResponse>(`${this.apiUrl}/media/search/multi?query=${query}`)
