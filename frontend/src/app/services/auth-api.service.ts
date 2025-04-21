@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {LoginRequest} from '../models/login';
-import {UserResponse} from '../models/user-response';
-import {enviroment} from '../../enviroments/enviroment';
+import {LoginRequest, RegisterRequest} from '../models/auth';
+import {UserLoginResponse, UserRegisterResponse} from '../models/user-login-response';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,17 @@ import {enviroment} from '../../enviroments/enviroment';
 export class AuthApiService {
 
   private http = inject(HttpClient)
-  private apiUrl = enviroment.apiUrl
+  private apiUrl = environment.apiUserUrl
 
   login(loginRequest: LoginRequest) {
-    return this.http.post<UserResponse>(`${this.apiUrl}/user/login`, loginRequest)
+    return this.http.post<UserLoginResponse>(`${this.apiUrl}/user/login`, loginRequest)
+  }
+
+  register(registerRequest: RegisterRequest) {
+    return this.http.post<UserRegisterResponse>(`${this.apiUrl}/user/register`, registerRequest)
   }
 
   refreshToken(refreshToken: { refreshToken: string }) {
-    return this.http.post<UserResponse>(`${this.apiUrl}/user/refresh`, refreshToken)
+    return this.http.post<UserLoginResponse>(`${this.apiUrl}/user/refresh`, refreshToken)
   }
 }

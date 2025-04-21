@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {map} from 'rxjs';
-import {UserResponse} from '../models/user-response';
+import {UserLoginResponse} from '../models/user-login-response';
 import {AuthApiService} from './auth-api.service';
 
 @Injectable({
@@ -11,24 +11,28 @@ export class AuthService {
   private authApiService = inject(AuthApiService)
 
   login(email: string, password: string, rememberMe: boolean) {
-    return this.authApiService.login({email: email, password: password}).pipe(map((response: UserResponse) => {
+    return this.authApiService.login({email: email, password: password}).pipe(map((response: UserLoginResponse) => {
       return this.processLoginResponse(response, rememberMe)
     }))
   }
 
-  private processLoginResponse(userResponse: UserResponse, rememberMe: boolean ) {
+  register(username: string, email: string, password: string, profilePictureUrl?: string) {
+    return this.authApiService.register({username: username, email: email, password: password, profilePictureUrl: profilePictureUrl})
+  }
+
+  private processLoginResponse(userResponse: UserLoginResponse, rememberMe: boolean ) {
     this.saveUserDetails(userResponse, rememberMe)
     return userResponse
   }
 
-  private saveUserDetails(userResponse: UserResponse, rememberMe: boolean) {
+  private saveUserDetails(userResponse: UserLoginResponse, rememberMe: boolean) {
     localStorage.clear()
     localStorage.setItem("accessToken", userResponse.accessToken)
     localStorage.setItem("refreshToken", userResponse.refreshToken)
     localStorage.setItem("username", userResponse.user.username)
     localStorage.setItem("email", userResponse.user.email)
-    if (userResponse.user.profilePicture != null && userResponse.user.profilePicture !== "" && userResponse.user.profilePicture !== 'null') {
-      localStorage.setItem("profilePicture", userResponse.user.profilePicture)
+    if (userResponse.user.profilePictureUrl != null && userResponse.user.profilePictureUrl !== "" && userResponse.user.profilePictureUrl !== 'null') {
+      localStorage.setItem("profilePicture", userResponse.user.profilePictureUrl)
     } else {
       localStorage.setItem("profilePicture", "/icons/user.svg")
     }
@@ -67,7 +71,7 @@ export class AuthService {
   public refreshToken() {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) throw new Error("No auth token found")
-    return this.authApiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserResponse) => {
+    return this.authApiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserLoginResponse) => {
       return this.processLoginResponse(response, Boolean(localStorage.getItem("rememberMe")))
     }))
   }

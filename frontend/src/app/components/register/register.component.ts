@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ export class RegisterComponent {
   http = inject(HttpClient)
   fb = inject(FormBuilder)
   router = inject(Router)
+  authService = inject(AuthService)
 
   registerForm = this.fb.group({
     username: ['', Validators.required],
@@ -42,7 +44,7 @@ export class RegisterComponent {
 
   onSubmit() {
     console.log("Sending form: ", this.registerForm.value)
-    this.http.post('http://localhost:8080/user/register', this.registerForm.value).subscribe({
+    this.authService.register(this.registerForm.value.username!, this.registerForm.value.email!, this.registerForm.value.password!).subscribe({
       next: (async (response) => {
         console.log("Register successful: ", response)
         await this.router.navigate(["/login"])
