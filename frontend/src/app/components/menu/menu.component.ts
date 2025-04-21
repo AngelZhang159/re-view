@@ -1,10 +1,11 @@
 import {Component, inject} from '@angular/core';
-import {MatDivider, MatListItem, MatListItemIcon, MatNavList} from '@angular/material/list';
+import {MatListItem, MatListItemIcon, MatNavList} from '@angular/material/list';
 import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {MenuService} from '../../services/menu.service';
 import {MenuList} from '../../models/menu';
 import {NgStyle} from '@angular/common';
+import {MatDivider} from '@angular/material/divider';
 
 @Component({
   selector: 'app-menu',
@@ -16,7 +17,6 @@ import {NgStyle} from '@angular/common';
     MatListItemIcon,
     MatDivider,
     NgStyle,
-
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
