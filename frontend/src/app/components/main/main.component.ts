@@ -16,10 +16,10 @@ import {DetailsComponent} from '../details/details.component';
     NgOptimizedImage,
     Carousel
   ],
-  templateUrl: './content.component.html',
-  styleUrl: './content.component.css'
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.css'
 })
-export class ContentComponent {
+export class MainComponent {
 
   menuService = inject(MenuService);
   mediaService = inject(MediaService);
