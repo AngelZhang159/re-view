@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./components/home/home.component').then(m => m.HomeComponent),
+      import('./components/landing/landing.component').then(m => m.LandingComponent),
     canActivate: [homeGuard],
   },
   {
@@ -22,13 +22,13 @@ export const routes: Routes = [
   {
     path: 'app',
     loadComponent: () =>
-      import('./components/main-app/main-app.component').then(m => m.MainAppComponent),
+      import('./components/body/body.component').then(m => m.BodyComponent),
     canActivate: [authGuard],
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./components/content/content.component').then(m => m.ContentComponent),
+          import('./components/main/main.component').then(m => m.MainComponent),
         outlet: 'content',
       },
       {
