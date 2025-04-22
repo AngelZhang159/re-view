@@ -17,10 +17,10 @@ import {MenuComponent} from '../menu/menu.component';
     MenuComponent,
     RouterOutlet,
   ],
-  templateUrl: './main-app.component.html',
-  styleUrl: './main-app.component.css'
+  templateUrl: './body.component.html',
+  styleUrl: './body.component.css'
 })
-export class MainAppComponent {
+export class BodyComponent {
 
   authService = inject(AuthService)
   menuService = inject(MenuService)
