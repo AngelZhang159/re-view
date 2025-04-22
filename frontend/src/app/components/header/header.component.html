@@ -3,13 +3,17 @@
     <a class="text-5xl font-bold" href="{{domain}}">{{ domainName }}</a>
   </div>
 
-  <label class="bg-neutral-800 rounded-full h-auto inline-flex items-center">
-    <mat-icon fontIcon="search" class="mx-4"/>
-    <input class="border-none outline-none py-4 text-2xl" placeholder="Search" type="search" (keydown.enter)="onEnter($event)"/>
-  </label>
+  @if (!authService.isTokenExpired()) {
 
-  <a class="ml-auto cursor-pointer" (click)="openProfile()">
-    <p-avatar image="{{authService.getProfilePicture()}}" size="xlarge" shape="circle"/>
-  </a>
+    <label class="bg-neutral-800 rounded-full h-auto inline-flex items-center">
+      <mat-icon fontIcon="search" class="mx-4"/>
+      <input class="border-none outline-none py-4 text-2xl" placeholder="Search" type="search" (keydown.enter)="onEnter($event)"/>
+    </label>
+
+    <a class="ml-auto cursor-pointer" (click)="openProfile()">
+      <p-avatar image="{{authService.getProfilePicture()}}" size="xlarge" shape="circle"/>
+    </a>
+
+  }
 
 </div>
