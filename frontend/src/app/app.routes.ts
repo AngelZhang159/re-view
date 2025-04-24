@@ -1,52 +1,52 @@
 import {Routes} from '@angular/router';
-import {homeGuard} from './shared/guards/home.guard';
-import {authGuard} from './shared/guards/auth.guard';
+import {homeGuard} from './core/guards/home.guard';
+import {authGuard} from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./core/components/landing/landing.component').then(m => m.LandingComponent),
+      import('./layouts/routes/landing/landing.component').then(m => m.LandingComponent),
     canActivate: [homeGuard],
   },
   {
     path: 'login',
     loadComponent: () =>
-      import('./core/components/login/login.component').then(m => m.LoginComponent),
+      import('./layouts/auth/login/login.component').then(m => m.LoginComponent),
   },
   {
     path: 'register',
     loadComponent: () =>
-      import('./core/components/register/register.component').then(m => m.RegisterComponent),
+      import('./layouts/auth/register/register.component').then(m => m.RegisterComponent),
   },
   {
     path: 'app',
     loadComponent: () =>
-      import('./core/components/body/body.component').then(m => m.BodyComponent),
+      import('./layouts/main/body/body.component').then(m => m.BodyComponent),
     canActivate: [authGuard],
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./core/components/main/main.component').then(m => m.MainComponent),
+          import('./layouts/routes/home/home.component').then(m => m.HomeComponent),
         outlet: 'content',
       },
       {
         path: 'details/:type/:id',
         loadComponent: () =>
-          import('./core/components/details/details.component').then(m => m.DetailsComponent),
+          import('./layouts/components/details/details.component').then(m => m.DetailsComponent),
         outlet: 'content',
       },
       {
         path: 'search',
         loadComponent: () =>
-          import('./core/components/search/search.component').then(m => m.SearchComponent),
+          import('./layouts/routes/search/search.component').then(m => m.SearchComponent),
         outlet: 'content',
       },
       {
         path: 'reviews',
         loadComponent: () =>
-          import('./core/components/review/review.component').then(m => m.ReviewComponent),
+          import('./layouts/routes/review/review.component').then(m => m.ReviewComponent),
         outlet: 'content',
       },
     ],
@@ -54,6 +54,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./core/components/not-found/not-found.component').then(m => m.NotFoundComponent),
+      import('./layouts/components/not-found/not-found.component').then(m => m.NotFoundComponent),
   },
 ];

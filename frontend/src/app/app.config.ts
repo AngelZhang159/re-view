@@ -3,11 +3,11 @@ import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
-import {requestInterceptor} from './shared/interceptors/request.interceptor';
+import {requestInterceptor} from './core/interceptors/request.interceptor';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {providePrimeNG} from 'primeng/config';
 import Material from '@primeng/themes/material';
-import {toCamelCaseInterceptor} from './shared/interceptors/to-camel-case.interceptor';
+import {toCamelCaseInterceptor} from './core/interceptors/to-camel-case.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
