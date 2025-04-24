@@ -3,11 +3,11 @@ import {ActivatedRoute} from '@angular/router';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {NgOptimizedImage} from '@angular/common';
-import {SearchMultiResponse} from '../../models/search-multi-response';
-import {SearchService} from '../../services/search.service';
+import {SearchMultiResponse} from '../../../models/search-multi-response';
+import {SearchService} from '../../../services/search.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DetailsComponent} from '../details/details.component';
-import {MediaService} from '../../services/media.service';
+import {MediaService} from '../../../services/media.service';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 
 @Component({

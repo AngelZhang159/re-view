@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {MediaService} from '../../services/media.service';
+import {MediaService} from '../../../services/media.service';
 import {MatCard, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Carousel} from 'primeng/carousel';
-import {MenuService} from '../../services/menu.service';
+import {MenuService} from '../../../services/menu.service';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {DetailsComponent} from '../details/details.component';
 

@@ -1,6 +1,6 @@
 import {Component, inject, Inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {DetailsResponse} from '../../models/details-response';
+import {DetailsResponse} from '../../../models/details-response';
 import {DIALOG_DATA} from '@angular/cdk/dialog';
 import {Step, StepList, StepPanel, StepPanels, Stepper} from 'primeng/stepper';
 import {Button} from 'primeng/button';
@@ -8,7 +8,7 @@ import {Rating} from 'primeng/rating';
 import {MatDialogClose} from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ReviewService} from '../../services/review.service';
+import {ReviewService} from '../../../services/review.service';
 
 @Component({
   selector: 'app-create-review',

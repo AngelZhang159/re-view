@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 import {Router, RouterOutlet} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {MenuService} from '../../services/menu.service';
+import {MenuService} from '../../../services/menu.service';
 import {MenuComponent} from '../menu/menu.component';
 
 @Component({
