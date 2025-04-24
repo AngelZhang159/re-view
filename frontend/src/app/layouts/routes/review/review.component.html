@@ -3,7 +3,8 @@
     @if (!reviewResponsePage?.empty) {
       <div class="grid w-full px-16 grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
         @for (review of reviewResponsePage?.content; track review.id) {
-          <a class="cursor-pointer hover:scale-110 m-4 flex justify-center transition-transform select-none" (click)="toggleSideNav(false)">
+          <a class="cursor-pointer hover:scale-110 m-4 flex justify-center transition-transform select-none"
+             (click)="openSideNav(review)">
             <div class="relative justify-center items-center flex h-[300px] w-[200px]">
               <div class="flex w-full justify-end items-end h-full absolute">
             <span
@@ -24,6 +25,21 @@
     }
   </mat-sidenav-content>
   <mat-sidenav #drawer mode="side" [(opened)]="isOpen" [position]="'end'" [style.width]="'520px'">
-    <button (click)="toggleSideNav(true)">close</button>
+    @if (currentReview) {
+      <div class="absolute -z-10 overflow-hidden"><img src="https://image.tmdb.org/t/p/original/{{currentReview.mediaPosterPath}}"
+                                       alt="" class="blur-md opacity-60 overflow-hidden"/></div>
+      <div class="w-full justify-end flex px-6">
+        <button mat-icon-button (click)="toggleSideNav(true)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="p-6 z-0">
+        <div class="flex items-center gap-6">
+          <span class="text-8xl text-black bg-white rounded-4xl p-4">{{ currentReview.rating }}</span>
+          <h1 class="bold text-4xl">{{ currentReview.mediaTitle }}</h1>
+        </div>
+      </div>
+    }
+
   </mat-sidenav>
 </mat-sidenav-container>

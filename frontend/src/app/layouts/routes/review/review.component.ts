@@ -1,8 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {ReviewService} from '../../../core/services/review.service';
-import {ReviewResponsePage} from '../../../core/models/review';
+import {ReviewResponse, ReviewResponsePage} from '../../../core/models/review';
 import {NgOptimizedImage} from '@angular/common';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-review',
@@ -10,7 +12,9 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
     NgOptimizedImage,
     MatSidenav,
     MatSidenavContainer,
-    MatSidenavContent
+    MatSidenavContent,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
@@ -21,6 +25,7 @@ export class ReviewComponent {
 
   reviewResponsePage : ReviewResponsePage | undefined;
   isOpen: boolean = false;
+  currentReview : ReviewResponse | undefined;
 
   constructor() {
     this.reviewService.getReviews().subscribe(data => {
@@ -30,5 +35,10 @@ export class ReviewComponent {
 
   toggleSideNav(closeable: boolean) {
     this.isOpen = !closeable;
+  }
+
+  openSideNav(review: ReviewResponse) {
+    this.toggleSideNav(false)
+    this.currentReview = review;
   }
 }
