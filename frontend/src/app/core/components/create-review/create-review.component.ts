@@ -8,7 +8,7 @@ import {Rating} from 'primeng/rating';
 import {MatDialogClose} from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ReviewService} from '../../../services/review.service';
+import {ReviewService} from '../../../shared/services/review.service';
 
 @Component({
   selector: 'app-create-review',

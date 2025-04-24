@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SearchMultiResponse} from '../models/search-multi-response';
-import {environment} from '../../environments/environment';
-import {DetailsResponse} from '../models/details-response';
+import {SearchMultiResponse} from '../../models/search-multi-response';
+import {environment} from '../../../environments/environment';
+import {DetailsResponse} from '../../models/details-response';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {ReviewService} from '../../../services/review.service';
+import {ReviewService} from '../../../shared/services/review.service';
 import {ReviewResponsePage} from '../../../models/review';
 import {NgOptimizedImage} from '@angular/common';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";

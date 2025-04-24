@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from '../../../shared/services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -31,7 +31,7 @@ export class LoginComponent {
 
       this.auth.login(loginData.email, loginData.password, loginData.rememberMe).subscribe({
         next: user => {
-          this.router.navigate(["/app"]).then(r => console.log("User logged in successfully: " + user))
+          this.router.navigate(["/app"]).then(() => console.log("User logged in successfully: " + user))
         },
         error: err => {
           alert("ERROR: " + err.error.message)

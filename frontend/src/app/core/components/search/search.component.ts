@@ -4,10 +4,10 @@ import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle} fro
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {NgOptimizedImage} from '@angular/common';
 import {SearchMultiResponse} from '../../../models/search-multi-response';
-import {SearchService} from '../../../services/search.service';
+import {SearchService} from '../../../shared/services/search.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DetailsComponent} from '../details/details.component';
-import {MediaService} from '../../../services/media.service';
+import {MediaService} from '../../../shared/services/media.service';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 
 @Component({

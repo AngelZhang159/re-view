@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {MatIcon} from '@angular/material/icon';
-import {SearchService} from '../../../services/search.service';
+import {SearchService} from '../../../shared/services/search.service';
 import {Router} from '@angular/router';
 import {Avatar} from 'primeng/avatar';
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from '../../../shared/services/auth.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ProfileComponent} from '../profile/profile.component';
 
