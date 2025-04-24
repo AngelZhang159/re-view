@@ -2,12 +2,15 @@ import {Component, inject} from '@angular/core';
 import {ReviewService} from '../../services/review.service';
 import {ReviewResponsePage} from '../../models/review';
 import {NgOptimizedImage} from '@angular/common';
-import {MenuService} from '../../services/menu.service';
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-review',
   imports: [
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
@@ -15,13 +18,17 @@ import {MenuService} from '../../services/menu.service';
 export class ReviewComponent {
 
   reviewService = inject(ReviewService)
-  menuService = inject(MenuService)
 
   reviewResponsePage : ReviewResponsePage | undefined;
+  isOpen: boolean = false;
 
   constructor() {
     this.reviewService.getReviews().subscribe(data => {
       this.reviewResponsePage = data;
     })
+  }
+
+  toggleSideNav(closeable: boolean) {
+    this.isOpen = !closeable;
   }
 }

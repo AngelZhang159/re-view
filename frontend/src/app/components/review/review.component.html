@@ -1,22 +1,29 @@
-@if (!reviewResponsePage?.empty) {
-  <div class="grid w-full px-16 {{menuService.opened() ? 'grid-cols-5' : 'grid-cols-6'}}">
-    @for (review of reviewResponsePage?.content; track review.id) {
-      <a class="cursor-pointer hover:scale-110 m-4 flex justify-center transition-transform select-none">
-        <div class="relative justify-center items-center flex h-[300px] w-[200px]">
-          <div class="flex w-full justify-end items-end h-full absolute">
+<mat-sidenav-container class="w-full" style="height: calc(100vh - 128px);">
+  <mat-sidenav-content>
+    @if (!reviewResponsePage?.empty) {
+      <div class="grid w-full px-16 grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
+        @for (review of reviewResponsePage?.content; track review.id) {
+          <a class="cursor-pointer hover:scale-110 m-4 flex justify-center transition-transform select-none" (click)="toggleSideNav(false)">
+            <div class="relative justify-center items-center flex h-[300px] w-[200px]">
+              <div class="flex w-full justify-end items-end h-full absolute">
             <span
               class="text-3xl bg-neutral-300 text-black rounded-2xl p-2 m-4 w-[52px] h-[52px] text-center">{{ review.rating }}</span>
-          </div>
-          <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" fill
-               class="rounded-2xl -z-10"/>
-        </div>
-      </a>
-    }
-  </div>
-} @else {
-  <div class="flex w-full h-full">
+              </div>
+              <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" fill
+                   class="rounded-2xl -z-10" alt=""/>
+            </div>
+          </a>
+        }
+      </div>
+    } @else {
+      <div class="flex w-full h-full">
       <span class="flex items-center justify-center w-full">
         No reviews found
       </span>
-  </div>
-}
+      </div>
+    }
+  </mat-sidenav-content>
+  <mat-sidenav #drawer mode="side" [(opened)]="isOpen" [position]="'end'" [style.width]="'520px'">
+    <button (click)="toggleSideNav(true)">close</button>
+  </mat-sidenav>
+</mat-sidenav-container>
