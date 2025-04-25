@@ -5,6 +5,7 @@ import {NgOptimizedImage} from '@angular/common';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {Tooltip} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-review',
@@ -14,7 +15,8 @@ import {MatIconButton} from '@angular/material/button';
     MatSidenavContainer,
     MatSidenavContent,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    Tooltip
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
