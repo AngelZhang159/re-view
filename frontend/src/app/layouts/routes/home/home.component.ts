@@ -1,21 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {MediaService} from '../../../core/services/media.service';
-import {MatCard, MatCardHeader, MatCardTitle} from '@angular/material/card';
-import {NgOptimizedImage} from '@angular/common';
-import {Carousel} from 'primeng/carousel';
-import {MenuService} from '../../../core/services/menu.service';
-import {MatBottomSheet} from '@angular/material/bottom-sheet';
-import {DetailsComponent} from '../../components/details/details.component';
 import {CarouselComponent} from '../../components/carousel/carousel.component';
 
 @Component({
   selector: 'app-content',
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardTitle,
-    NgOptimizedImage,
-    Carousel,
     CarouselComponent
   ],
   templateUrl: './home.component.html',
@@ -23,7 +12,6 @@ import {CarouselComponent} from '../../components/carousel/carousel.component';
 })
 export class HomeComponent {
 
-  menuService = inject(MenuService);
   mediaService = inject(MediaService);
   trendingSeriesToday: any;
 
