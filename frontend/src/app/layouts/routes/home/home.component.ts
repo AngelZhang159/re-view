@@ -6,6 +6,7 @@ import {Carousel} from 'primeng/carousel';
 import {MenuService} from '../../../core/services/menu.service';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {DetailsComponent} from '../../components/details/details.component';
+import {CarouselComponent} from '../../components/carousel/carousel.component';
 
 @Component({
   selector: 'app-content',
@@ -14,7 +15,8 @@ import {DetailsComponent} from '../../components/details/details.component';
     MatCardHeader,
     MatCardTitle,
     NgOptimizedImage,
-    Carousel
+    Carousel,
+    CarouselComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -23,11 +25,9 @@ export class HomeComponent {
 
   menuService = inject(MenuService);
   mediaService = inject(MediaService);
-  private bottomSheet = inject(MatBottomSheet)
-
   trendingSeriesToday: any;
-  trendingMoviesToday: any;
 
+  trendingMoviesToday: any;
   constructor() {
     this.mediaService.getTrending('tv').subscribe(data => {
         this.trendingSeriesToday = data.results;
@@ -39,11 +39,4 @@ export class HomeComponent {
     })
   }
 
-  openDrawer(mediaType: any, id: number) {
-    if (id != null || id != undefined && mediaType != null || mediaType != undefined) {
-      this.mediaService.getDetails(mediaType, id).subscribe(data => {
-        this.bottomSheet.open(DetailsComponent, {data: {details: data}, height: '80vh'});
-      })
-    }
-  }
 }

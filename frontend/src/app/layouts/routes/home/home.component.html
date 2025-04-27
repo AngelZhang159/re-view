@@ -1,46 +1,11 @@
 <div class="w-full flex items-stretch justify-stretch">
   <div class="p-12 overflow-hidden flex-wrap w-fit h-fit">
     <h1 class="text-3xl font-bold">TRENDING SERIES</h1>
-    <p-carousel [value]="trendingSeriesToday" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
-                showIndicators="false">
-      <ng-template let-poster #item>
-        <mat-card
-          class="h-[355px] w-[200px] m-4 cursor-pointer flex transform hover:scale-105 transition-transform duration-300 ease-in-out"
-          (click)="openDrawer(poster.mediaType, poster.id)">
-          <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.posterPath }}"
-               height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
-          <div>
-            <mat-card-header>
-              <mat-card-title>
-                      <span class="font-bold line-clamp-1 text-xl">
-                        {{ poster.title ? poster.title : poster.name }}
-                      </span>
-              </mat-card-title>
-            </mat-card-header>
-          </div>
-        </mat-card>
-      </ng-template>
-    </p-carousel>
+
+    <app-carousel [data]="trendingSeriesToday"/>
+
     <h1 class="text-3xl font-bold">TRENDING MOVIES</h1>
-    <p-carousel [value]="trendingMoviesToday" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
-                showIndicators="false">
-      <ng-template let-poster #item>
-        <mat-card
-          class="h-[355px] w-[200px] m-4 cursor-pointer flex transform hover:scale-105 transition-transform duration-300 ease-in-out"
-        (click)="openDrawer(poster.mediaType, poster.id)">
-          <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.posterPath }}"
-               height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
-          <div>
-            <mat-card-header>
-              <mat-card-title>
-                      <span class="font-bold line-clamp-1 text-xl">
-                        {{ poster.title ? poster.title : poster.name }}
-                      </span>
-              </mat-card-title>
-            </mat-card-header>
-          </div>
-        </mat-card>
-      </ng-template>
-    </p-carousel>
+
+    <app-carousel [data]="trendingMoviesToday"/>
   </div>
 </div>
