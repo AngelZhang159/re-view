@@ -1,22 +1,21 @@
 import {Component, inject, Inject, ViewEncapsulation} from '@angular/core';
 import {DetailsResponse} from '../../../core/models/details-response';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
-import {NgOptimizedImage, NgStyle} from '@angular/common';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {Button} from 'primeng/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateReviewComponent} from '../create-review/create-review.component';
+import {Skeleton} from 'primeng/skeleton';
 
 @Component({
   selector: 'app-details',
   imports: [
-    NgOptimizedImage,
-    NgStyle,
     MatChipSet,
     MatChip,
     Button,
-    MatIcon
+    MatIcon,
+    Skeleton
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
@@ -33,6 +32,8 @@ export class DetailsComponent {
   details: DetailsResponse;
 
   protected readonly String = String;
+  showPoster: boolean = false;
+  showBackground: boolean = false;
 
   getCountryFlag(country: string): string {
     if (country.length !== 2) return '';
@@ -52,5 +53,13 @@ export class DetailsComponent {
       maxHeight: '800px',
       maxWidth: '1200px',
     })
+  }
+
+  loadPoster() {
+    this.showPoster = true
+  }
+
+  loadBackground() {
+    this.showBackground = true
   }
 }
