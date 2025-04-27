@@ -1,0 +1,32 @@
+@if (data) {
+  <p-carousel [value]="data" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
+              showIndicators="false">
+    <ng-template let-poster #item class="flex justify-center items-center">
+      <mat-card
+        class="h-[355px] w-[200px] m-4 cursor-pointer flex transform hover:scale-105 transition-transform duration-300 ease-in-out"
+        (click)="openDrawer(poster.mediaType, poster.id)">
+        <img ngSrc="{{ 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2' + poster.posterPath }}"
+             height="300" width="200" class="object-cover aspect-[2/3] rounded-xl" alt="{{ poster.name }}"/>
+        <div>
+          <mat-card-header>
+            <mat-card-title>
+                      <span class="font-bold line-clamp-1 text-xl">
+                        {{ poster.title ? poster.title : poster.name }}
+                      </span>
+            </mat-card-title>
+          </mat-card-header>
+        </div>
+      </mat-card>
+    </ng-template>
+  </p-carousel>
+} @else {
+  <p-carousel [value]="menuService.opened() ? Array.from({ length: 5 }) : Array.from({ length: 6 })" [numVisible]=" menuService.opened() ? 5 : 6 " [numScroll]="1"
+              showIndicators="false">
+    <ng-template let-poster  #item>
+      <div class="m-4">
+        <p-skeleton height="300px" width="200px" borderRadius="12px"/>
+        <p-skeleton height="28px" width="200px" styleClass="mt-[27px]"/>
+      </div>
+    </ng-template>
+  </p-carousel>
+}
