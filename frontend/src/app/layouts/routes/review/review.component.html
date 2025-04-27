@@ -1,16 +1,16 @@
 <mat-sidenav-container class="w-full" style="height: calc(100vh - 128px);">
   <mat-sidenav-content>
     @if (!reviewResponsePage?.empty) {
-      <div class="grid w-full px-16 grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
+      <div class="grid w-full px-16 grid-cols-[repeat(auto-fit,_minmax(230px,_1fr))]">
         @for (review of reviewResponsePage?.content; track review.id) {
-          <a class="cursor-pointer m-4 flex justify-center select-none"
+          <a class="cursor-pointer m-4 flex justify-center select-none h-[300px] w-[200px]"
              (click)="openSideNav(review)" pTooltip="{{review.mediaTitle}}" [tooltipPosition]="'bottom'">
             <div class="relative justify-center items-center flex h-[300px] w-[200px]">
               <div class="flex w-full justify-end items-end h-full absolute">
             <span
               class="text-3xl bg-neutral-300 text-black rounded-2xl p-2 m-4 w-[52px] h-[52px] text-center">{{ review.rating }}</span>
               </div>
-              <img ngSrc="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" fill
+              <img src="https://image.tmdb.org/t/p/original/{{review.mediaPosterPath}}" height="300px" width="200px"
                    class="rounded-2xl -z-10" alt=""/>
             </div>
           </a>
@@ -24,13 +24,13 @@
       </div>
     }
   </mat-sidenav-content>
-  <mat-sidenav #drawer mode="side" [(opened)]="isOpen" [position]="'end'" [style.width]="'520px'">
+  <mat-sidenav #drawer mode="side" [(opened)]="isOpen" [position]="'end'" [style.width]="'520px'" [style.overflow]="'hidden'">
     @if (currentReview) {
-      <div class="absolute -z-10 overflow-hidden">
+      <div class="absolute -z-10">
         <img src="https://image.tmdb.org/t/p/original/{{currentReview.mediaPosterPath}}"
-             alt="" class="blur-md opacity-60 overflow-hidden"/>
+             alt="" class="blur-md opacity-60"/>
       </div>
-      <div class="p-6 z-0 overflow-hidden gap-6 flex-col">
+      <div class="p-6 z-0 gap-6 flex-col">
         <div class="flex gap-6 w-full flex-row">
           <div>
             <span
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <p class="w-full overflow-hidden pt-10">{{ currentReview.review }}</p>
+        <p class="w-full pt-10">{{ currentReview.review }}</p>
       </div>
     }
 
