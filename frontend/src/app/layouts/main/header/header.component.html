@@ -1,19 +1,40 @@
 <div class="flex-row flex px-28 py-8 gap-16 w-full items-center ">
-  <div class="uppercase text-nowrap">
-    <a class="text-5xl font-bold" href="{{domain}}">{{ domainName }}</a>
-  </div>
-
   @if (!authService.isTokenExpired()) {
+    <div class="uppercase text-nowrap">
+      <a class="text-5xl font-bold" href="{{domain}}">{{ domainName }}</a>
+    </div>
 
     <label class="bg-neutral-800 rounded-full h-auto inline-flex items-center">
       <mat-icon fontIcon="search" class="mx-4"/>
-      <input class="border-none outline-none py-4 text-2xl" placeholder="Search" type="search" (keydown.enter)="onEnter($event)"/>
+      <input class="border-none outline-none py-4 text-2xl" placeholder="Search" type="search"
+             (keydown.enter)="onEnter($event)"/>
     </label>
 
     <a class="ml-auto cursor-pointer" (click)="openProfile()">
       <p-avatar image="{{authService.getProfilePicture()}}" size="xlarge" shape="circle"/>
     </a>
 
+  } @else {
+    <div class="flex justify-between items-center w-full">
+
+      <div class="uppercase text-nowrap">
+        <a class="text-5xl font-bold" href="{{domain}}">{{ domainName }}</a>
+      </div>
+
+      <div class="gap-8 flex">
+        <a class="py-4 px-8 rounded-3xl bg-neutral-800 hover:bg-neutral-400 hover:text-black transition-colors"
+           href="/login"
+        >
+          LOGIN
+        </a>
+        <a class="py-4 px-8 rounded-3xl bg-neutral-800 hover:bg-neutral-400 hover:text-black transition-colors"
+           href="/login"
+        >
+          REGISTER
+        </a>
+      </div>
+
+    </div>
   }
 
 </div>
