@@ -1,1 +1,12 @@
-<p>footer works!</p>
+<footer>
+  <mat-divider/>
+  <div class="flex justify-between px-28 py-8">
+    <span>
+      © {{ date.getFullYear() }} Angel Zhang
+    </span>
+
+    <a href="{{environment.domain}}">
+      {{environment.domainName}}
+    </a>
+  </div>
+</footer>
