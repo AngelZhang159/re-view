@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-service
+  labels:
+    app: review-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review-service
+  template:
+    metadata:
+      name: review-service
+      labels:
+        app: review-service
+    spec:
+      containers:
+        - name: review-service
+          image: anglzng/review-service
+          env:
+            - name: DB_URL_REVIEW
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_URL_REVIEW
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: JWT_SECRET
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
