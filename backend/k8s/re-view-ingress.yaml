@@ -8,10 +8,24 @@ spec:
     - host: api-re-view.angelzhang.dev
       http:
         paths:
-          - path: /
+          - path: /user
             pathType: Prefix
             backend:
               service:
                 name: user-service
+                port:
+                  number: 80
+          - path: /media
+            pathType: Prefix
+            backend:
+              service:
+                name: media-service
+                port:
+                  number: 80
+          - path: /review
+            pathType: Prefix
+            backend:
+              service:
+                name: review-service
                 port:
                   number: 80
