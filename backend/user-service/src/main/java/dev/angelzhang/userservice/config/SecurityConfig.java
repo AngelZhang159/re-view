@@ -1,6 +1,7 @@
 package dev.angelzhang.userservice.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,14 +18,18 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${client.url}")
+    private String clientUrl;
+
     @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
+        log.error("----------- FRONTEND URL: " + clientUrl);
         http
                 .cors(cors ->
                         cors.configurationSource(apiConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/**")
+                        .requestMatchers("/**")
                         .permitAll());
         return http.build();
     }
@@ -32,7 +37,7 @@ public class SecurityConfig {
     //Move CORS config to Gateway
     UrlBasedCorsConfigurationSource apiConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Frontend URL
+        configuration.setAllowedOrigins(List.of(clientUrl)); // Frontend URL
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allowed methods
         configuration.setAllowedHeaders(List.of("*")); // Allow all headers, adjust as needed
         configuration.setAllowCredentials(true); // Allow credentials (cookies, JWTs)
