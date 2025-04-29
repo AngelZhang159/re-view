@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-service
+  labels:
+    app: media-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media-service
+  template:
+    metadata:
+      name: media-service
+      labels:
+        app: media-service
+    spec:
+      containers:
+        - name: media-service
+          image: anglzng/media-service
+          env:
+            - name: DB_URL_MEDIA
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_URL_MEDIA
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: JWT_SECRET
+            - name: TMDB_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: re-view-secret
+                  key: TMDB_API_KEY
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
