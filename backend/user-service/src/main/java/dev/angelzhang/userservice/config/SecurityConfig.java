@@ -23,7 +23,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
-        log.error("----------- FRONTEND URL: " + clientUrl);
+        log.info("----------- FRONTEND URL: {}", clientUrl);
         http
                 .cors(cors ->
                         cors.configurationSource(apiConfigurationSource()))
