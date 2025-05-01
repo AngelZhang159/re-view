@@ -7,7 +7,8 @@ import {IftaLabel} from 'primeng/iftalabel';
 import {FormsModule} from '@angular/forms';
 import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
-import {MatDialogClose} from '@angular/material/dialog';
+import {MatDialogClose, MatDialogRef} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +27,18 @@ import {MatDialogClose} from '@angular/material/dialog';
 })
 export class ProfileComponent {
 
+  constructor(public dialogRef: MatDialogRef<ProfileComponent>) {
+  }
+
   authService = inject(AuthService);
+  router = inject(Router)
   usernameForm: any;
   oldPasswordForm: any;
   newPasswordForm: any;
 
+  logOut() {
+    this.authService.logOut()
+    this.router.navigate(["/"])
+    this.dialogRef.close()
+  }
 }
