@@ -1,8 +1,56 @@
-<p>register works!</p>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <input type="text" placeholder="username" formControlName="username">
-  <input type="text" placeholder="email" formControlName="email">
-  <input type="password" placeholder="password" formControlName="password">
-  <input type="password" placeholder="repeat password" formControlName="repeatPassword">
-  <button type="submit" [disabled]="registerForm.invalid">Submit</button>
-</form>
+<div class="flex justify-center items-center">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col gap-4 w-72">
+      <div>
+        <span class="p-2">Username</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="text" placeholder="username" formControlName="username" class="placeholder:text-neutral-500">
+        </div>
+      </div>
+
+      @if (getError('username')) {
+        <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('username') }}</div>
+      }
+
+      <div>
+        <span class="p-2">Email</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="email" placeholder="example@email.com" formControlName="email"
+                 class="placeholder:text-neutral-500">
+        </div>
+      </div>
+
+      @if (getError('email')) {
+        <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('email') }}</div>
+      }
+
+      <div>
+        <span class="p-2">Password</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="password" placeholder="●●●●●●●●" formControlName="password" class="placeholder:text-neutral-500">
+        </div>
+      </div>
+
+      @if (getError('password')) {
+        <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('password') }}</div>
+      }
+
+      <div>
+        <span class="p-2">Repeat Password</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="password" placeholder="●●●●●●●●" formControlName="repeatPassword"
+                 class="placeholder:text-neutral-500">
+        </div>
+      </div>
+
+      @if (getError('repeatPassword')) {
+        <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('repeatPassword') }}</div>
+      }
+
+      <button type="submit" [disabled]="registerForm.invalid"
+              class="px-8 py-4 bg-neutral-300 text-black rounded-3xl hover:bg-neutral-700 hover:text-white transition-colors duration-300">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

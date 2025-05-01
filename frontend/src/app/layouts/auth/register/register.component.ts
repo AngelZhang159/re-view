@@ -54,4 +54,16 @@ export class RegisterComponent {
       })
     })
   }
+
+  getError(controlName: string): string | null {
+    const control = this.registerForm.get(controlName);
+    if (control?.touched && control.errors) {
+      if (control.errors['required']) return 'This field is required';
+      if (control.errors['email']) return 'Invalid email';
+      if (control.errors['minlength']) return `Minimum ${control.errors['minlength'].requiredLength} characters`;
+      if (control.errors['invalidPassword']) return `Password doesn't meet conditions: 8 characters, 1 uppercase, 1 lowercase, 1 number`
+      if (control.errors['passwordMismatch']) return `Passwords don't match`
+    }
+    return null;
+  }
 }
