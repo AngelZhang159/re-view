@@ -27,49 +27,90 @@ export class AuthService {
 
   private saveUserDetails(userResponse: UserLoginResponse, rememberMe: boolean) {
     localStorage.clear()
-    localStorage.setItem("accessToken", userResponse.accessToken)
-    localStorage.setItem("refreshToken", userResponse.refreshToken)
-    localStorage.setItem("username", userResponse.user.username)
-    localStorage.setItem("email", userResponse.user.email)
-    if (userResponse.user.profilePictureUrl != null && userResponse.user.profilePictureUrl !== "" && userResponse.user.profilePictureUrl !== 'null') {
-      localStorage.setItem("profilePicture", userResponse.user.profilePictureUrl)
+    if (rememberMe) {
+      localStorage.setItem("accessToken", userResponse.accessToken)
+      localStorage.setItem("refreshToken", userResponse.refreshToken)
+      localStorage.setItem("username", userResponse.user.username)
+      localStorage.setItem("email", userResponse.user.email)
+      if (userResponse.user.profilePictureUrl != null && userResponse.user.profilePictureUrl !== "" && userResponse.user.profilePictureUrl !== 'null') {
+        localStorage.setItem("profilePicture", userResponse.user.profilePictureUrl)
+      } else {
+        localStorage.setItem("profilePicture", "/icons/user.svg")
+      }
+      localStorage.setItem("expiresIn", String((userResponse.expiresIn * 1000) + Date.now()))
     } else {
-      localStorage.setItem("profilePicture", "/icons/user.svg")
+      sessionStorage.setItem("accessToken", userResponse.accessToken)
+      sessionStorage.setItem("refreshToken", userResponse.refreshToken)
+      sessionStorage.setItem("username", userResponse.user.username)
+      sessionStorage.setItem("email", userResponse.user.email)
+      if (userResponse.user.profilePictureUrl != null && userResponse.user.profilePictureUrl !== "" && userResponse.user.profilePictureUrl !== 'null') {
+        sessionStorage.setItem("profilePicture", userResponse.user.profilePictureUrl)
+      } else {
+        sessionStorage.setItem("profilePicture", "/icons/user.svg")
+      }
+      sessionStorage.setItem("expiresIn", String((userResponse.expiresIn * 1000) + Date.now()))
     }
-    localStorage.setItem("expiresIn", String((userResponse.expiresIn * 1000) + Date.now()))
-    localStorage.setItem("rememberMe", String(rememberMe))
+
+    if (rememberMe) localStorage.setItem("rememberMe", String(rememberMe))
   }
 
   public isTokenExpired() {
-    return Date.now() >= Number(localStorage.getItem("expiresIn"));
+    if (localStorage.getItem("rememberMe")) {
+      return Date.now() >= Number(localStorage.getItem("expiresIn"));
+    } else {
+      return Date.now() >= Number(sessionStorage.getItem("expiresIn"));
+    }
   }
 
   public logOut() {
     localStorage.clear()
+    sessionStorage.clear()
   }
 
   public getAccessToken() {
-    return localStorage.getItem("accessToken")
+    if (localStorage.getItem("rememberMe")) {
+      return localStorage.getItem("accessToken")
+    } else {
+      return sessionStorage.getItem("accessToken")
+    }
   }
 
   public getRefreshToken() {
-    return localStorage.getItem("refreshToken")
+    if (localStorage.getItem("rememberMe")) {
+      return localStorage.getItem("refreshToken")
+    } else {
+      return sessionStorage.getItem("refreshToken")
+    }
   }
 
   public getUsername() {
-    return localStorage.getItem("username")
+    if (localStorage.getItem("rememberMe")) {
+      return localStorage.getItem("username")
+    } else {
+      return sessionStorage.getItem("username")
+    }
   }
 
   public getEmail() {
-    return localStorage.getItem("email")
+    if (localStorage.getItem("rememberMe")) {
+      return localStorage.getItem("email")
+    } else {
+      return sessionStorage.getItem("email")
+    }
   }
 
   public getProfilePicture() {
-    return localStorage.getItem("profilePicture")
+    if (localStorage.getItem("rememberMe")) {
+      return localStorage.getItem("profilePicture")
+    } else {
+      return sessionStorage.getItem("profilePicture")
+    }
   }
 
   public refreshToken() {
-    const refreshToken = localStorage.getItem("refreshToken");
+
+    const refreshToken = localStorage.getItem("refreshToken") ? localStorage.getItem("refreshToken") : sessionStorage.getItem("refreshToken");
+
     if (!refreshToken) throw new Error("No auth token found")
     return this.authApiService.refreshToken({refreshToken: `Bearer ${refreshToken}`}).pipe(map((response: UserLoginResponse) => {
       return this.processLoginResponse(response, Boolean(localStorage.getItem("rememberMe")))
