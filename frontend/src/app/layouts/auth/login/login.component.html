@@ -1,14 +1,38 @@
-<p>login works!</p>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="text" placeholder="email" formControlName="email">
-  <br>
-  <input type="password" placeholder="password" formControlName="password">
-  <br>
-  <span>Remember me</span>
-  <input type="checkbox" formControlName="rememberMe">
-  <br>
-  <button type="submit" [disabled]="loginForm.invalid">Submit</button>
-</form>
-@if (errorMsg) {
-  <p>{{ errorMsg }}</p>
-}
+<div class="flex justify-center items-center m-36">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col gap-4">
+      <div>
+        <span class="p-2">Email</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="email" placeholder="example@email.com" formControlName="email"
+                 class="placeholder:text-neutral-500">
+        </div>
+        @if (getError('email')) {
+          <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('email') }}</div>
+        }
+      </div>
+
+      <div>
+        <span class="p-2">Password</span>
+        <div class="border-2 rounded-xl flex p-4 my-2">
+          <input type="password" placeholder="●●●●●●●●" formControlName="password" class="placeholder:text-neutral-500">
+        </div>
+        @if (getError('password')) {
+          <div class="text-red-600 bg-red-300 py-2 px-4 rounded-2xl">{{ getError('password') }}</div>
+        }
+      </div>
+
+      <div class="flex gap-4 items-center">
+        <span>Remember me</span>
+        <input type="checkbox" formControlName="rememberMe">
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid"
+              class="px-8 py-4 bg-neutral-300 text-black rounded-3xl hover:bg-neutral-700 hover:text-white transition-colors duration-300">
+        Submit
+      </button>
+    </div>
+  </form>
+  @if (errorMsg) {
+    <p>{{ errorMsg }}</p>
+  }
+</div>

@@ -20,7 +20,7 @@ export class LoginComponent {
   errorMsg = ""
 
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     rememberMe: [false]
   })
@@ -38,5 +38,14 @@ export class LoginComponent {
         }
       })
     }
+  }
+
+  getError(controlName: string): string | null {
+    const control = this.loginForm.get(controlName);
+    if (control?.touched && control.errors) {
+      if (control.errors['required']) return 'This field is required';
+      if (control.errors['email']) return 'Invalid email';
+    }
+    return null;
   }
 }
