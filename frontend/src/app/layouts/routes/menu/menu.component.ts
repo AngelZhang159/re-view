@@ -42,11 +42,11 @@ export class MenuComponent {
       route: [{outlets: {content: ["reviews"]}}],
       icon: 'star'
     },
-    {
-      label: 'Friends',
-      route: [{outlets: {content: ["friends"]}}],
-      icon: 'people',
-    },
+    // {
+    //   label: 'Friends',
+    //   route: [{outlets: {content: ["friends"]}}],
+    //   icon: 'people',
+    // },
     {
       label: 'Close',
       icon: 'menu',
@@ -54,10 +54,10 @@ export class MenuComponent {
         this.menuService.toggle();
       }
     },
-    {
-      label: 'Settings',
-      route: [{outlets: {content: ["settings"]}}],
-      icon: 'settings',
-    }
+    // {
+    //   label: 'Settings',
+    //   route: [{outlets: {content: ["settings"]}}],
+    //   icon: 'settings',
+    // }
   ]
 }
