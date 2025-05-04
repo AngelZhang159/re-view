@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 //    Page<Review> findByUserId(Long userId, Pageable pageable);
@@ -14,4 +16,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByTypeAndUserId(Type type, Long tokenUserId, Pageable pageable);
 
     Page<Review> findAllByUserId(Long userId, Pageable pageable);
+
+    List<Review> findByUserIdAndType(Long userId, Type type);
 }

@@ -30,6 +30,12 @@ public class ReviewController {
         return reviewService.getReview(token, reviewId);
     }
 
+    @GetMapping()
+    public ResponseEntity<ReviewResponse> getReviewByParameters(@RequestHeader("Authorization") String token, @RequestParam String mediaType, @RequestParam Long mediaId) {
+        log.info("Getting review with type: {}, mediaId: {}", mediaType, mediaId);
+        return reviewService.getReviewByParameters(token, mediaType, mediaId);
+    }
+
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> deleteReview(@RequestHeader("Authorization") String token, @PathVariable Long reviewId) {
         log.info("Deleting review with ID: {}", reviewId);

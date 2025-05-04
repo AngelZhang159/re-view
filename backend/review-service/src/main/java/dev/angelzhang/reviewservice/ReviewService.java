@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -29,6 +31,10 @@ public class ReviewService {
     public ResponseEntity<ReviewResponse> createReview(String token, ReviewRequest reviewRequest) {
 
         Long userId = jwtUtil.extractUserId(token.substring(7));
+
+        if (reviewAlreadyExists(userId, reviewRequest.type(), reviewRequest.mediaId())) {
+            return ResponseEntity.badRequest().build();
+        }
 
         //prefetch review to keep it in the db for future access and not saturate the api key
         DetailsAPIResponse details = mediaClient.details(token, reviewRequest.type(), reviewRequest.mediaId());
@@ -46,6 +52,14 @@ public class ReviewService {
 
         ReviewResponse reviewResponse = ReviewResponse.toResponse(savedReview, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
+    }
+
+    private boolean reviewAlreadyExists(Long userId, String type, Long mediaId) {
+        List<Review> byUserIdAndType = reviewRepository.findByUserIdAndType(userId, Type.fromString(type));
+
+        return byUserIdAndType.stream().map(review ->
+                        review instanceof MovieReview ? ((MovieReview) review).getMovieId() : ((TVReview) review).getTvId())
+                .anyMatch(id -> id.equals(mediaId));
     }
 
     public ResponseEntity<ReviewResponse> getReview(String token, Long reviewId) {
@@ -150,5 +164,22 @@ public class ReviewService {
             return mediaClient.details(token, Type.MOVIE.getLabel(), ((MovieReview) review).getMovieId());
         }
         throw new UnsupportedOperationException("Not supported review type");
+    }
+
+    public ResponseEntity<ReviewResponse> getReviewByParameters(String token, String mediaType, Long mediaId) {
+        Long userId = jwtUtil.extractUserId(token.substring(7));
+        Type type = Type.fromString(mediaType);
+
+        List<Review> byUserIdAndType = reviewRepository.findByUserIdAndType(userId, type);
+
+        Review review = byUserIdAndType.stream().filter(review1 -> switch (type) {
+            case TV -> Objects.equals(((TVReview) review1).getTvId(), mediaId);
+            case MOVIE -> Objects.equals(((MovieReview) review1).getMovieId(), mediaId);
+        }).findFirst().orElse(null);
+
+        if (review == null) return ResponseEntity.badRequest().build();
+
+        ReviewResponse response = ReviewResponse.toResponse(review, getDetails(token, review));
+        return ResponseEntity.ok(response);
     }
 }
