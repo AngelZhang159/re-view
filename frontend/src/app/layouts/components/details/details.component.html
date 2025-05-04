@@ -1,15 +1,15 @@
 <div class="relative h-full bg-neutral-900">
   <div class="bg-cover bg-center overflow-hidden w-full h-full opacity-25 blur-sm absolute">
-    <img class="{{showBackground ? 'flex' : 'hidden'}}"
+    <img class="{{showBackground ? 'flex' : 'hidden'}} select-none pointer-events-none"
          src="https://image.tmdb.org/t/p/original/{{details.backdropPath}}" alt=""
          (load)="loadBackground()"/>
     @if (!showBackground) {
       <p-skeleton width="100%" height="100%"/>
     }
   </div>
-  <div class="flex-row flex items-center w-full h-full z-10 p-10">
+  <div class="flex-row flex items-center w-full h-full z-20 p-10">
 
-    <img class="h-[550px] w-auto rounded-2xl blur-3xl absolute z-20  {{ showPoster ? 'flex' : 'hidden' }}"
+    <img class="h-[550px] w-auto rounded-2xl blur-3xl absolute z-20 select-none pointer-events-none {{ showPoster ? 'flex' : 'hidden' }}"
          src="https://image.tmdb.org/t/p/original/{{details.posterPath}}"
          alt="backdrop"
          width="100" height="100"
@@ -26,7 +26,7 @@
       <p-skeleton height="550px" width="{{1100/3}}px" borderRadius="16px"/>
     }
 
-    <div class="flex-col flex h-full w-screen text-ellipsis overflow-hidden px-6 gap-5">
+    <div class="flex-col flex h-full w-screen text-ellipsis overflow-hidden px-6 gap-5 z-50">
       <div>
         <h1 class="truncate font-bold overflow-hidden text-6xl pb-4">
           <span>{{ details.name ? details.name : details.title }}</span>
