@@ -10,6 +10,7 @@ import dev.angelzhang.reviewservice.entities.TVReview;
 import dev.angelzhang.reviewservice.enums.Type;
 import dev.angelzhang.reviewservice.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -64,7 +66,10 @@ public class ReviewService {
 
     public ResponseEntity<ReviewResponse> getReview(String token, Long reviewId) {
         Review review = findValidateReview(token, reviewId);
-        if (review == null) return ResponseEntity.notFound().build();
+        if (review == null) {
+            log.info("Review with id: {} not found", reviewId);
+            return ResponseEntity.notFound().build();
+        }
 
         ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
@@ -95,7 +100,10 @@ public class ReviewService {
     public ResponseEntity<ReviewResponse> updateReview(String token, Long reviewId, ReviewRequest reviewRequest) {
         Review review = findValidateReview(token, reviewId);
 
-        if (review == null) return ResponseEntity.notFound().build();
+        if (review == null) {
+            log.info("Updating review with id: {} not found", reviewId);
+            return ResponseEntity.notFound().build();
+        }
 
         if (reviewRequest.type() != null) review.setType(Type.fromString(reviewRequest.type()));
         if (reviewRequest.review() != null) {
