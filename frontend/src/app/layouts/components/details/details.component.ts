@@ -7,6 +7,8 @@ import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateReviewComponent} from '../create-review/create-review.component';
 import {Skeleton} from 'primeng/skeleton';
+import {ReviewService} from '../../../core/services/review.service';
+import {ReviewResponse} from '../../../core/models/review';
 
 @Component({
   selector: 'app-details',
@@ -24,12 +26,18 @@ import {Skeleton} from 'primeng/skeleton';
 export class DetailsComponent {
 
   dialog = inject(MatDialog)
+  reviewService = inject(ReviewService)
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { details: DetailsResponse }) {
     this.details = data.details
+    this.reviewService.getReviewByParameters(this.details.mediaType, this.details.id).subscribe({
+      next: value => this.currentReview = value,
+      error: _ => this.currentReview = undefined
+    })
   }
 
   details: DetailsResponse;
+  currentReview: ReviewResponse | undefined;
 
   protected readonly String = String;
   showPoster: boolean = false;
@@ -46,7 +54,8 @@ export class DetailsComponent {
   openCreateReviewDialog() {
     this.dialog.open(CreateReviewComponent, {
       data: {
-        details: this.details
+        details: this.details,
+        currentReview: this.currentReview
       },
       height: '600px',
       width: '800px',
@@ -62,4 +71,5 @@ export class DetailsComponent {
   loadBackground() {
     this.showBackground = true
   }
+
 }
