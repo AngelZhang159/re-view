@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {ReviewRequest, ReviewResponsePage} from '../models/review';
+import {ReviewRequest, ReviewResponse, ReviewResponsePage} from '../models/review';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,9 @@ export class ReviewApiService {
 
   getReviewsByUser(userId: number) {
     return this.http.get(this.apiUrl + '/review/list/' + userId)
+  }
+
+  getReviewByParameters(reviewParams: HttpParams) {
+    return this.http.get<ReviewResponse>(this.apiUrl + '/review', { params : reviewParams } )
   }
 }

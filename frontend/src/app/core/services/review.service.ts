@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {ReviewApiService} from './review-api.service';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,12 @@ export class ReviewService {
 
   getReviewsByUser(userId: number) {
     return this.reviewApiService.getReviewsByUser(userId);
+  }
+
+  getReviewByParameters(mediaType: string, mediaId: number) {
+    let reviewParams = new HttpParams()
+      .set('mediaType', mediaType)
+      .set('mediaId', mediaId)
+    return this.reviewApiService.getReviewByParameters(reviewParams)
   }
 }
