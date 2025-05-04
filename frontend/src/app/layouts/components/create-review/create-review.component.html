@@ -12,10 +12,10 @@
               class="bg-neutral-400 text-6xl rounded-full w-24 h-24 flex justify-center items-center">{{ rating }}</span>
           </div>
           <div class="flex justify-center">
-            <p-rating [(ngModel)]="rating" [stars]="10" class="scale-150" (ngModelChange)="checkRated()"/>
+            <p-rating [(ngModel)]="rating" [stars]="10" class="scale-150" />
           </div>
           <div class="flex flex-row justify-end align-bottom">
-            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="isRated"/>
+            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)"/>
           </div>
         </div>
       </ng-template>
