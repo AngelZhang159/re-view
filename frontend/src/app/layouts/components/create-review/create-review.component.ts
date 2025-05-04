@@ -46,8 +46,6 @@ export class CreateReviewComponent {
 
   closeCreateReviewDialog() {
 
-    console.log("Sending info from :" + JSON.stringify(this.details))
-
     //TODO show modal on complete or error (snackbar maybe)
     this.reviewService.createReview(this.details.mediaType, this.details.id, this.reviewText, this.rating, undefined).subscribe({
       next: (response) => {
