@@ -24,17 +24,4 @@ public class TVReview extends Review {
     private Long tvId;
     private Integer seasonsWatched;
 
-    public static TVReview fromRequest(Long userId, ReviewRequest request) {
-        return TVReview.builder()
-                .userId(userId)
-                .type(Type.fromString(request.type()))
-                .review(request.review())
-                .rating(request.rating())
-                .seasonsWatched(request.seasonsWatched())
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
-                .tvId(request.mediaId())
-                .build();
-    }
-
 }

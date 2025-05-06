@@ -23,20 +23,5 @@ public record ReviewResponse(
         Instant createdAt,
         Instant updatedAt
 ) {
-    public static ReviewResponse toResponse(Review review, DetailsAPIResponse detailsAPIResponse) {
-        return new ReviewResponse(
-                review.getId(),
-                review.getUserId(),
-                review.getType().toString(),
-                detailsAPIResponse.id(),
-                detailsAPIResponse.title() == null || detailsAPIResponse.title().isBlank() ? detailsAPIResponse.name() : detailsAPIResponse.title(),
-                detailsAPIResponse.poster_path(),
-                review.getReview(),
-                review.getRating(),
-                detailsAPIResponse.number_of_seasons(),
-                review instanceof TVReview ? ((TVReview) review).getSeasonsWatched() : null,
-                review.getCreatedAt(),
-                review.getUpdatedAt()
-        );
-    }
+
 }

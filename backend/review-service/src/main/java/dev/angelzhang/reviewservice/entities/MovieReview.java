@@ -21,16 +21,4 @@ public class MovieReview extends Review{
 
     private Long movieId;
 
-    public static MovieReview fromRequest(Long userId, ReviewRequest reviewRequest) {
-        return MovieReview.builder()
-                .userId(userId)
-                .type(Type.fromString(reviewRequest.type()))
-                .review(reviewRequest.review())
-                .rating(reviewRequest.rating())
-                .movieId(reviewRequest.mediaId())
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
-                .build();
-    }
-
 }

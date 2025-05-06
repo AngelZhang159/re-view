@@ -8,6 +8,7 @@ import dev.angelzhang.reviewservice.entities.MovieReview;
 import dev.angelzhang.reviewservice.entities.Review;
 import dev.angelzhang.reviewservice.entities.TVReview;
 import dev.angelzhang.reviewservice.enums.Type;
+import dev.angelzhang.reviewservice.mapper.ReviewMapper;
 import dev.angelzhang.reviewservice.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,14 +46,14 @@ public class ReviewService {
 
         Review review = new Review();
         if (reviewRequest.type().equals(Type.TV.getLabel())) {
-            review = TVReview.fromRequest(userId, reviewRequest);
+            review = ReviewMapper.toTVReviewEntity(userId, reviewRequest);
         } else if (reviewRequest.type().equals(Type.MOVIE.getLabel())) {
-            review = MovieReview.fromRequest(userId, reviewRequest);
+            review = ReviewMapper.toMovieReviewEntity(userId, reviewRequest);
         }
 
         Review savedReview = reviewRepository.save(review);
 
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(savedReview, getDetails(token, review));
+        ReviewResponse reviewResponse = ReviewMapper.toDTO(savedReview, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -71,7 +72,7 @@ public class ReviewService {
             return ResponseEntity.notFound().build();
         }
 
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
+        ReviewResponse reviewResponse = ReviewMapper.toDTO(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -80,7 +81,7 @@ public class ReviewService {
         Review review = findValidateReview(token, reviewId);
 
         if (review == null) return ResponseEntity.notFound().build();
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
+        ReviewResponse reviewResponse = ReviewMapper.toDTO(review, getDetails(token, review));
         reviewRepository.deleteById(reviewId);
 
         return ResponseEntity.ok(reviewResponse);
@@ -126,7 +127,7 @@ public class ReviewService {
         }
         review.setUpdatedAt(Instant.now());
         reviewRepository.save(review);
-        ReviewResponse reviewResponse = ReviewResponse.toResponse(review, getDetails(token, review));
+        ReviewResponse reviewResponse = ReviewMapper.toDTO(review, getDetails(token, review));
         return ResponseEntity.ok(reviewResponse);
     }
 
@@ -158,7 +159,7 @@ public class ReviewService {
         //is itself? is that profile public? is friend?
         //TODO change this to call a new method, from current review, get id and type of media and make a Map<Media, ID>
         //call in bulk to the media service to get all details and then map them to the ReviewResponse
-        Page<ReviewResponse> reviewResponsePage = reviewPage.map((review) -> ReviewResponse.toResponse(review, getDetails(token, review)));
+        Page<ReviewResponse> reviewResponsePage = reviewPage.map((review) -> ReviewMapper.toDTO(review, getDetails(token, review)));
 
         return ResponseEntity.ok((reviewResponsePage));
     }
@@ -187,7 +188,7 @@ public class ReviewService {
 
         if (review == null) return ResponseEntity.badRequest().build();
 
-        ReviewResponse response = ReviewResponse.toResponse(review, getDetails(token, review));
+        ReviewResponse response = ReviewMapper.toDTO(review, getDetails(token, review));
         return ResponseEntity.ok(response);
     }
 }
