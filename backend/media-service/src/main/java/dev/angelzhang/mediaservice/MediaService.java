@@ -7,6 +7,8 @@ import dev.angelzhang.mediaservice.dto.searchMulti.SearchMultiAPIBody;
 import dev.angelzhang.mediaservice.dto.searchMulti.SearchMultiAPIRequest;
 import dev.angelzhang.mediaservice.entities.details.MovieDetails;
 import dev.angelzhang.mediaservice.entities.details.TVDetails;
+import dev.angelzhang.mediaservice.mapper.DetailsAPIMapper;
+import dev.angelzhang.mediaservice.mapper.MediaMapper;
 import dev.angelzhang.mediaservice.repositories.MovieDetailsRepository;
 import dev.angelzhang.mediaservice.repositories.TVDetailsRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +54,7 @@ public class MediaService {
                 .map(
                         tvDetails -> ResponseEntity
                                 .ok(
-                                        DetailsAPIResponse
+                                        DetailsAPIMapper
                                                 .toTVDTO(tvDetails)))
                 .orElseGet(
                         () -> ResponseEntity
@@ -62,17 +64,17 @@ public class MediaService {
     private DetailsAPIResponse fetchAndSaveTVDetails(Long id) {
         DetailsAPIRequest tvDetails = tmdbClient.getTVDetails(id);
 
-        TVDetails tvDetails1 = TVDetails.toEntity(tvDetails);
+        TVDetails tvDetails1 = MediaMapper.toTVDetailsEntity(tvDetails);
 
         tvDetailsRepository.save(tvDetails1);
 
-        return DetailsAPIResponse.toTVDTO(tvDetails1);
+        return DetailsAPIMapper.toTVDTO(tvDetails1);
     }
 
     private ResponseEntity<?> findMovieById(Long id) {
         return movieDetailsRepository.findById(id)
                 .map(movieDetails -> ResponseEntity.ok(
-                        DetailsAPIResponse.toMovieDTO(movieDetails)))
+                        DetailsAPIMapper.toMovieDTO(movieDetails)))
                 .orElseGet(() -> ResponseEntity.ok(
                         fetchAndSaveMovieDetails(id)));
     }
@@ -80,11 +82,11 @@ public class MediaService {
     private DetailsAPIResponse fetchAndSaveMovieDetails(Long id) {
         DetailsAPIRequest movieDetails = tmdbClient.getMovieDetails(id);
 
-        MovieDetails movieDetails1 = MovieDetails.toEntity(movieDetails);
+        MovieDetails movieDetails1 = MediaMapper.toMovieDetailsEntity(movieDetails);
 
         movieDetailsRepository.save(movieDetails1);
 
-        return DetailsAPIResponse.toMovieDTO(movieDetails1);
+        return DetailsAPIMapper.toMovieDTO(movieDetails1);
     }
 
     public ResponseEntity<SearchMultiAPIRequest> trending(String type, String typeWindow) {

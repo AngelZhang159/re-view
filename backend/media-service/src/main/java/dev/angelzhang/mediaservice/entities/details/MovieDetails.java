@@ -1,7 +1,6 @@
 package dev.angelzhang.mediaservice.entities.details;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dev.angelzhang.mediaservice.dto.details.DetailsAPIRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,42 +34,4 @@ public class MovieDetails extends MediaDetails {
     private String title;
     private Boolean video;
 
-    public static MovieDetails toEntity(DetailsAPIRequest movie) {
-
-        log.info("Building movie details from request: {}", movie);
-
-        MovieDetails build = MovieDetails.builder()
-                .id(movie.id())
-                .adult(movie.adult())
-                .backdropPath(movie.backdropPath())
-                .belongsToCollection(BelongsToCollection.toEntity(movie.belongsToCollection()))
-                .budget(movie.budget())
-                .genres(movie.genres() != null ? Genre.toEntity(movie.genres()) : null)
-                .homepage(movie.homepage())
-                .originCountry(movie.originCountry() != null ? CountryCode.toEntity(movie.originCountry()) : null)
-                .imdbId(movie.imdbId())
-                .originalLanguage(movie.originalLanguage())
-                .originalTitle(movie.originalTitle())
-                .overview(movie.overview())
-                .popularity(movie.popularity())
-                .posterPath(movie.posterPath())
-                .productionCompanies(movie.productionCompanies() != null ? ProductionCompany.toEntity(movie.productionCompanies()) : null)
-                .productionCountries(movie.productionCountries() != null ? ProductionCountry.toEntity(movie.productionCountries()) : null)
-                .releaseDate(movie.releaseDate())
-                .revenue(movie.revenue())
-                .runtime(movie.runtime())
-                .spokenLanguages(movie.spokenLanguages() != null ? SpokenLanguage.toEntity(movie.spokenLanguages()) : null)
-                .status(movie.status())
-                .tagline(movie.tagline())
-                .title(movie.title())
-                .video(movie.video())
-                .voteAverage(movie.voteAverage())
-                .voteCount(movie.voteCount())
-                .build();
-
-
-        log.info("Resulting movie details: {}", build);
-
-        return build;
-    }
 }
