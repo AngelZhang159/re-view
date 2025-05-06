@@ -23,7 +23,7 @@ public class CreatedByMapper {
 
     public static List<dev.angelzhang.mediaservice.dto.details.CreatedBy> toDTO(List<CreatedBy> createdBy) {
         return createdBy.stream()
-                .map(createdBy1 -> new dev.angelzhang.mediaservice.dto.details.CreatedBy(createdBy1.getId(), createdBy1.getCreditId(), createdBy1.getName(), createdBy1.getOriginalName(), createdBy1.getGender(), createdBy1.profilePath))
+                .map(createdBy1 -> new dev.angelzhang.mediaservice.dto.details.CreatedBy(createdBy1.getId(), createdBy1.getCreditId(), createdBy1.getName(), createdBy1.getOriginalName(), createdBy1.getGender(), createdBy1.getProfilePath()))
                 .collect(Collectors.toList());
     }
 }
