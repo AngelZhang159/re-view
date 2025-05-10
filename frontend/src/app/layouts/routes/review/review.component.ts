@@ -5,6 +5,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {Tooltip} from 'primeng/tooltip';
+import {MenuService} from '../../../core/services/menu.service';
 
 @Component({
   selector: 'app-review',
@@ -22,6 +23,7 @@ import {Tooltip} from 'primeng/tooltip';
 export class ReviewComponent {
 
   reviewService = inject(ReviewService)
+  menuService = inject(MenuService)
 
   reviewResponsePage : ReviewResponsePage | undefined;
   isOpen: boolean = false;
