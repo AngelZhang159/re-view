@@ -1,6 +1,3 @@
-# API TOKEN: 
-###### 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NTc0MmE5ZTNjY2NkNmI4YWRhYmRkNzQzMzA1NDNmMCIsIm5iZiI6MTc0MTM4NTA2MS44MjYsInN1YiI6IjY3Y2I2ZDY1MDVhZGZiOWViOTViOGM2NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IF41UaVZTdNE9ONwkOBhCGdHgrtbrLctLBFvsbo2f6g'
-
 ## API DOC
 https://developer.themoviedb.org/reference
 
