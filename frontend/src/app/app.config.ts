@@ -8,13 +8,14 @@ import {provideAnimationsAsync} from '@angular/platform-browser/animations/async
 import {providePrimeNG} from 'primeng/config';
 import Material from '@primeng/themes/material';
 import {toCamelCaseInterceptor} from './core/interceptors/to-camel-case.interceptor';
+import {serviceUpInterceptor} from './core/interceptors/service-up.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withFetch(),
       withInterceptors(
-        [requestInterceptor, toCamelCaseInterceptor]
+        [serviceUpInterceptor, requestInterceptor, toCamelCaseInterceptor]
       )),
     provideZoneChangeDetection(
       {eventCoalescing: true}

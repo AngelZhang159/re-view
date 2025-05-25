@@ -52,6 +52,11 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'down',
+    loadComponent: () =>
+      import('./layouts/routes/service-down/service-down.component').then(m => m.ServiceDownComponent),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./layouts/components/not-found/not-found.component').then(m => m.NotFoundComponent),
