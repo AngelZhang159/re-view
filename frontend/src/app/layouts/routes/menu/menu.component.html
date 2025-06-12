@@ -1,9 +1,9 @@
 <div class="flex w-full h-full">
   <div class="h-full flex flex-col overflow-hidden w-full">
     <mat-nav-list class="flex h-full">
-      <div class="gap-2 grid h-full grid-rows-[auto_1fr] w-auto {{menuService.opened() ? '' : 'justify-center'}}">
+      <div class="gap-2 grid h-full grid-rows-[auto_auto_1fr] w-auto {{menuService.opened() ? '' : 'justify-center'}}">
         @for (item of routeList; track item.label) {
-          @if (item.label.toLowerCase() != 'settings') {
+          @if (item.label.toLowerCase() != 'close') {
             <a mat-list-item [routerLink]="item.route" class="w-full" [style.height]="'60px'"
                [ngStyle]="{
                   'padding-left': menuService.opened() ? '16px' : '4px'

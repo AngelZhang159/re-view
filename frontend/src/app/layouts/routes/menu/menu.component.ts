@@ -6,6 +6,8 @@ import {MenuService} from '../../../core/services/menu.service';
 import {MenuList} from '../../../core/models/menu';
 import {NgStyle} from '@angular/common';
 import {MatDivider} from '@angular/material/divider';
+import {MatDialog} from '@angular/material/dialog';
+import {SettingsComponent} from '../../components/settings/settings.component';
 
 @Component({
   selector: 'app-menu',
@@ -25,6 +27,7 @@ import {MatDivider} from '@angular/material/divider';
 export class MenuComponent {
 
   menuService = inject(MenuService);
+  dialog = inject(MatDialog);
 
   routeList: MenuList[] = [
     {
@@ -48,16 +51,19 @@ export class MenuComponent {
     //   icon: 'people',
     // },
     {
+      label: 'Settings',
+      // route: [{outlets: {content: ["settings"]}}],
+      icon: 'settings',
+      action: () => {
+        this.dialog.open(SettingsComponent)
+      }
+    },
+    {
       label: 'Close',
       icon: 'menu',
       action: () => {
         this.menuService.toggle();
       }
-    },
-    // {
-    //   label: 'Settings',
-    //   route: [{outlets: {content: ["settings"]}}],
-    //   icon: 'settings',
-    // }
+    }
   ]
 }
